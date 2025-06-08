@@ -6,17 +6,24 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		990E33782DF606540087D79F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990E33742DF606540087D79F /* Assets.xcassets */; };
+		990E33792DF606540087D79F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33752DF606540087D79F /* ContentView.swift */; };
+		990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33762DF606540087D79F /* FinancialTamerApp.swift */; };
+		990E337E2DF606980087D79F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337D2DF606980087D79F /* Category.swift */; };
+		990E33802DF606A00087D79F /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337F2DF606A00087D79F /* BankAccount.swift */; };
+		990E33822DF606A70087D79F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33812DF606A70087D79F /* Transaction.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		990E33592DF604CF0087D79F /* FinancialTamer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinancialTamer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		990E33742DF606540087D79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		990E33752DF606540087D79F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		990E33762DF606540087D79F /* FinancialTamerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialTamerApp.swift; sourceTree = "<group>"; };
+		990E337D2DF606980087D79F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		990E337F2DF606A00087D79F /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
+		990E33812DF606A70087D79F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		990E335B2DF604CF0087D79F /* FinancialTamer */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = FinancialTamer;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		990E33562DF604CF0087D79F /* Frameworks */ = {
@@ -32,7 +39,7 @@
 		990E33502DF604CF0087D79F = {
 			isa = PBXGroup;
 			children = (
-				990E335B2DF604CF0087D79F /* FinancialTamer */,
+				990E33772DF606540087D79F /* FinancialTamer */,
 				990E335A2DF604CF0087D79F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +50,35 @@
 				990E33592DF604CF0087D79F /* FinancialTamer.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		990E33772DF606540087D79F /* FinancialTamer */ = {
+			isa = PBXGroup;
+			children = (
+				990E33762DF606540087D79F /* FinancialTamerApp.swift */,
+				990E337B2DF606680087D79F /* Model */,
+				990E337C2DF6066D0087D79F /* View */,
+				990E33742DF606540087D79F /* Assets.xcassets */,
+			);
+			path = FinancialTamer;
+			sourceTree = "<group>";
+		};
+		990E337B2DF606680087D79F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				990E337D2DF606980087D79F /* Category.swift */,
+				990E337F2DF606A00087D79F /* BankAccount.swift */,
+				990E33812DF606A70087D79F /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		990E337C2DF6066D0087D79F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				990E33752DF606540087D79F /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +95,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				990E335B2DF604CF0087D79F /* FinancialTamer */,
 			);
 			name = FinancialTamer;
 			packageProductDependencies = (
@@ -109,6 +142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				990E33782DF606540087D79F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				990E33792DF606540087D79F /* ContentView.swift in Sources */,
+				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
+				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
+				990E337E2DF606980087D79F /* Category.swift in Sources */,
+				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
