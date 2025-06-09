@@ -13,6 +13,7 @@
 		990E337E2DF606980087D79F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337D2DF606980087D79F /* Category.swift */; };
 		990E33802DF606A00087D79F /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337F2DF606A00087D79F /* BankAccount.swift */; };
 		990E33822DF606A70087D79F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33812DF606A70087D79F /* Transaction.swift */; };
+		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		990E337D2DF606980087D79F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		990E337F2DF606A00087D79F /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
 		990E33812DF606A70087D79F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		990E33992DF76CE70087D79F /* TransactionsFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsFileCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				990E337D2DF606980087D79F /* Category.swift */,
 				990E337F2DF606A00087D79F /* BankAccount.swift */,
 				990E33812DF606A70087D79F /* Transaction.swift */,
+				990E33992DF76CE70087D79F /* TransactionsFileCache.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				990E33792DF606540087D79F /* ContentView.swift in Sources */,
 				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
 				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
+				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				990E337E2DF606980087D79F /* Category.swift in Sources */,
 				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 			);
