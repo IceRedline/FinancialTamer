@@ -16,5 +16,5 @@ struct Category {
     let id: Int
     let name: String
     let emoji: Character
-    let isIncome: Bool
+    let direction: Direction
 }
