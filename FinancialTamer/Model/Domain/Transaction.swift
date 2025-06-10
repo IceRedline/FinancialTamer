@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Transaction {
+struct Transaction: Equatable {
     let id: Int
-    let accountId: Int
-    let categoryId: Int
+    let account: BankAccount
+    let category: Category
     let amount: Decimal
     let transactionDate: Date
     let comment: String?
@@ -23,8 +23,8 @@ extension Transaction {
     var jsonObject: Any {
         var dictionary: [String : Any] = [
             "id" : id,
-            "accountId" : accountId,
-            "categoryId" : categoryId,
+            "account" : account.jsonObject,
+            "category" : category.jsonObject,
             "amount" : (amount as NSDecimalNumber).doubleValue,
             "transactionDate" : ISO8601DateFormatter().string(from: transactionDate),
             "createdAt" : ISO8601DateFormatter().string(from: createdAt),
@@ -43,8 +43,10 @@ extension Transaction {
     static func parse(jsonObject: Any) -> Transaction? {
         guard let dictionary = jsonObject as? [String : Any],
               let id = dictionary["id"] as? Int,
-              let accountId = dictionary["accountId"] as? Int,
-              let categoryId = dictionary["categoryId"] as? Int,
+              let accountDict = dictionary["account"] as? [String: Any],
+              let account = BankAccount.parse(jsonObject: accountDict),
+              let categoryDict = dictionary["category"] as? [String: Any],
+              let category = Category.parse(jsonObject: categoryDict),
               let amountDouble = dictionary["amount"] as? Double,
               let transactionDateString = dictionary["transactionDate"] as? String,
               let transactionDate = ISO8601DateFormatter().date(from: transactionDateString),
@@ -60,8 +62,8 @@ extension Transaction {
         
         let transaction = Transaction(
             id: id,
-            accountId: accountId,
-            categoryId: categoryId,
+            account: account,
+            category: category,
             amount: Decimal(amountDouble),
             transactionDate: transactionDate,
             comment: comment,
