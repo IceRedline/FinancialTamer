@@ -16,6 +16,7 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */; };
+		997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB82DF8587800F72B63 /* TransactionsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		990E33992DF76CE70087D79F /* TransactionsFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsFileCache.swift; sourceTree = "<group>"; };
 		990E339D2DF838090087D79F /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
+		997B6AB82DF8587800F72B63 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				990E33992DF76CE70087D79F /* TransactionsFileCache.swift */,
 				990E339D2DF838090087D79F /* CategoriesService.swift */,
 				997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */,
+				997B6AB82DF8587800F72B63 /* TransactionsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
 				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
+				997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */,
 				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				990E337E2DF606980087D79F /* Category.swift in Sources */,

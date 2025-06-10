@@ -19,10 +19,21 @@ final class TransactionsFileCache {
         self.transactions = loadTransactions()
     }
     
+    // MARK: - Methods
+
     func addTransaction(transaction: Transaction) {
         guard !transactions.contains(where: { $0.id == transaction.id }) else { return }
         transactions.append(transaction)
         saveTransactions()
+    }
+    
+    func updateTransaction(_ transaction: Transaction) {
+        if let index = transactions.firstIndex(where: { $0.id == transaction.id }) {
+            transactions[index] = transaction
+            saveTransactions()
+        } else {
+            print("TransactionsFileCache: не найдена транзакция для обновления")
+        }
     }
     
     func removeTransaction(id: Int) {
