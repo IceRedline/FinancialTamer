@@ -33,7 +33,7 @@ extension Category {
         ["id": id,
          "name": name,
          "emoji": String(emoji),
-         "isIncomeBool": isIncome.isIncomeBool
+         "isIncome": isIncome.isIncomeBool
         ]
     }
     
