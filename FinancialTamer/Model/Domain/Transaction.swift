@@ -20,6 +20,12 @@ struct Transaction: Equatable {
 
 extension Transaction {
     
+    private static let dateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+    
     var jsonObject: Any {
         var dictionary: [String : Any] = [
             "id" : id,
@@ -41,36 +47,36 @@ extension Transaction {
     }
     
     static func parse(jsonObject: Any) -> Transaction? {
-        guard let dictionary = jsonObject as? [String : Any],
-              let id = dictionary["id"] as? Int,
-              let accountDict = dictionary["account"] as? [String: Any],
-              let account = BankAccount.parse(jsonObject: accountDict),
-              let categoryDict = dictionary["category"] as? [String: Any],
-              let category = Category.parse(jsonObject: categoryDict),
-              let amountDouble = dictionary["amount"] as? Double,
-              let transactionDateString = dictionary["transactionDate"] as? String,
-              let transactionDate = ISO8601DateFormatter().date(from: transactionDateString),
-              let createdAtString = dictionary["createdAt"] as? String,
-              let createdAt = ISO8601DateFormatter().date(from: createdAtString),
-              let updatedAtString = dictionary["updatedAt"] as? String,
-              let updatedAt = ISO8601DateFormatter().date(from: updatedAtString)
-        else {
-            return nil
+            guard let dictionary = jsonObject as? [String : Any],
+                  let id = dictionary["id"] as? Int,
+                  let accountDict = dictionary["account"] as? [String: Any],
+                  let account = BankAccount.parse(jsonObject: accountDict),
+                  let categoryDict = dictionary["category"] as? [String: Any],
+                  let category = Category.parse(jsonObject: categoryDict),
+                  let amountString = dictionary["amount"] as? String,
+                  let amount = Decimal(string: amountString),
+                  let transactionDateString = dictionary["transactionDate"] as? String,
+                  let transactionDate = dateFormatter.date(from: transactionDateString),
+                  let createdAtString = dictionary["createdAt"] as? String,
+                  let createdAt = dateFormatter.date(from: createdAtString),
+                  let updatedAtString = dictionary["updatedAt"] as? String,
+                  let updatedAt = dateFormatter.date(from: updatedAtString)
+            else {
+                print("❌ Ошибка парсинга Transaction")
+                return nil
+            }
+
+            let comment = dictionary["comment"] as? String
+
+            return Transaction(
+                id: id,
+                account: account,
+                category: category,
+                amount: amount,
+                transactionDate: transactionDate,
+                comment: comment,
+                createdAt: createdAt,
+                updatedAt: updatedAt
+            )
         }
-        
-        let comment = dictionary["comment"] as? String
-        
-        let transaction = Transaction(
-            id: id,
-            account: account,
-            category: category,
-            amount: Decimal(amountDouble),
-            transactionDate: transactionDate,
-            comment: comment,
-            createdAt: createdAt,
-            updatedAt: updatedAt
-        )
-        
-        return transaction
-    }
 }

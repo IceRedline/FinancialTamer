@@ -9,9 +9,12 @@ import Foundation
 
 class TransactionsService {
     
+    static let shared = TransactionsService()
+    private init() {}
+    
     let cache = TransactionsFileCache()
     
-    func transactions(for period: Range<Date>) async throws -> [Transaction] {
+    func transactions(for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {
         cache.loadTransactions().filter({ period.contains($0.createdAt) })
     }
     
