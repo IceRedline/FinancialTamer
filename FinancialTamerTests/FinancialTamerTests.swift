@@ -26,7 +26,7 @@ final class FinancialTamerTests: XCTestCase {
           id: 1,
           account: BankAccount(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
           category: Category(id: 1, name: "categorytest", emoji: "✅", isIncome: .income),
-          amount: 30,
+          amount: 30.0,
           transactionDate: dateExample,
           comment: "",
           createdAt: dateExample,
@@ -35,7 +35,29 @@ final class FinancialTamerTests: XCTestCase {
 
         let resultJsonDictionary = testTransaction.jsonObject
 
-        let correctJSONDict: [String : Any] = ["updatedAt": "2001-01-01T00:00:00Z", "comment": "", "createdAt": "2001-01-01T00:00:00Z", "category": ["emoji": "✅", "isIncomeBool": true, "name": "categorytest", "id": 1], "transactionDate": "2001-01-01T00:00:00Z", "id": 1, "amount": 30.0, "account": ["id": 1, "createdAt": "2001-01-01T00:00:00Z", "currency": "$", "updatedAt": "2001-01-01T00:00:00Z", "userId": 1, "name": "Artyom", "balance": "1000"]]
+        let correctJSONDict: [String : Any] = [
+            "id": 1,
+            "amount": "30.0",
+            "transactionDate": "2001-01-01T00:00:00.000Z",
+            "comment": "",
+            "createdAt": "2001-01-01T00:00:00.000Z",
+            "updatedAt": "2001-01-01T00:00:00.000Z",
+            "category": [
+                "id": 1,
+                "name": "categorytest",
+                "emoji": "✅",
+                "isIncome": true
+            ],
+            "account": [
+                "id": 1,
+                "userId": 1,
+                "name": "Artyom",
+                "balance": "1000",
+                "currency": "$",
+                "createdAt": "2001-01-01T00:00:00.000Z",
+                "updatedAt": "2001-01-01T00:00:00.000Z"
+            ]
+        ]
         
         let resultString = try jsonString(from: resultJsonDictionary)
         let correctString = try jsonString(from: correctJSONDict)
@@ -47,7 +69,29 @@ final class FinancialTamerTests: XCTestCase {
         
         let dateExample = Date(timeIntervalSinceReferenceDate: 0)
 
-        let testJSONDict: [String : Any] = ["updatedAt": "2001-01-01T00:00:00Z", "comment": "", "createdAt": "2001-01-01T00:00:00Z", "category": ["emoji": "✅", "isIncomeBool": true, "name": "categorytest", "id": 1], "transactionDate": "2001-01-01T00:00:00Z", "id": 1, "amount": 30.0, "account": ["id": 1, "createdAt": "2001-01-01T00:00:00Z", "currency": "$", "updatedAt": "2001-01-01T00:00:00Z", "userId": 1, "name": "Artyom", "balance": "1000"]]
+        let testJSONDict: [String : Any] = [
+            "id": 1,
+            "amount": "30.0",
+            "transactionDate": "2001-01-01T00:00:00.000Z",
+            "comment": "",
+            "createdAt": "2001-01-01T00:00:00.000Z",
+            "updatedAt": "2001-01-01T00:00:00.000Z",
+            "category": [
+                "id": 1,
+                "name": "categorytest",
+                "emoji": "✅",
+                "isIncome": true
+            ],
+            "account": [
+                "id": 1,
+                "userId": 1,
+                "name": "Artyom",
+                "balance": "1000",
+                "currency": "$",
+                "createdAt": "2001-01-01T00:00:00.000Z",
+                "updatedAt": "2001-01-01T00:00:00.000Z"
+            ]
+        ]
 
         let resultTransaction = Transaction.parse(jsonObject: testJSONDict)
         
@@ -55,7 +99,7 @@ final class FinancialTamerTests: XCTestCase {
             id: 1,
             account: BankAccount(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
             category: Category(id: 1, name: "categorytest", emoji: "✅", isIncome: .income),
-            amount: 30,
+            amount: 30.0,
             transactionDate: dateExample,
             comment: "",
             createdAt: dateExample,

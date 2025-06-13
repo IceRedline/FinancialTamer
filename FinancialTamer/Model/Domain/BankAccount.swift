@@ -19,7 +19,14 @@ struct BankAccount: Equatable {
 
 extension BankAccount {
     
+    private static let dateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+    
     var jsonObject: Any {
+        
         var dictionary: [String : Any] = [
             "id" : id,
             "name" : name,
@@ -31,16 +38,20 @@ extension BankAccount {
             dictionary["userId"] = userId
         }
         if let createdAt = createdAt {
-            dictionary["createdAt"] = ISO8601DateFormatter().string(from: createdAt)
+            dictionary["createdAt"] = Self.dateFormatter.string(from: createdAt)
         }
         if let updatedAt = updatedAt {
-            dictionary["updatedAt"] = ISO8601DateFormatter().string(from: updatedAt)
+            dictionary["updatedAt"] = Self.dateFormatter.string(from: updatedAt)
         }
         
         return dictionary
     }
     
     static func parse(jsonObject: Any) -> BankAccount? {
+        
+        let formatter = ISO8601DateFormatter()
+                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
         guard let dict = jsonObject as? [String: Any],
               let id = dict["id"] as? Int,
               let name = dict["name"] as? String,
@@ -55,12 +66,12 @@ extension BankAccount {
 
         var createdAt: Date? = nil
         if let createdStr = dict["createdAt"] as? String {
-            createdAt = ISO8601DateFormatter().date(from: createdStr)
+            createdAt = dateFormatter.date(from: createdStr)
         }
 
         var updatedAt: Date? = nil
         if let updatedStr = dict["updatedAt"] as? String {
-            updatedAt = ISO8601DateFormatter().date(from: updatedStr)
+            updatedAt = dateFormatter.date(from: updatedStr)
         }
 
         return BankAccount(

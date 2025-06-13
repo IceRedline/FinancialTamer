@@ -20,15 +20,21 @@ struct Transaction: Equatable {
 
 extension Transaction {
     
+    private static let dateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+    
     var jsonObject: Any {
         var dictionary: [String : Any] = [
             "id" : id,
             "account" : account.jsonObject,
             "category" : category.jsonObject,
-            "amount" : (amount as NSDecimalNumber).doubleValue,
-            "transactionDate" : ISO8601DateFormatter().string(from: transactionDate),
-            "createdAt" : ISO8601DateFormatter().string(from: createdAt),
-            "updatedAt" : ISO8601DateFormatter().string(from: updatedAt),
+            "amount": String(format: "%.1f", NSDecimalNumber(decimal: amount).doubleValue),
+            "transactionDate" : Self.dateFormatter.string(from: transactionDate),
+            "createdAt" : Self.dateFormatter.string(from: createdAt),
+            "updatedAt" : Self.dateFormatter.string(from: updatedAt),
         ]
         
         if let comment = comment {
@@ -47,30 +53,30 @@ extension Transaction {
               let account = BankAccount.parse(jsonObject: accountDict),
               let categoryDict = dictionary["category"] as? [String: Any],
               let category = Category.parse(jsonObject: categoryDict),
-              let amountDouble = dictionary["amount"] as? Double,
+              let amountString = dictionary["amount"] as? String,
+              let amount = Decimal(string: amountString),
               let transactionDateString = dictionary["transactionDate"] as? String,
-              let transactionDate = ISO8601DateFormatter().date(from: transactionDateString),
+              let transactionDate = dateFormatter.date(from: transactionDateString),
               let createdAtString = dictionary["createdAt"] as? String,
-              let createdAt = ISO8601DateFormatter().date(from: createdAtString),
+              let createdAt = dateFormatter.date(from: createdAtString),
               let updatedAtString = dictionary["updatedAt"] as? String,
-              let updatedAt = ISO8601DateFormatter().date(from: updatedAtString)
+              let updatedAt = dateFormatter.date(from: updatedAtString)
         else {
+            print("❌ Ошибка парсинга Transaction")
             return nil
         }
         
         let comment = dictionary["comment"] as? String
         
-        let transaction = Transaction(
+        return Transaction(
             id: id,
             account: account,
             category: category,
-            amount: Decimal(amountDouble),
+            amount: amount,
             transactionDate: transactionDate,
             comment: comment,
             createdAt: createdAt,
             updatedAt: updatedAt
         )
-        
-        return transaction
     }
 }
