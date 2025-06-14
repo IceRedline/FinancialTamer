@@ -17,7 +17,7 @@ struct TransactionsListView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea()
                 
                 List {
@@ -71,6 +71,18 @@ struct TransactionsListView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
+                
+                Button(action: {
+                        print("Tapped add button")
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.accentColor)
+                            .clipShape(Circle())
+                    }
+                    .padding(24)
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
