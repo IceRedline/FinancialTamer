@@ -20,7 +20,7 @@ struct TransactionsListView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List {
+                List { // List уже реализует ленивую загрузку и переиспользование ячеек
                     Section {
                         HStack {
                             Text("Всего")
@@ -107,8 +107,10 @@ struct TransactionsListView: View {
         do {
             let list = try await TransactionsService.shared.transactions(direction: self.direction, for: todayRange)
             transactions = list
+            var sum: Decimal = 0
             transactions.forEach { transaction in
                 sum += transaction.amount
+                self.sum = sum
             }
         } catch {
             print("Ошибка загрузки: \(error)")
