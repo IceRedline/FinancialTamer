@@ -14,8 +14,8 @@ class TransactionsService {
     
     let cache = TransactionsFileCache()
     
-    func transactions(for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {
-        cache.loadTransactions().filter({ period.contains($0.createdAt) })
+    func transactions(direction: Direction, for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {
+        cache.loadTransactions().filter({ period.contains($0.createdAt) && $0.category.isIncome == direction })
     }
     
     func createTransaction(transaction: Transaction) async throws {

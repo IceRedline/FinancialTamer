@@ -22,6 +22,7 @@
 		9979292F2DFCA94000AFE3A3 /* transactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 9979292E2DFCA94000AFE3A3 /* transactions.json */; };
 		997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */; };
 		997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB82DF8587800F72B63 /* TransactionsService.swift */; };
+		99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		9979292E2DFCA94000AFE3A3 /* transactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transactions.json; sourceTree = "<group>"; };
 		997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
 		997B6AB82DF8587800F72B63 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
+		99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransactionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -123,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				997929242DFC803800AFE3A3 /* MainTabView.swift */,
-				990E33752DF606540087D79F /* TransactionsListView.swift */,
+				99FA3BBB2DFD92430099E7E8 /* Transactions */,
 				997929282DFC81BE00AFE3A3 /* AccountView.swift */,
 				9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */,
 				9979292C2DFC81E300AFE3A3 /* SettingsView.swift */,
@@ -150,6 +152,15 @@
 				997B6AB82DF8587800F72B63 /* TransactionsService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		99FA3BBB2DFD92430099E7E8 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				990E33752DF606540087D79F /* TransactionsListView.swift */,
+				99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */,
+			);
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +280,7 @@
 				9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				9979292D2DFC81E300AFE3A3 /* SettingsView.swift in Sources */,
+				99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */,
 				990E337E2DF606980087D79F /* Category.swift in Sources */,
 				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
