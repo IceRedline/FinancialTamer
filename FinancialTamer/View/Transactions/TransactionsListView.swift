@@ -18,7 +18,7 @@ struct TransactionsListView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea()
+                Color.background.ignoresSafeArea(edges: .top)
                 
                 List {
                     Section {
@@ -73,16 +73,16 @@ struct TransactionsListView: View {
                 .scrollContentBackground(.hidden)
                 
                 Button(action: {
-                        print("Tapped add button")
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.accentColor)
-                            .clipShape(Circle())
-                    }
-                    .padding(24)
+                    print("Tapped add button")
+                }) {
+                    Image(systemName: "plus")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                }
+                .padding(24)
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
@@ -98,8 +98,14 @@ struct TransactionsListView: View {
     }
     
     private func loadTransactions() async {
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        let todayRange = startOfDay..<startOfNextDay
+        
         do {
-            let list = try await TransactionsService.shared.transactions(direction: self.direction)
+            let list = try await TransactionsService.shared.transactions(direction: self.direction, for: todayRange)
             transactions = list
             transactions.forEach { transaction in
                 sum += transaction.amount
