@@ -94,6 +94,7 @@ struct TransactionsListView: View {
                 }
             }
             .task {
+                await transactionsService.loadMockData()
                 await loadTransactions()
             }
         }
@@ -107,7 +108,7 @@ struct TransactionsListView: View {
         let todayRange = startOfDay..<startOfNextDay
         
         do {
-            let list = try await TransactionsService.shared.transactions(direction: self.direction, for: todayRange)
+            let list = try await transactionsService.transactions(direction: self.direction, for: todayRange)
             transactions = list
             var sum: Decimal = 0
             transactions.forEach { transaction in
