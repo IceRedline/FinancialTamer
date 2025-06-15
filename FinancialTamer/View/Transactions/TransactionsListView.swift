@@ -67,6 +67,7 @@ struct TransactionsListView: View {
                                 
                             }
                         }
+                         
                         
                     }
                 }
@@ -83,13 +84,14 @@ struct TransactionsListView: View {
                         .clipShape(Circle())
                 }
                 .padding(24)
+                
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
-                Button("", systemImage: "clock") {
-                    print("About tapped!")
+                NavigationLink(destination: HistoryView()) {
+                    Image(systemName: "clock")
+                        .tint(.purpleAccent)
                 }
-                .tint(.purple)
             }
             .task {
                 await loadTransactions()
