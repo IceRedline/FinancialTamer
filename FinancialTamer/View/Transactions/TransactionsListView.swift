@@ -13,6 +13,7 @@ struct TransactionsListView: View {
     let transactionsService = TransactionsService.shared
     
     @State private var transactions: [Transaction] = []
+    @State private var groupedByCategory: [(category: Category, total: Decimal)] = []
     @State private var sum: Decimal = 0
     
     var body: some View {
@@ -32,14 +33,14 @@ struct TransactionsListView: View {
                     
                     Section(header: Text("Операции")) {
                         
-                        ForEach(transactions, id: \.id) { transaction in
+                        ForEach(groupedByCategory, id: \.category.id) { item in
                             NavigationLink {
-                                EditTransactionView(transaction: transaction)
+                                //EditTransactionView(transaction: transaction)
                             } label: {
                                 
                                 HStack {
                                     if direction == .outcome {
-                                        Text("\(transaction.category.emoji)")
+                                        Text("\(item.category.emoji)")
                                             .font(.caption)
                                             .frame(width: 24, height: 24)
                                             .background(Color.accentLight)
@@ -47,20 +48,20 @@ struct TransactionsListView: View {
                                     }
                                     
                                     VStack(alignment: .leading) {
-                                        Text(transaction.category.name)
+                                        Text(item.category.name)
                                             .lineLimit(1)
                                         
-                                        if let comment = transaction.comment, !comment.isEmpty {
+                                        /*if let comment = transaction.comment, !comment.isEmpty {
                                             Text(comment)
                                                 .font(.footnote)
                                                 .foregroundColor(.gray)
                                                 .lineLimit(1)
-                                        }
+                                        }*/
                                     }
                                     
                                     Spacer()
                                     
-                                    Text("\(transaction.amount) ₽")
+                                    Text("\(item.total) ₽")
                                         .foregroundColor(.primary)
                                 }
                                 .frame(height: 25)
@@ -101,20 +102,25 @@ struct TransactionsListView: View {
     }
     
     private func loadTransactions() async {
-        
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
         let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
         let todayRange = startOfDay..<startOfNextDay
-        
+
         do {
             let list = try await transactionsService.transactions(direction: self.direction, for: todayRange)
             transactions = list
-            var sum: Decimal = 0
-            transactions.forEach { transaction in
-                sum += transaction.amount
-                self.sum = sum
+            
+            // Группируем по категориям
+            let grouped = Dictionary(grouping: list, by: { $0.category })
+            let result = grouped.map { (category, items) in
+                (category: category, total: items.reduce(Decimal(0)) { $0 + $1.amount })
             }
+            groupedByCategory = result.sorted { $0.total > $1.total }
+            
+            // Общая сумма (если нужно)
+            sum = groupedByCategory.reduce(0) { $0 + $1.total }
+            
         } catch {
             print("Ошибка загрузки: \(error)")
         }

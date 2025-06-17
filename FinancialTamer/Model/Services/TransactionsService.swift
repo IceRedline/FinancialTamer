@@ -31,11 +31,21 @@ final class TransactionsService {
         
         self.transactions = [
             Transaction(
+                id: 0,
+                account: account,
+                category: categories[0],
+                amount: 50000,
+                transactionDate: formatter.date(from: "2025-06-17T12:09:00.000Z")!,
+                comment: "",
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
+            ),
+            Transaction(
                 id: 1,
                 account: account,
                 category: categories[0],
                 amount: 100000,
-                transactionDate: formatter.date(from: "2025-06-15T12:09:00.000Z")!,
+                transactionDate: formatter.date(from: "2025-06-17T12:09:00.000Z")!,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -45,7 +55,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[1],
                 amount: 100000,
-                transactionDate: formatter.date(from: "2025-06-15T12:00:00.000Z")!,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -54,177 +64,111 @@ final class TransactionsService {
                 id: 3,
                 account: account,
                 category: categories[2],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 50000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "Джек",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 4,
                 account: account,
                 category: categories[3],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 30000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "Энни",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 5,
                 account: account,
                 category: categories[4],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 20000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 6,
                 account: account,
                 category: categories[5],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 70000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 7,
                 account: account,
                 category: categories[6],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 5000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 8,
                 account: account,
                 category: categories[7],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 20000,
+                transactionDate: formatter.date(from: "2025-06-15T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 9,
                 account: account,
                 category: categories[8],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 15000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 10,
                 account: account,
                 category: categories[9],
                 amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 11,
                 account: account,
                 category: categories[10],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 30000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 12,
                 account: account,
                 category: categories[11],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 200000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             ),
             Transaction(
                 id: 13,
                 account: account,
                 category: categories[12],
-                amount: 100000,
-                transactionDate: formatter.date(
-                    from: "2025-06-15T12:00:00.000Z"
-                )!,
+                amount: 40000,
+                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
                 comment: "",
-                createdAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!,
-                updatedAt: formatter.date(
-                    from: "2025-06-14T12:00:00.000Z"
-                )!
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
             )
         ]
     }

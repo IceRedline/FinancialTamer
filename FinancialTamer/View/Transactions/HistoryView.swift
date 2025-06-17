@@ -9,8 +9,13 @@ import SwiftUI
 
 struct HistoryView: View {
     
+    let transactionsService = TransactionsService.shared
+    
     @State private var firstDate = Date.now
     @State private var secondDate = Date.now
+    
+    @State private var todayTransactions: [Transaction] = []
+    @State private var todaySum: Decimal = 0
     
     var body: some View {
         NavigationStack {
@@ -47,42 +52,42 @@ struct HistoryView: View {
                     
                     
                     Section(header: Text("Операции")) {
-                        /*
-                         ForEach(transactions, id: \.id) { transaction in
-                         NavigationLink {
-                         EditTransactionView(transaction: transaction)
-                         } label: {
-                         
-                         HStack {
-                         if direction == .outcome {
-                         Text("\(transaction.category.emoji)")
-                         .font(.caption)
-                         .frame(width: 24, height: 24)
-                         .background(Color.accentLight)
-                         .clipShape(Circle())
-                         }
-                         
-                         VStack(alignment: .leading) {
-                         Text(transaction.category.name)
-                         .lineLimit(1)
-                         
-                         if let comment = transaction.comment, !comment.isEmpty {
-                         Text(comment)
-                         .font(.footnote)
-                         .foregroundColor(.gray)
-                         .lineLimit(1)
-                         }
-                         }
-                         
-                         Spacer()
-                         
-                         Text("\(transaction.amount) ₽")
-                         .foregroundColor(.primary)
-                         }
-                         .frame(height: 25)
-                         
-                         }
-                         }*/
+                        
+                        ForEach(todayTransactions, id: \.id) { transaction in
+                            NavigationLink {
+                                EditTransactionView(transaction: transaction)
+                            } label: {
+                                
+                                HStack {
+                                    
+                                    Text("\(transaction.category.emoji)")
+                                        .font(.caption)
+                                        .frame(width: 24, height: 24)
+                                        .background(Color.accentLight)
+                                        .clipShape(Circle())
+                                    
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(transaction.category.name)
+                                            .lineLimit(1)
+                                        
+                                        if let comment = transaction.comment, !comment.isEmpty {
+                                            Text(comment)
+                                                .font(.footnote)
+                                                .foregroundColor(.gray)
+                                                .lineLimit(1)
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(transaction.amount) ₽")
+                                        .foregroundColor(.primary)
+                                }
+                                .frame(height: 25)
+                                
+                            }
+                        }
                         
                     }
                 }
@@ -96,7 +101,31 @@ struct HistoryView: View {
                 }
                 .tint(.purpleAccent)
             }
+            .task {
+                await transactionsService.loadMockData()
+                await loadTransactions()
+            }
             
+        }
+    }
+    
+    private func loadTransactions() async {
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        let todayRange = startOfDay..<startOfNextDay
+        
+        do {
+            let list = try await transactionsService.transactions(direction: .outcome, for: todayRange)
+            todayTransactions = list
+            var sum: Decimal = 0
+            todayTransactions.forEach { transaction in
+                sum += transaction.amount
+                self.todaySum = sum
+            }
+        } catch {
+            print("Ошибка загрузки: \(error)")
         }
     }
 }
