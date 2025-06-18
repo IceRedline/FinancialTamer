@@ -14,6 +14,7 @@ struct EditTransactionView: View {
     let transaction: Transaction
     
     var body: some View {
-        Text("\(transaction.category.name ?? "no comment")")
+        Text("\(transaction.category.name)")
+        Text("\(transaction.comment ?? "no comment")")
     }
 }

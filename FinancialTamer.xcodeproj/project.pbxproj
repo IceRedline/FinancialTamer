@@ -16,7 +16,8 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
-		9960872E2E0201160020E85D /* Calendar+EndOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960872D2E0201160020E85D /* Calendar+EndOfDay.swift */; };
+		9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960872D2E0201160020E85D /* Calendar+endOfDay.swift */; };
+		9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */; };
 		997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929242DFC803800AFE3A3 /* MainTabView.swift */; };
 		997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929282DFC81BE00AFE3A3 /* AccountView.swift */; };
 		9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */; };
@@ -49,7 +50,8 @@
 		990E339D2DF838090087D79F /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		992873402DF8863E0025ADA6 /* FinancialTamerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinancialTamerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		992CFB6C2DFF1F580024890B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		9960872D2E0201160020E85D /* Calendar+EndOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+EndOfDay.swift"; sourceTree = "<group>"; };
+		9960872D2E0201160020E85D /* Calendar+endOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+endOfDay.swift"; sourceTree = "<group>"; };
+		9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+formattedCurrency.swift"; sourceTree = "<group>"; };
 		997929242DFC803800AFE3A3 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		997929282DFC81BE00AFE3A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -119,7 +121,8 @@
 		990E337B2DF606680087D79F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9960872D2E0201160020E85D /* Calendar+EndOfDay.swift */,
+				9960872D2E0201160020E85D /* Calendar+endOfDay.swift */,
+				9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */,
 				990E339B2DF837F90087D79F /* Domain */,
 				990E339C2DF837FE0087D79F /* Services */,
 			);
@@ -278,13 +281,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				990E33792DF606540087D79F /* TransactionsListView.swift in Sources */,
-				9960872E2E0201160020E85D /* Calendar+EndOfDay.swift in Sources */,
+				9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */,
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
 				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
 				997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */,
 				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
 				9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */,
+				9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */,
 				992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				9979292D2DFC81E300AFE3A3 /* SettingsView.swift in Sources */,

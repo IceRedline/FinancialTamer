@@ -31,7 +31,8 @@ final class TransactionsService {
         let todayDate = Date()
         let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: todayDate)!
         
-        self.transactions = [
+        
+        self.transactions = [ // <--- Мок-данные лучше сразу свернуть
             Transaction(
                 id: 0,
                 account: account,
