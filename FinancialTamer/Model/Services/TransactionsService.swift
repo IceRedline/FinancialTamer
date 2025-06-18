@@ -76,7 +76,7 @@ final class TransactionsService {
             Transaction(
                 id: 4,
                 account: account,
-                category: categories[3],
+                category: categories[2],
                 amount: 30000,
                 transactionDate: todayDate,
                 comment: "Энни",
@@ -86,7 +86,7 @@ final class TransactionsService {
             Transaction(
                 id: 5,
                 account: account,
-                category: categories[4],
+                category: categories[3],
                 amount: 20000,
                 transactionDate: yesterdayDate,
                 comment: "",
@@ -96,7 +96,7 @@ final class TransactionsService {
             Transaction(
                 id: 6,
                 account: account,
-                category: categories[5],
+                category: categories[4],
                 amount: 70000,
                 transactionDate: todayDate,
                 comment: "",
@@ -106,7 +106,7 @@ final class TransactionsService {
             Transaction(
                 id: 7,
                 account: account,
-                category: categories[6],
+                category: categories[5],
                 amount: 5000,
                 transactionDate: yesterdayDate,
                 comment: "",
@@ -116,7 +116,7 @@ final class TransactionsService {
             Transaction(
                 id: 8,
                 account: account,
-                category: categories[7],
+                category: categories[6],
                 amount: 20000,
                 transactionDate: todayDate,
                 comment: "",
@@ -126,7 +126,7 @@ final class TransactionsService {
             Transaction(
                 id: 9,
                 account: account,
-                category: categories[8],
+                category: categories[7],
                 amount: 15000,
                 transactionDate: yesterdayDate,
                 comment: "",
@@ -136,7 +136,7 @@ final class TransactionsService {
             Transaction(
                 id: 10,
                 account: account,
-                category: categories[9],
+                category: categories[8],
                 amount: 100000,
                 transactionDate: todayDate,
                 comment: "",
@@ -146,7 +146,7 @@ final class TransactionsService {
             Transaction(
                 id: 11,
                 account: account,
-                category: categories[10],
+                category: categories[9],
                 amount: 30000,
                 transactionDate: yesterdayDate,
                 comment: "",
@@ -156,7 +156,7 @@ final class TransactionsService {
             Transaction(
                 id: 12,
                 account: account,
-                category: categories[11],
+                category: categories[10],
                 amount: 200000,
                 transactionDate: todayDate,
                 comment: "",
@@ -166,7 +166,7 @@ final class TransactionsService {
             Transaction(
                 id: 13,
                 account: account,
-                category: categories[12],
+                category: categories[11],
                 amount: 40000,
                 transactionDate: todayDate,
                 comment: "",
@@ -176,7 +176,7 @@ final class TransactionsService {
             Transaction(
                 id: 14,
                 account: account,
-                category: categories[12],
+                category: categories[11],
                 amount: 10000,
                 transactionDate: todayDate,
                 comment: "",

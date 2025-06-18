@@ -13,16 +13,15 @@ final class CategoriesService {
         Category(id: 1, name: "Аренда квартиры", emoji: "🏠", isIncome: .outcome),
         Category(id: 2, name: "Одежда", emoji: "👔", isIncome: .outcome),
         Category(id: 3, name: "На собачку", emoji: "🐕", isIncome: .outcome),
-        Category(id: 4, name: "На собачку", emoji: "🐕", isIncome: .outcome),
-        Category(id: 5, name: "Ремонт квартиры", emoji: "🔨", isIncome: .outcome),
-        Category(id: 6, name: "Продукты", emoji: "🍬", isIncome: .outcome),
-        Category(id: 7, name: "Спортзал", emoji: "🏋️", isIncome: .outcome),
-        Category(id: 8, name: "Медицина", emoji: "💊", isIncome: .outcome),
-        Category(id: 9, name: "Аптека", emoji: "💜", isIncome: .outcome),
-        Category(id: 10, name: "Машина", emoji: "🚗", isIncome: .outcome),
-        Category(id: 11, name: "Рестораны", emoji: "🍽️", isIncome: .outcome),
-        Category(id: 12, name: "Зарплата", emoji: "💵", isIncome: .income),
-        Category(id: 13, name: "Подработка", emoji: "💰", isIncome: .income)
+        Category(id: 4, name: "Ремонт квартиры", emoji: "🔨", isIncome: .outcome),
+        Category(id: 5, name: "Продукты", emoji: "🍬", isIncome: .outcome),
+        Category(id: 6, name: "Спортзал", emoji: "🏋️", isIncome: .outcome),
+        Category(id: 7, name: "Медицина", emoji: "💊", isIncome: .outcome),
+        Category(id: 8, name: "Аптека", emoji: "💜", isIncome: .outcome),
+        Category(id: 9, name: "Машина", emoji: "🚗", isIncome: .outcome),
+        Category(id: 10, name: "Рестораны", emoji: "🍽️", isIncome: .outcome),
+        Category(id: 11, name: "Зарплата", emoji: "💵", isIncome: .income),
+        Category(id: 12, name: "Подработка", emoji: "💰", isIncome: .income)
     ]
     
     func categories() async throws -> [Category] {
