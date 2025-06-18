@@ -12,6 +12,11 @@ enum DateChanged {
     case second
 }
 
+enum SortType {
+    case date
+    case sum
+}
+
 struct HistoryView: View {
     
     let transactionsService = TransactionsService.shared
@@ -50,11 +55,22 @@ struct HistoryView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                         HStack {
+                            Spacer()
+                            Menu("Сортировать") {
+                                Button("По дате") {
+                                    sort(by: .date)
+                                }
+                                Button("По сумме") {
+                                    sort(by: .sum)
+                                }
+                            }
+                            Spacer()
+                        }
+                        HStack {
                             Text("Сумма")
                             Spacer()
                             Text("\(chosenPeriodSum) ₽")
                         }
-                        
                     }
                     
                     
@@ -169,6 +185,14 @@ struct HistoryView: View {
         }
     }
     
+    private func sort(by parameter: SortType) {
+        switch parameter {
+        case .date:
+            transactions.sort(by: { $0.transactionDate > $1.transactionDate })
+        case .sum:
+            transactions.sort(by: { $0.amount > $1.amount })
+        }
+    }
 }
 
 #Preview {

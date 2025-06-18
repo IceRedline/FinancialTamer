@@ -29,6 +29,7 @@ final class TransactionsService {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let todayDate = Date()
+        let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: todayDate)!
         
         self.transactions = [
             Transaction(
@@ -56,7 +57,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[1],
                 amount: 100000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -86,7 +87,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[4],
                 amount: 20000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -106,7 +107,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[6],
                 amount: 5000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -126,7 +127,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[8],
                 amount: 15000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -146,7 +147,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[10],
                 amount: 30000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
