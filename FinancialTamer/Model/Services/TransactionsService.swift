@@ -28,6 +28,7 @@ final class TransactionsService {
         
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let todayDate = Date()
         
         self.transactions = [
             Transaction(
@@ -35,7 +36,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[0],
                 amount: 50000,
-                transactionDate: formatter.date(from: "2025-06-17T12:09:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -45,7 +46,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[0],
                 amount: 100000,
-                transactionDate: formatter.date(from: "2025-06-17T12:09:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -55,7 +56,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[1],
                 amount: 100000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -65,7 +66,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[2],
                 amount: 50000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "Джек",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -75,7 +76,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[3],
                 amount: 30000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "Энни",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -85,7 +86,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[4],
                 amount: 20000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -95,7 +96,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[5],
                 amount: 70000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -105,7 +106,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[6],
                 amount: 5000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -115,7 +116,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[7],
                 amount: 20000,
-                transactionDate: formatter.date(from: "2025-06-15T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -125,7 +126,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[8],
                 amount: 15000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -135,7 +136,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[9],
                 amount: 100000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -145,7 +146,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[10],
                 amount: 30000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -155,7 +156,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[11],
                 amount: 200000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
@@ -165,7 +166,17 @@ final class TransactionsService {
                 account: account,
                 category: categories[12],
                 amount: 40000,
-                transactionDate: formatter.date(from: "2025-06-17T12:00:00.000Z")!,
+                transactionDate: todayDate,
+                comment: "",
+                createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
+                updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!
+            ),
+            Transaction(
+                id: 14,
+                account: account,
+                category: categories[12],
+                amount: 10000,
+                transactionDate: todayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!

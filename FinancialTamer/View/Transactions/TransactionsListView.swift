@@ -21,7 +21,7 @@ struct TransactionsListView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List { // List уже реализует ленивую загрузку и переиспользование ячеек
+                List { // List в SwiftUI уже реализует ленивую загрузку и переиспользование ячеек
                     Section {
                         HStack {
                             Text("Всего")
@@ -35,7 +35,7 @@ struct TransactionsListView: View {
                         
                         ForEach(groupedByCategory, id: \.category.id) { item in
                             NavigationLink {
-                                //EditTransactionView(transaction: transaction)
+                                //EditTransactionView(category: item.category)
                             } label: {
                                 
                                 HStack {
@@ -89,7 +89,7 @@ struct TransactionsListView: View {
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
-                NavigationLink(destination: HistoryView()) {
+                NavigationLink(destination: HistoryView(direction: self.direction)) {
                     Image(systemName: "clock")
                         .tint(.purpleAccent)
                 }
@@ -101,6 +101,8 @@ struct TransactionsListView: View {
         }
     }
     
+    // MARK: - Methods
+    
     private func loadTransactions() async {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
@@ -111,14 +113,12 @@ struct TransactionsListView: View {
             let list = try await transactionsService.transactions(direction: self.direction, for: todayRange)
             transactions = list
             
-            // Группируем по категориям
             let grouped = Dictionary(grouping: list, by: { $0.category })
             let result = grouped.map { (category, items) in
                 (category: category, total: items.reduce(Decimal(0)) { $0 + $1.amount })
             }
             groupedByCategory = result.sorted { $0.total > $1.total }
             
-            // Общая сумма (если нужно)
             sum = groupedByCategory.reduce(0) { $0 + $1.total }
             
         } catch {

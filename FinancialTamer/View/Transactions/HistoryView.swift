@@ -7,15 +7,22 @@
 
 import SwiftUI
 
+enum DateChanged {
+    case first
+    case second
+}
+
 struct HistoryView: View {
     
     let transactionsService = TransactionsService.shared
+    let direction: Direction
+    @State var lastDateChanged: DateChanged = .first
     
-    @State private var firstDate = Date.now
+    @State private var firstDate = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
     @State private var secondDate = Date.now
     
-    @State private var todayTransactions: [Transaction] = []
-    @State private var todaySum: Decimal = 0
+    @State private var transactions: [Transaction] = []
+    @State private var chosenPeriodSum: Decimal = 0
     
     var body: some View {
         NavigationStack {
@@ -23,7 +30,7 @@ struct HistoryView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List {
+                List { // List в SwiftUI уже реализует ленивую загрузку и переиспользование ячеек
                     Section {
                         HStack {
                             Text("Начало")
@@ -45,7 +52,7 @@ struct HistoryView: View {
                         HStack {
                             Text("Сумма")
                             Spacer()
-                            Text("125 868 ₽")
+                            Text("\(chosenPeriodSum) ₽")
                         }
                         
                     }
@@ -53,7 +60,7 @@ struct HistoryView: View {
                     
                     Section(header: Text("Операции")) {
                         
-                        ForEach(todayTransactions, id: \.id) { transaction in
+                        ForEach(transactions, id: \.id) { transaction in
                             NavigationLink {
                                 EditTransactionView(transaction: transaction)
                             } label: {
@@ -105,29 +112,63 @@ struct HistoryView: View {
                 await transactionsService.loadMockData()
                 await loadTransactions()
             }
+            .onChange(of: firstDate) {
+                Task {
+                    lastDateChanged = .first
+                    await loadTransactions()
+                }
+            }
+            .onChange(of: secondDate) {
+                Task {
+                    lastDateChanged = .second
+                    await loadTransactions()
+                }
+            }
+            .onChange(of: chosenPeriodSum) {
+                Task { await loadTransactions() }
+            }
             
         }
     }
     
+    // MARK: - Methods
+
     private func loadTransactions() async {
         
         let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: Date())
-        let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
-        let todayRange = startOfDay..<startOfNextDay
+        
+        var firstDay = calendar.startOfDay(for: firstDate)
+        var secondDay = calendar.endOfDay(for: secondDate)!
+        
+        // ⭐️ Проверка 1 и 2 даты
+        switch lastDateChanged {
+        case .first:
+            if firstDay > secondDay {
+                secondDate = calendar.endOfDay(for: firstDate)!
+                secondDay = secondDate
+            }
+        case .second:
+            if secondDay < firstDay {
+                firstDate = calendar.startOfDay(for: secondDate)
+                firstDay = firstDate
+            }
+        }
+        
+        let range = firstDay..<secondDay
         
         do {
-            let list = try await transactionsService.transactions(direction: .outcome, for: todayRange)
-            todayTransactions = list
+            let list = try await transactionsService.transactions(direction: self.direction, for: range)
+            transactions = list
             var sum: Decimal = 0
-            todayTransactions.forEach { transaction in
+            transactions.forEach { transaction in
                 sum += transaction.amount
-                self.todaySum = sum
             }
+            self.chosenPeriodSum = sum
         } catch {
             print("Ошибка загрузки: \(error)")
         }
     }
+    
 }
 
 #Preview {
