@@ -9,8 +9,26 @@ import Foundation
 
 final class BankAccountsService {
     
-    private var accounts: [BankAccount] = [BankAccount(id: 1, userId: 1, name: "Main Account", balance: 1000, currency: "$", createdAt: Date(), updatedAt: Date()),
-                                   BankAccount(id: 2, userId: 2, name: "Disabled Account", balance: 0, currency: "₽", createdAt: Date(), updatedAt: Date())]
+    private var accounts: [BankAccount] = [
+        BankAccount(
+            id: 1,
+            userId: nil,
+            name: "Основной счёт",
+            balance: 1000,
+            currency: "RUB",
+            createdAt: nil,
+            updatedAt: nil
+        ),
+        BankAccount(
+            id: 2,
+            userId: 2,
+            name: "Disabled Account",
+            balance: 0,
+            currency: "₽",
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+    ]
     
     func account() async throws -> BankAccount {
         guard let account = accounts.first else {
