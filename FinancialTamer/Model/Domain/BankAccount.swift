@@ -49,9 +49,6 @@ extension BankAccount {
     
     static func parse(jsonObject: Any) -> BankAccount? {
         
-        let formatter = ISO8601DateFormatter()
-                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        
         guard let dict = jsonObject as? [String: Any],
               let id = dict["id"] as? Int,
               let name = dict["name"] as? String,

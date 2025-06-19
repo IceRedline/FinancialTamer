@@ -50,13 +50,6 @@ struct TransactionsListView: View {
                                     VStack(alignment: .leading) {
                                         Text(item.category.name)
                                             .lineLimit(1)
-                                        
-                                        /*if let comment = transaction.comment, !comment.isEmpty {
-                                            Text(comment)
-                                                .font(.footnote)
-                                                .foregroundColor(.gray)
-                                                .lineLimit(1)
-                                        }*/
                                     }
                                     
                                     Spacer()
@@ -107,6 +100,7 @@ struct TransactionsListView: View {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
         let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        
         let todayRange = startOfDay..<startOfNextDay
 
         do {

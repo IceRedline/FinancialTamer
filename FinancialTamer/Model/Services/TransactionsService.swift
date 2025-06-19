@@ -22,7 +22,7 @@ final class TransactionsService {
         self.account = try! await BankAccountsService().account()
         
         guard let account = self.account else {
-            print("❌ Аккаунт не загружен")
+            print("TransactionsService: Аккаунт не загружен")
             return
         }
         

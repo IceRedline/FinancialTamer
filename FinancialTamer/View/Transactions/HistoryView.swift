@@ -107,12 +107,13 @@ struct HistoryView: View {
                                     Text(transaction.amount.formattedCurrency)
                                         .foregroundColor(.primary)
                                 }
-                                .frame(height: 25)
                                 
                             }
+                            .frame(height: 40)
                         }
                         
                     }
+                    
                 }
                 .scrollContentBackground(.hidden)
                 
@@ -185,6 +186,7 @@ struct HistoryView: View {
         }
     }
     
+    // ⭐️ Сортировка
     private func sort(by parameter: SortType) {
         switch parameter {
         case .date:
