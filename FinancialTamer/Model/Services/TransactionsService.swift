@@ -19,7 +19,7 @@ final class TransactionsService {
     
     func loadMockData() async {
         self.categories = try! await CategoriesService().categories()
-        self.account = try! await BankAccountsService().account()
+        self.account = try! await BankAccountsService.shared.account()
         
         guard let account = self.account else {
             print("TransactionsService: Аккаунт не загружен")

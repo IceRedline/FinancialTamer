@@ -9,7 +9,11 @@ import Foundation
 
 final class BankAccountsService {
     
-    private var accounts: [BankAccount] = [
+    static let shared = BankAccountsService()
+    
+    private init() {}
+    
+    var accounts: [BankAccount] = [
         BankAccount(
             id: 1,
             userId: nil,
@@ -39,5 +43,19 @@ final class BankAccountsService {
     
     func updateAccount(account: BankAccount) async throws {
         accounts[0] = account
+    }
+    
+    func updateBalance(newBalance: Decimal) async throws {
+        let previousAccount = accounts[0]
+        let newAccount = BankAccount(
+            id: previousAccount.id,
+            userId: previousAccount.userId,
+            name: previousAccount.name,
+            balance: newBalance,
+            currency: previousAccount.currency,
+            createdAt: previousAccount.createdAt,
+            updatedAt: previousAccount.updatedAt
+        )
+        try? await updateAccount(account: newAccount)
     }
 }
