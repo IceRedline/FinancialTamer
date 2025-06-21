@@ -20,6 +20,7 @@ struct AccountView: View {
     @State private var account: BankAccount?
     @State private var editableBalance: Decimal = 0
     @State private var currency: String = "₽"
+    @State private var showingCurrencySheet = false
     
     var body: some View {
         NavigationStack {
@@ -48,14 +49,32 @@ struct AccountView: View {
                         Text("Валюта")
                         Spacer()
                         Text("\(currency)")
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Image(systemName: "chevron.right")
-                                    .imageScale(.small)
-                                    .foregroundColor(.gray)
+                            .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
+                        
+                        if currentMode == .edit {
+                            Button {
+                                showingCurrencySheet = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "chevron.right")
+                                        .imageScale(.small)
+                                        .foregroundColor(.gray)
+                                }
                             }
+                            .confirmationDialog("Валюта", isPresented: $showingCurrencySheet, titleVisibility: .visible) {
+                                Button("Российский рубль ₽") {
+                                    currency = "₽"
+                                }
+                                
+                                Button("Американский доллар $") {
+                                    currency = "$"
+                                }
+                                
+                                Button("Евро €") {
+                                    currency = "€"
+                                }
+                            }
+                            .tint(Color.purpleAccent)
                         }
                     }
                     .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)
