@@ -8,7 +8,7 @@
 import Foundation
 
 extension Decimal {
-    var formattedCurrency: String {
+    func formattedCurrency(currency: String = "₽") -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = " "      // Разделитель тысяч
@@ -16,9 +16,9 @@ extension Decimal {
         formatter.locale = Locale(identifier: "ru_RU")
         
         if let result = formatter.string(from: self as NSNumber) {
-            return "\(result) ₽"
+            return "\(result) \(currency)"
         } else {
-            return "\(self.description) ₽"
+            return "\(self.description) \(currency)"
         }
     }
 }

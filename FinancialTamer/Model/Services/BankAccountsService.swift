@@ -9,7 +9,11 @@ import Foundation
 
 final class BankAccountsService {
     
-    private var accounts: [BankAccount] = [
+    static let shared = BankAccountsService()
+    
+    private init() {}
+    
+    var accounts: [BankAccount] = [
         BankAccount(
             id: 1,
             userId: nil,

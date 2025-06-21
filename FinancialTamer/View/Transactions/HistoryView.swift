@@ -69,7 +69,7 @@ struct HistoryView: View {
                         HStack {
                             Text("Сумма")
                             Spacer()
-                            Text(chosenPeriodSum.formattedCurrency)
+                            Text(chosenPeriodSum.formattedCurrency())
                         }
                     }
                     
@@ -104,7 +104,7 @@ struct HistoryView: View {
                                     
                                     Spacer()
                                     
-                                    Text(transaction.amount.formattedCurrency)
+                                    Text(transaction.amount.formattedCurrency())
                                         .foregroundColor(.primary)
                                 }
                                 

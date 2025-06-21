@@ -26,7 +26,7 @@ struct TransactionsListView: View {
                         HStack {
                             Text("Всего")
                             Spacer()
-                            Text(sum.formattedCurrency)
+                            Text(sum.formattedCurrency())
                         }
                     }
                     
@@ -54,7 +54,7 @@ struct TransactionsListView: View {
                                     
                                     Spacer()
                                     
-                                    Text(item.total.formattedCurrency)
+                                    Text(item.total.formattedCurrency())
                                         .foregroundColor(.primary)
                                 }
                                 .frame(height: 25)
