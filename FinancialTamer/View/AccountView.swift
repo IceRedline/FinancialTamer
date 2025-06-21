@@ -81,7 +81,7 @@ struct AccountView: View {
                     
                 }
                 .scrollContentBackground(.hidden)
-                
+                .scrollDismissesKeyboard(.interactively)
                 
             }
             .listRowSpacing(16)
