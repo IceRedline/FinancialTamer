@@ -44,4 +44,18 @@ final class BankAccountsService {
     func updateAccount(account: BankAccount) async throws {
         accounts[0] = account
     }
+    
+    func updateBalance(newBalance: Decimal) async throws {
+        let previousAccount = accounts[0]
+        let newAccount = BankAccount(
+            id: previousAccount.id,
+            userId: previousAccount.userId,
+            name: previousAccount.name,
+            balance: newBalance,
+            currency: previousAccount.currency,
+            createdAt: previousAccount.createdAt,
+            updatedAt: previousAccount.updatedAt
+        )
+        try? await updateAccount(account: newAccount)
+    }
 }

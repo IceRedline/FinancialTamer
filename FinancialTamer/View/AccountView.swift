@@ -19,7 +19,7 @@ struct AccountView: View {
     @State private var currentMode: AccountViewMode = .view
     @State private var account: BankAccount?
     @State private var editableBalance: Decimal = 0
-    @State private var currency: String = "$"
+    @State private var currency: String = "₽"
     
     var body: some View {
         NavigationStack {
@@ -48,6 +48,15 @@ struct AccountView: View {
                         Text("Валюта")
                         Spacer()
                         Text("\(currency)")
+                        Button {
+                            
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.right")
+                                    .imageScale(.small)
+                                    .foregroundColor(.gray)
+                            }
+                        }
                     }
                     .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)
                     
@@ -60,12 +69,18 @@ struct AccountView: View {
             .navigationTitle("Мой счет")
             .toolbar {
                 Button(currentMode == .view ? "Редактировать" : "Сохранить") {
+                    if currentMode == .edit {
+                        Task {
+                            await updateBalance()
+                        }
+                    } else {
+                        editableBalance = account?.balance ?? 0
+                    }
                     currentMode = currentMode == .view ? .edit : .view
                 }
                 .tint(.purpleAccent)
             }
             .task {
-                //await accountService
                 await loadAccount()
             }
         }
@@ -79,6 +94,15 @@ struct AccountView: View {
             self.editableBalance = balance
         } catch {
             print("Ошибка загрузки: \(error)")
+        }
+    }
+    
+    private func updateBalance() async {
+        do {
+            try await accountService.updateBalance(newBalance: editableBalance)
+            await loadAccount()
+        } catch {
+            print("")
         }
     }
 }
