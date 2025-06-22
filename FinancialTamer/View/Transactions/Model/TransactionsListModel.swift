@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TransactionsListModel: TransactionsListModelProtocol {
+class TransactionsListModel: ObservableObject {
     
     var transactionsService = TransactionsService.shared
     

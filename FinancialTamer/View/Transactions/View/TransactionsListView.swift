@@ -18,7 +18,7 @@ struct TransactionsListView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List { // List в SwiftUI уже реализует ленивую загрузку и переиспользование ячеек
+                List {
                     Section {
                         HStack {
                             Text("Всего")

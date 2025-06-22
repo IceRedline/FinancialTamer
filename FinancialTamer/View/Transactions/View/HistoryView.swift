@@ -7,27 +7,11 @@
 
 import SwiftUI
 
-enum DateChanged {
-    case first
-    case second
-}
-
-enum SortType {
-    case date
-    case sum
-}
-
 struct HistoryView: View {
     
-    let transactionsService = TransactionsService.shared
     let direction: Direction
-    @State var lastDateChanged: DateChanged = .first
     
-    @State private var firstDate = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
-    @State private var secondDate = Date.now
-    
-    @State private var transactions: [Transaction] = []
-    @State private var chosenPeriodSum: Decimal = 0
+    @ObservedObject var model = HistoryModel()
     
     var body: some View {
         NavigationStack {
@@ -35,12 +19,12 @@ struct HistoryView: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List { // List в SwiftUI уже реализует ленивую загрузку и переиспользование ячеек
+                List {
                     Section {
                         HStack {
                             Text("Начало")
                             Spacer()
-                            DatePicker("", selection: $firstDate, in: ...Date.now, displayedComponents: .date)
+                            DatePicker("", selection: $model.firstDate, in: ...Date.now, displayedComponents: .date)
                                 .datePickerStyle(.compact)
                                 .labelsHidden()
                                 .background(Color.accentLight)
@@ -49,7 +33,7 @@ struct HistoryView: View {
                         HStack {
                             Text("Конец")
                             Spacer()
-                            DatePicker("", selection: $secondDate, in: ...Date.now, displayedComponents: .date)
+                            DatePicker("", selection: $model.secondDate, in: ...Date.now, displayedComponents: .date)
                                 .labelsHidden()
                                 .background(Color.accentLight)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -58,10 +42,10 @@ struct HistoryView: View {
                             Spacer()
                             Menu("Сортировать") {
                                 Button("По дате") {
-                                    sort(by: .date)
+                                    model.sort(by: .date)
                                 }
                                 Button("По сумме") {
-                                    sort(by: .sum)
+                                    model.sort(by: .sum)
                                 }
                             }
                             Spacer()
@@ -69,14 +53,14 @@ struct HistoryView: View {
                         HStack {
                             Text("Сумма")
                             Spacer()
-                            Text(chosenPeriodSum.formattedCurrency())
+                            Text(model.chosenPeriodSum.formattedCurrency())
                         }
                     }
                     
                     
                     Section(header: Text("Операции")) {
                         
-                        ForEach(transactions, id: \.id) { transaction in
+                        ForEach(model.transactions, id: \.id) { transaction in
                             NavigationLink {
                                 EditTransactionView(transaction: transaction)
                             } label: {
@@ -126,23 +110,23 @@ struct HistoryView: View {
                 .tint(.purpleAccent)
             }
             .task {
-                await transactionsService.loadMockData()
-                await loadTransactions()
+                await model.transactionsService.loadMockData()
+                await model.loadTransactions(direction: direction)
             }
-            .onChange(of: firstDate) {
+            .onChange(of: model.firstDate) {
                 Task {
-                    lastDateChanged = .first
-                    await loadTransactions()
+                    model.lastDateChanged = .first
+                    await model.loadTransactions(direction: direction)
                 }
             }
-            .onChange(of: secondDate) {
+            .onChange(of: model.secondDate) {
                 Task {
-                    lastDateChanged = .second
-                    await loadTransactions()
+                    model.lastDateChanged = .second
+                    await model.loadTransactions(direction: direction)
                 }
             }
-            .onChange(of: chosenPeriodSum) {
-                Task { await loadTransactions() }
+            .onChange(of: model.chosenPeriodSum) {
+                Task { await model.loadTransactions(direction: direction) }
             }
             
         }
@@ -150,51 +134,7 @@ struct HistoryView: View {
     
     // MARK: - Methods
 
-    private func loadTransactions() async {
-        
-        let calendar = Calendar.current
-        
-        var firstDay = calendar.startOfDay(for: firstDate)
-        var secondDay = calendar.endOfDay(for: secondDate)!
-        
-        // ⭐️ Проверка 1 и 2 даты
-        switch lastDateChanged {
-        case .first:
-            if firstDay > secondDay {
-                secondDate = calendar.endOfDay(for: firstDate)!
-                secondDay = secondDate
-            }
-        case .second:
-            if secondDay < firstDay {
-                firstDate = calendar.startOfDay(for: secondDate)
-                firstDay = firstDate
-            }
-        }
-        
-        let range = firstDay..<secondDay
-        
-        do {
-            let list = try await transactionsService.transactions(direction: self.direction, for: range)
-            transactions = list
-            var sum: Decimal = 0
-            transactions.forEach { transaction in
-                sum += transaction.amount
-            }
-            self.chosenPeriodSum = sum
-        } catch {
-            print("Ошибка загрузки: \(error)")
-        }
-    }
     
-    // ⭐️ Сортировка
-    private func sort(by parameter: SortType) {
-        switch parameter {
-        case .date:
-            transactions.sort(by: { $0.transactionDate > $1.transactionDate })
-        case .sum:
-            transactions.sort(by: { $0.amount > $1.amount })
-        }
-    }
 }
 
 #Preview {
