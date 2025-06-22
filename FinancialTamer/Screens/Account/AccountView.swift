@@ -14,12 +14,9 @@ enum AccountViewMode {
 
 struct AccountView: View {
     
-    let accountService = BankAccountsService.shared
+    @ObservedObject var model = AccountModel()
     
     @State private var currentMode: AccountViewMode = .view
-    @State private var account: BankAccount?
-    @State private var editableBalance: Decimal = 0
-    @State private var currency: String = "₽"
     @State private var showingCurrencySheet = false
     
     var body: some View {
@@ -33,14 +30,14 @@ struct AccountView: View {
                         Text("💰    Баланс")
                         Spacer()
                         if currentMode == .edit {
-                            TextField("Баланс", value: $editableBalance, format: .number)
+                            TextField("Баланс", value: $model.editableBalance, format: .number)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(.plain)
                                 .multilineTextAlignment(.trailing)
                                 .frame(width: 100, height: 20, alignment: .trailing)
                                 .foregroundStyle(Color.gray)
                         } else {
-                            Text(account?.balance.formattedCurrency(currency: currency) ?? "")
+                            Text(model.account?.balance.formattedCurrency(currency: model.currency) ?? "")
                         }
                     }
                     .listRowBackground(currentMode == .view ? Color.accent : Color.white)
@@ -48,7 +45,7 @@ struct AccountView: View {
                     HStack {
                         Text("Валюта")
                         Spacer()
-                        Text("\(currency)")
+                        Text("\(model.currency)")
                             .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
                         
                         if currentMode == .edit {
@@ -63,15 +60,15 @@ struct AccountView: View {
                             }
                             .confirmationDialog("Валюта", isPresented: $showingCurrencySheet, titleVisibility: .visible) {
                                 Button("Российский рубль ₽") {
-                                    currency = "₽"
+                                    model.currency = "₽"
                                 }
                                 
                                 Button("Американский доллар $") {
-                                    currency = "$"
+                                    model.currency = "$"
                                 }
                                 
                                 Button("Евро €") {
-                                    currency = "€"
+                                    model.currency = "€"
                                 }
                             }
                             .tint(Color.purpleAccent)
@@ -90,38 +87,18 @@ struct AccountView: View {
                 Button(currentMode == .view ? "Редактировать" : "Сохранить") {
                     if currentMode == .edit {
                         Task {
-                            await updateBalance()
+                            await model.updateBalance()
                         }
                     } else {
-                        editableBalance = account?.balance ?? 0
+                        model.editableBalance = model.account?.balance ?? 0
                     }
                     currentMode = currentMode == .view ? .edit : .view
                 }
                 .tint(.purpleAccent)
             }
             .task {
-                await loadAccount()
+                await model.loadAccount()
             }
-        }
-    }
-    
-    private func loadAccount() async {
-        do {
-            let loadedAccount = try await accountService.account()
-            self.account = loadedAccount
-            guard let balance = account?.balance else { return }
-            self.editableBalance = balance
-        } catch {
-            print("Ошибка загрузки: \(error)")
-        }
-    }
-    
-    private func updateBalance() async {
-        do {
-            try await accountService.updateBalance(newBalance: editableBalance)
-            await loadAccount()
-        } catch {
-            print("")
         }
     }
 }
