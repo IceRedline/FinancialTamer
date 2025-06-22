@@ -18,6 +18,7 @@ struct AccountView: View {
     
     @State private var currentMode: AccountViewMode = .view
     @State private var showingCurrencySheet = false
+    @State var spoilerIsOn = false
     
     var body: some View {
         NavigationStack {
@@ -38,6 +39,11 @@ struct AccountView: View {
                                 .foregroundStyle(Color.gray)
                         } else {
                             Text(model.account?.balance.formattedCurrency(currency: model.currency) ?? "")
+                                .spoiler(isOn: $spoilerIsOn)
+                                .onShake {
+                                    print("Опачки скрыли деньги")
+                                    spoilerIsOn.toggle()
+                                }
                         }
                     }
                     .listRowBackground(currentMode == .view ? Color.accent : Color.white)
