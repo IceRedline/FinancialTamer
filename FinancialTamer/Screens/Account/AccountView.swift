@@ -79,6 +79,11 @@ struct AccountView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .scrollDismissesKeyboard(.interactively)
+                .refreshable {
+                    Task {
+                        await model.loadAccount()
+                    }
+                }
                 
             }
             .listRowSpacing(16)

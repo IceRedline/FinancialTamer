@@ -28,6 +28,7 @@ class HistoryModel: ObservableObject {
     @Published var transactions: [Transaction] = []
     @Published var chosenPeriodSum: Decimal = 0
     
+    
     func loadTransactions(direction: Direction) async {
         
         let calendar = Calendar.current
