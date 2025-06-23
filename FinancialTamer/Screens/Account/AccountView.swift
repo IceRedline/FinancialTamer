@@ -20,6 +20,8 @@ struct AccountView: View {
     @State private var showingCurrencySheet = false
     @State var spoilerIsOn = false
     
+    @State var editableBalanceString: String = ""
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
@@ -31,12 +33,33 @@ struct AccountView: View {
                         Text("💰    Баланс")
                         Spacer()
                         if currentMode == .edit {
-                            TextField("Баланс", value: $model.editableBalance, format: .number)
+                            
+                            Button("", systemImage: "document.on.clipboard") {
+                                if let pasted = UIPasteboard.general.string {
+                                    editableBalanceString = pasted
+                                }
+                            }
+                            .font(.system(size: 14))
+                            .foregroundStyle(.purpleAccent)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -20))
+                            
+                            TextField("Баланс", text: $editableBalanceString)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(.plain)
                                 .multilineTextAlignment(.trailing)
-                                .frame(width: 100, height: 20, alignment: .trailing)
+                                .frame(width: 70, height: 20, alignment: .trailing)
                                 .foregroundStyle(Color.gray)
+                                .onChange(of: editableBalanceString) { _, newValue in
+                                    let filtered = newValue.filter { "0123456789.-,".contains($0) }
+                                    let normalized = filtered.replacingOccurrences(of: ",", with: ".")
+                                    let components = normalized.components(separatedBy: ".")
+                                    let cleaned = components.count > 1 ? components[0] + "." + components[1] : components[0]
+                                    editableBalanceString = cleaned
+                                    if let value = Decimal(string: cleaned) {
+                                        model.editableBalance = value
+                                    }
+                                }
+                            
                         } else {
                             Text(model.account?.balance.formattedCurrency(currency: model.currency) ?? "")
                                 .spoiler(isOn: $spoilerIsOn)
@@ -78,6 +101,12 @@ struct AccountView: View {
                                 }
                             }
                             .tint(Color.purpleAccent)
+                        }
+                    }
+                    .onChange(of: currentMode) { _, newMode in
+                        if newMode == .edit {
+                            // Устанавливаем начальное значение как строку
+                            editableBalanceString = model.editableBalance.description
                         }
                     }
                     .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)

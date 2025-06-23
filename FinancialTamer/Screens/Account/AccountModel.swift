@@ -31,6 +31,7 @@ class AccountModel: ObservableObject {
     
     @MainActor
     func updateBalance() async {
+        print("Баланс обновлен!")
         do {
             try await accountService.updateBalance(newBalance: editableBalance)
             await loadAccount()
