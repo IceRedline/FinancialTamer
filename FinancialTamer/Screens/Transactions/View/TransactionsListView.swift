@@ -10,30 +10,27 @@ import SwiftUI
 struct TransactionsListView: View {
     
     let direction: Direction
-    let transactionsService = TransactionsService.shared
     
-    @State private var transactions: [Transaction] = []
-    @State private var groupedByCategory: [(category: Category, total: Decimal)] = []
-    @State private var sum: Decimal = 0
+    @ObservedObject var model = TransactionsListModel()
     
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
                 
-                List { // List в SwiftUI уже реализует ленивую загрузку и переиспользование ячеек
+                List {
                     Section {
                         HStack {
                             Text("Всего")
                             Spacer()
-                            Text(sum.formattedCurrency)
+                            Text(model.sum.formattedCurrency())
                         }
                     }
                     
                     
                     Section(header: Text("Операции")) {
                         
-                        ForEach(groupedByCategory, id: \.category.id) { item in
+                        ForEach(model.groupedByCategory, id: \.category.id) { item in
                             NavigationLink {
                                 //EditTransactionView(category: item.category)
                             } label: {
@@ -54,7 +51,7 @@ struct TransactionsListView: View {
                                     
                                     Spacer()
                                     
-                                    Text(item.total.formattedCurrency)
+                                    Text(item.total.formattedCurrency())
                                         .foregroundColor(.primary)
                                 }
                                 .frame(height: 25)
@@ -88,35 +85,9 @@ struct TransactionsListView: View {
                 }
             }
             .task {
-                await transactionsService.loadMockData()
-                await loadTransactions()
+                await model.transactionsService.loadMockData()
+                await model.loadTransactions(direction: direction)
             }
-        }
-    }
-    
-    // MARK: - Methods
-    
-    private func loadTransactions() async {
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: Date())
-        let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
-        
-        let todayRange = startOfDay..<startOfNextDay
-
-        do {
-            let list = try await transactionsService.transactions(direction: self.direction, for: todayRange)
-            transactions = list
-            
-            let grouped = Dictionary(grouping: list, by: { $0.category })
-            let result = grouped.map { (category, items) in
-                (category: category, total: items.reduce(Decimal(0)) { $0 + $1.amount })
-            }
-            groupedByCategory = result.sorted { $0.total > $1.total }
-            
-            sum = groupedByCategory.reduce(0) { $0 + $1.total }
-            
-        } catch {
-            print("Ошибка загрузки: \(error)")
         }
     }
 }
