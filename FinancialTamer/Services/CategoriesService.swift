@@ -9,6 +9,10 @@ import Foundation
 
 final class CategoriesService {
     
+    static let shared = CategoriesService()
+    
+    private init() {}
+    
     let categories: [Category] = [
         Category(id: 1, name: "Аренда квартиры", emoji: "🏠", isIncome: .outcome),
         Category(id: 2, name: "Одежда", emoji: "👔", isIncome: .outcome),
