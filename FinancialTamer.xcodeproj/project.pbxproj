@@ -32,6 +32,7 @@
 		999445722E0848F6004AB0B6 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445712E0848F6004AB0B6 /* AccountModel.swift */; };
 		999445742E08576C004AB0B6 /* +Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445732E08576C004AB0B6 /* +Shake.swift */; };
 		9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445792E08669B004AB0B6 /* +Spoiler.swift */; };
+		99F43F7B2E13EAF5005F5466 /* String+fuzzyMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */; };
 		99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		999445712E0848F6004AB0B6 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		999445732E08576C004AB0B6 /* +Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Shake.swift"; sourceTree = "<group>"; };
 		999445792E08669B004AB0B6 /* +Spoiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Spoiler.swift"; sourceTree = "<group>"; };
+		99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+fuzzyMatches.swift"; sourceTree = "<group>"; };
 		99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransactionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 				9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */,
 				999445732E08576C004AB0B6 /* +Shake.swift */,
 				999445792E08669B004AB0B6 /* +Spoiler.swift */,
+				99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			files = (
 				990E33792DF606540087D79F /* TransactionsListView.swift in Sources */,
 				9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */,
+				99F43F7B2E13EAF5005F5466 /* String+fuzzyMatches.swift in Sources */,
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
 				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
