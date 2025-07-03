@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Property 1=Настройки, Property 2=Active@2x.png",
+      "filename" : "Settings@2x 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Property 1=Настройки, Property 2=Active.png",
+      "filename" : "Settings@3x 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
