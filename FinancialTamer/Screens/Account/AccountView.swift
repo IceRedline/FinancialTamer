@@ -35,7 +35,6 @@ struct AccountView: View {
                         Text("💰    Баланс")
                         Spacer()
                         if currentMode == .edit {
-                            documentButton
                             balanceTextField
                         } else {
                             balanceText
@@ -94,23 +93,12 @@ struct AccountView: View {
     
     // MARK: - Views
     
-    private var documentButton: some View {
-        Button("", systemImage: "document.on.clipboard") {
-            if let pasted = UIPasteboard.general.string {
-                editableBalanceString = pasted
-            }
-        }
-        .font(.system(size: 14))
-        .foregroundStyle(.purpleAccent)
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -20))
-    }
-    
     private var balanceTextField: some View {
         TextField("Баланс", text: $editableBalanceString)
             .keyboardType(.decimalPad)
             .textFieldStyle(.plain)
             .multilineTextAlignment(.trailing)
-            .frame(width: 70, height: 20, alignment: .trailing)
+            .frame(width: 150, height: 20, alignment: .trailing)
             .foregroundStyle(Color.gray)
             .onChange(of: editableBalanceString) { _, newValue in
                 let filtered = newValue.filter { "0123456789.-,".contains($0) }

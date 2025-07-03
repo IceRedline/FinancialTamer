@@ -129,7 +129,7 @@
 			children = (
 				990E33762DF606540087D79F /* FinancialTamerApp.swift */,
 				990E337B2DF606680087D79F /* Extensions */,
-				990E339B2DF837F90087D79F /* Domain Models */,
+				990E339B2DF837F90087D79F /* DomainModels */,
 				990E339C2DF837FE0087D79F /* Services */,
 				990E337C2DF6066D0087D79F /* Screens */,
 				990E33742DF606540087D79F /* Assets.xcassets */,
@@ -163,14 +163,14 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		990E339B2DF837F90087D79F /* Domain Models */ = {
+		990E339B2DF837F90087D79F /* DomainModels */ = {
 			isa = PBXGroup;
 			children = (
 				990E337D2DF606980087D79F /* Category.swift */,
 				990E337F2DF606A00087D79F /* BankAccount.swift */,
 				990E33812DF606A70087D79F /* Transaction.swift */,
 			);
-			path = "Domain Models";
+			path = DomainModels;
 			sourceTree = "<group>";
 		};
 		990E339C2DF837FE0087D79F /* Services */ = {
