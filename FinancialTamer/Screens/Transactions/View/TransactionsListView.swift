@@ -13,6 +13,8 @@ struct TransactionsListView: View {
     
     @ObservedObject var model = TransactionsListModel()
     
+    // MARK: - Body
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
@@ -37,11 +39,7 @@ struct TransactionsListView: View {
                                 
                                 HStack {
                                     if direction == .outcome {
-                                        Text("\(item.category.emoji)")
-                                            .font(.caption)
-                                            .frame(width: 24, height: 24)
-                                            .background(Color.accentLight)
-                                            .clipShape(Circle())
+                                        EmojiCircle(emoji: item.category.emoji)
                                     }
                                     
                                     VStack(alignment: .leading) {
@@ -64,17 +62,7 @@ struct TransactionsListView: View {
                 }
                 .scrollContentBackground(.hidden)
                 
-                Button(action: {
-                    print("Tapped add button")
-                }) {
-                    Image(systemName: "plus")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.accentColor)
-                        .clipShape(Circle())
-                }
-                .padding(24)
+                addButton
                 
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
@@ -90,6 +78,23 @@ struct TransactionsListView: View {
             }
         }
     }
+    
+    // MARK: - Views
+    
+    private var addButton: some View {
+        Button(action: {
+            print("Tapped add button")
+        }) {
+            Image(systemName: "plus")
+                .font(.title)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.accentColor)
+                .clipShape(Circle())
+        }
+        .padding(24)
+    }
+    
 }
 
 #Preview {

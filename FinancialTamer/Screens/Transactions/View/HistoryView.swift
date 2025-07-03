@@ -13,6 +13,8 @@ struct HistoryView: View {
     
     @ObservedObject var model = HistoryModel()
     
+    // MARK: - Body
+    
     var body: some View {
         NavigationStack {
             
@@ -20,34 +22,21 @@ struct HistoryView: View {
                 Color.background.ignoresSafeArea(edges: .top)
                 
                 List {
+                    
                     Section {
                         HStack {
                             Text("Начало")
                             Spacer()
-                            DatePicker("", selection: $model.firstDate, in: ...Date.now, displayedComponents: .date)
-                                .datePickerStyle(.compact)
-                                .labelsHidden()
-                                .background(Color.accentLight)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                            CustomDatePicker(selection: $model.firstDate)
                         }
                         HStack {
                             Text("Конец")
                             Spacer()
-                            DatePicker("", selection: $model.secondDate, in: ...Date.now, displayedComponents: .date)
-                                .labelsHidden()
-                                .background(Color.accentLight)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                            CustomDatePicker(selection: $model.secondDate)
                         }
                         HStack {
                             Spacer()
-                            Menu("Сортировать") {
-                                Button("По дате") {
-                                    model.sort(by: .date)
-                                }
-                                Button("По сумме") {
-                                    model.sort(by: .sum)
-                                }
-                            }
+                            sortMenu
                             Spacer()
                         }
                         HStack {
@@ -56,7 +45,6 @@ struct HistoryView: View {
                             Text(model.chosenPeriodSum.formattedCurrency())
                         }
                     }
-                    
                     
                     Section(header: Text("Операции")) {
                         
@@ -67,12 +55,7 @@ struct HistoryView: View {
                                 
                                 HStack {
                                     
-                                    Text("\(transaction.category.emoji)")
-                                        .font(.caption)
-                                        .frame(width: 24, height: 24)
-                                        .background(Color.accentLight)
-                                        .clipShape(Circle())
-                                    
+                                    EmojiCircle(emoji: transaction.category.emoji)
                                     
                                     VStack(alignment: .leading) {
                                         Text(transaction.category.name)
@@ -132,9 +115,31 @@ struct HistoryView: View {
         }
     }
     
-    // MARK: - Methods
-
+    // MARK: - Views
     
+    private var sortMenu: some View {
+        Menu("Сортировать") {
+            Button("По дате") {
+                model.sort(by: .date)
+            }
+            Button("По сумме") {
+                model.sort(by: .sum)
+            }
+        }
+    }
+    
+}
+
+struct CustomDatePicker: View {
+    @Binding var selection: Date
+    
+    var body: some View {
+        DatePicker("", selection: $selection, in: ...Date.now, displayedComponents: .date)
+            .datePickerStyle(.compact)
+            .labelsHidden()
+            .background(Color.accentLight)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
 }
 
 #Preview {

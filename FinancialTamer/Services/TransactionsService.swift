@@ -18,7 +18,7 @@ final class TransactionsService {
     private init() {}
     
     func loadMockData() async {
-        self.categories = try! await CategoriesService().categories()
+        self.categories = try! await CategoriesService.shared.categories()
         self.account = try! await BankAccountsService.shared.account()
         
         guard let account = self.account else {
