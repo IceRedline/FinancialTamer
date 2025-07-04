@@ -20,11 +20,15 @@ enum Direction {
     }
 }
 
-struct Category: Equatable, Hashable {
+struct Category: Equatable, Hashable, FuzzySearchable {
     let id: Int
     let name: String
     let emoji: Character
     let isIncome: Direction
+    
+    var searchableString: String {
+        name
+    }
 }
 
 extension Category {

@@ -45,7 +45,10 @@ struct CategoriesView: View {
         if textToSearch.isEmpty {
             return model.categories
         } else {
-            return model.categories.filter({$0.name.contains(textToSearch)})
+            return model.categories.fuzzySearch(query: textToSearch) .map {
+                $0.item
+            }
+                //.filter({$0.name.contains(textToSearch)})
         }
     }
 }
