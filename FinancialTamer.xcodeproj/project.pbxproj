@@ -16,7 +16,6 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
-		99499AAE2E13F18700EBAAAB /* Fuse in Frameworks */ = {isa = PBXBuildFile; productRef = 99499AAD2E13F18700EBAAAB /* Fuse */; };
 		994D13AC2E1178CE00AD6682 /* EmojiCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D13AB2E1178CE00AD6682 /* EmojiCircle.swift */; };
 		994D13AF2E11A63E00AD6682 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D13AE2E11A63E00AD6682 /* CategoriesModel.swift */; };
 		9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960872D2E0201160020E85D /* Calendar+endOfDay.swift */; };
@@ -92,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99499AAE2E13F18700EBAAAB /* Fuse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +245,6 @@
 			);
 			name = FinancialTamer;
 			packageProductDependencies = (
-				99499AAD2E13F18700EBAAAB /* Fuse */,
 			);
 			productName = FinancialTamer;
 			productReference = 990E33592DF604CF0087D79F /* FinancialTamer.app */;
@@ -305,7 +302,6 @@
 			mainGroup = 990E33502DF604CF0087D79F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 990E335A2DF604CF0087D79F /* Products */;
@@ -636,25 +632,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krisk/fuse-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		99499AAD2E13F18700EBAAAB /* Fuse */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */;
-			productName = Fuse;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 990E33512DF604CF0087D79F /* Project object */;
 }
