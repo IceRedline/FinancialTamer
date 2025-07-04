@@ -16,7 +16,6 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
-		99499AAE2E13F18700EBAAAB /* Fuse in Frameworks */ = {isa = PBXBuildFile; productRef = 99499AAD2E13F18700EBAAAB /* Fuse */; };
 		994D13AC2E1178CE00AD6682 /* EmojiCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D13AB2E1178CE00AD6682 /* EmojiCircle.swift */; };
 		994D13AF2E11A63E00AD6682 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D13AE2E11A63E00AD6682 /* CategoriesModel.swift */; };
 		9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960872D2E0201160020E85D /* Calendar+endOfDay.swift */; };
@@ -28,12 +27,17 @@
 		9979292F2DFCA94000AFE3A3 /* transactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 9979292E2DFCA94000AFE3A3 /* transactions.json */; };
 		997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */; };
 		997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB82DF8587800F72B63 /* TransactionsService.swift */; };
+		999208912E186535003536FB /* String+Normalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208902E186535003536FB /* String+Normalize.swift */; };
+		999208932E186549003536FB /* String+hasPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208922E186549003536FB /* String+hasPrefix.swift */; };
+		999208952E186652003536FB /* FuzzySearchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208942E186652003536FB /* FuzzySearchable.swift */; };
+		999208972E18669B003536FB /* Collection+fuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208962E18669B003536FB /* Collection+fuzzySearch.swift */; };
+		999208992E1869CE003536FB /* String+levenshteinDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208982E1869CE003536FB /* String+levenshteinDistance.swift */; };
 		999445202E082CFC004AB0B6 /* TransactionsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9994451F2E082CFC004AB0B6 /* TransactionsListModel.swift */; };
 		9994456F2E083357004AB0B6 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9994456E2E083357004AB0B6 /* HistoryModel.swift */; };
 		999445722E0848F6004AB0B6 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445712E0848F6004AB0B6 /* AccountModel.swift */; };
 		999445742E08576C004AB0B6 /* +Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445732E08576C004AB0B6 /* +Shake.swift */; };
 		9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445792E08669B004AB0B6 /* +Spoiler.swift */; };
-		99F43F7B2E13EAF5005F5466 /* String+fuzzyMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */; };
+		99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F43F7A2E13EAF5005F5466 /* Models.swift */; };
 		99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,12 +74,17 @@
 		9979292E2DFCA94000AFE3A3 /* transactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transactions.json; sourceTree = "<group>"; };
 		997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
 		997B6AB82DF8587800F72B63 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
+		999208902E186535003536FB /* String+Normalize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Normalize.swift"; sourceTree = "<group>"; };
+		999208922E186549003536FB /* String+hasPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+hasPrefix.swift"; sourceTree = "<group>"; };
+		999208942E186652003536FB /* FuzzySearchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzySearchable.swift; sourceTree = "<group>"; };
+		999208962E18669B003536FB /* Collection+fuzzySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+fuzzySearch.swift"; sourceTree = "<group>"; };
+		999208982E1869CE003536FB /* String+levenshteinDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+levenshteinDistance.swift"; sourceTree = "<group>"; };
 		9994451F2E082CFC004AB0B6 /* TransactionsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListModel.swift; sourceTree = "<group>"; };
 		9994456E2E083357004AB0B6 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		999445712E0848F6004AB0B6 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		999445732E08576C004AB0B6 /* +Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Shake.swift"; sourceTree = "<group>"; };
 		999445792E08669B004AB0B6 /* +Spoiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Spoiler.swift"; sourceTree = "<group>"; };
-		99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+fuzzyMatches.swift"; sourceTree = "<group>"; };
+		99F43F7A2E13EAF5005F5466 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransactionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,7 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99499AAE2E13F18700EBAAAB /* Fuse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +153,7 @@
 				9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */,
 				999445732E08576C004AB0B6 /* +Shake.swift */,
 				999445792E08669B004AB0B6 /* +Spoiler.swift */,
-				99F43F7A2E13EAF5005F5466 /* String+fuzzyMatches.swift */,
+				9992088F2E1863FA003536FB /* +FuzzySearch */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,6 +199,19 @@
 				994D13AE2E11A63E00AD6682 /* CategoriesModel.swift */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		9992088F2E1863FA003536FB /* +FuzzySearch */ = {
+			isa = PBXGroup;
+			children = (
+				99F43F7A2E13EAF5005F5466 /* Models.swift */,
+				999208922E186549003536FB /* String+hasPrefix.swift */,
+				999208902E186535003536FB /* String+Normalize.swift */,
+				999208982E1869CE003536FB /* String+levenshteinDistance.swift */,
+				999208942E186652003536FB /* FuzzySearchable.swift */,
+				999208962E18669B003536FB /* Collection+fuzzySearch.swift */,
+			);
+			path = "+FuzzySearch";
 			sourceTree = "<group>";
 		};
 		999445212E082D02004AB0B6 /* View */ = {
@@ -247,7 +268,6 @@
 			);
 			name = FinancialTamer;
 			packageProductDependencies = (
-				99499AAD2E13F18700EBAAAB /* Fuse */,
 			);
 			productName = FinancialTamer;
 			productReference = 990E33592DF604CF0087D79F /* FinancialTamer.app */;
@@ -305,7 +325,6 @@
 			mainGroup = 990E33502DF604CF0087D79F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 990E335A2DF604CF0087D79F /* Products */;
@@ -344,7 +363,8 @@
 			files = (
 				990E33792DF606540087D79F /* TransactionsListView.swift in Sources */,
 				9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */,
-				99F43F7B2E13EAF5005F5466 /* String+fuzzyMatches.swift in Sources */,
+				999208992E1869CE003536FB /* String+levenshteinDistance.swift in Sources */,
+				99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */,
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
 				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
@@ -354,6 +374,7 @@
 				9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */,
 				9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */,
 				992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */,
+				999208912E186535003536FB /* String+Normalize.swift in Sources */,
 				9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				9979292D2DFC81E300AFE3A3 /* SettingsView.swift in Sources */,
@@ -363,10 +384,13 @@
 				990E337E2DF606980087D79F /* Category.swift in Sources */,
 				994D13AC2E1178CE00AD6682 /* EmojiCircle.swift in Sources */,
 				999445722E0848F6004AB0B6 /* AccountModel.swift in Sources */,
+				999208952E186652003536FB /* FuzzySearchable.swift in Sources */,
 				9994456F2E083357004AB0B6 /* HistoryModel.swift in Sources */,
 				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
 				997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */,
+				999208972E18669B003536FB /* Collection+fuzzySearch.swift in Sources */,
+				999208932E186549003536FB /* String+hasPrefix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,25 +660,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krisk/fuse-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		99499AAD2E13F18700EBAAAB /* Fuse */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 99499AAC2E13F18700EBAAAB /* XCRemoteSwiftPackageReference "fuse-swift" */;
-			productName = Fuse;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 990E33512DF604CF0087D79F /* Project object */;
 }

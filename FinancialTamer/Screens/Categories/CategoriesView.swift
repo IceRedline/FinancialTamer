@@ -6,11 +6,8 @@
 //
 
 import SwiftUI
-import Fuse
 
 struct CategoriesView: View {
-    
-    let fuse = Fuse()
     
     @State var textToSearch: String = ""
     
@@ -48,9 +45,10 @@ struct CategoriesView: View {
         if textToSearch.isEmpty {
             return model.categories
         } else {
-            return model.categories.filter {
-                fuse.search(textToSearch, in: $0.name) != nil
+            return model.categories.fuzzySearch(query: textToSearch) .map {
+                $0.item
             }
+                //.filter({$0.name.contains(textToSearch)})
         }
     }
 }
