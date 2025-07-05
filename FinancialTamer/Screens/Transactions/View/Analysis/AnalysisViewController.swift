@@ -7,7 +7,9 @@
 
 import UIKit
 
-class AnalysisViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AnalysisViewController: UIViewController {
+    
+    private let presenter = AnalysisPresenter()
 
     private let datePickerTableView = UITableView(frame: .zero, style: .insetGrouped)
     
@@ -22,6 +24,7 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         title = "Анализ"
         view.backgroundColor = .systemGroupedBackground
         
+        presenter.attach(viewController: self)
         setupTableView()
     }
     
@@ -36,74 +39,12 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
             datePickerTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        datePickerTableView.dataSource = self
-        datePickerTableView.delegate = self
+        datePickerTableView.dataSource = presenter
+        datePickerTableView.delegate = presenter
         datePickerTableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
         datePickerTableView.register(TransactionCell.self, forCellReuseIdentifier: "OperationCell")
     }
     
-    // MARK: - UITableViewDataSource
-    
-    func numberOfSections(in tableView: UITableView) -> Int { 3 }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: 3
-        case 1: 1
-        case 2: transactions.count
-        default: 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as! DatePickerCell
-            if indexPath.row == 0 {
-                cell.configure(title: "Период: начало", date: startDate) { [weak self] newDate in
-                    self?.startDate = newDate
-                }
-            } else if indexPath.row == 1 {
-                cell.configure(title: "Период: конец", date: endDate) { [weak self] newDate in
-                    self?.endDate = newDate
-                }
-            } else {
-                cell.configure(title: "Сумма", value: "125 868 ₽")
-            }
-            return cell
-            
-        } else if indexPath.section == 1 {
-            let cell = UITableViewCell()
-            cell.backgroundColor = .clear
-            let label = UILabel()
-            label.text = "Здесь когда-то будет график ._."
-            label.translatesAutoresizingMaskIntoConstraints = false
-            cell.addSubview(label)
-            NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: cell.centerYAnchor),
-            ])
-            return cell
-            
-        } else {
-            let transaction = transactions[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "OperationCell", for: indexPath) as! TransactionCell
-            cell.configure(with: transaction)
-            return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0: 50
-        case 1: 120
-        case 2: 60
-        default: 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 2 ? "Операции" : nil
-    }
 }
 
 #Preview(traits: .defaultLayout, body: {
