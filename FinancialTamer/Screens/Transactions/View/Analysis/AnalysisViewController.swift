@@ -28,6 +28,14 @@ class AnalysisViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.parent?.navigationItem.title = "Анализ"
+        
+        self.parent?.navigationController?.navigationBar.prefersLargeTitles = true
+        self.parent?.navigationItem.largeTitleDisplayMode = .always
+        self.parent?.navigationController?.navigationBar.backgroundColor = .background
+    }
+    
     private func setupTableView() {
         view.addSubview(datePickerTableView)
         datePickerTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +52,6 @@ class AnalysisViewController: UIViewController {
         datePickerTableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
         datePickerTableView.register(TransactionCell.self, forCellReuseIdentifier: "OperationCell")
     }
-    
 }
 
 #Preview(traits: .defaultLayout, body: {
