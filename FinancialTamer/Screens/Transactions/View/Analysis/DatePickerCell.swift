@@ -27,6 +27,8 @@ class DatePickerCell: UITableViewCell {
     }
 
     private func setupViews() {
+        selectionStyle = .none
+        
         titleLabel.font = .systemFont(ofSize: 17)
         [titleLabel, valueLabel, datePicker].forEach { x in
             contentView.addSubview(x)

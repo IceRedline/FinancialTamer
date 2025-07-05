@@ -105,6 +105,7 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
             
         } else if indexPath.section == 1 {
             let cell = UITableViewCell()
+            cell.selectionStyle = .none
             cell.backgroundColor = .clear
             let label = UILabel()
             label.text = "Здесь когда-то будет график ._."
@@ -125,6 +126,10 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
             cell.configure(with: transaction, percentage: roundedPercentage)
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
