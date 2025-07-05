@@ -53,12 +53,16 @@ class HistoryModel: ObservableObject {
         
         do {
             let list = try await transactionsService.transactions(direction: direction, for: range)
-            transactions = list
+
             var sum: Decimal = 0
-            transactions.forEach { transaction in
+            list.forEach { transaction in
                 sum += transaction.amount
             }
-            self.chosenPeriodSum = sum
+
+            DispatchQueue.main.async {
+                self.transactions = list
+                self.chosenPeriodSum = sum
+            }
         } catch {
             print("Ошибка загрузки: \(error)")
         }
