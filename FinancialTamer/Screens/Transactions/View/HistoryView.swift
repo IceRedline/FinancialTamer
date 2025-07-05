@@ -87,10 +87,10 @@ struct HistoryView: View {
             }
             .navigationTitle("Моя история")
             .toolbar {
-                Button("", systemImage: "document") {
-                    print("")
+                NavigationLink(destination: AnalysisViewWrapper()) {
+                    Image(systemName: "document")
+                        .tint(.purpleAccent)
                 }
-                .tint(.purpleAccent)
             }
             .task {
                 await model.transactionsService.loadMockData()
