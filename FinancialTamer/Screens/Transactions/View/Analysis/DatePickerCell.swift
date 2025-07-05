@@ -13,7 +13,9 @@ class DatePickerCell: UITableViewCell {
     private let valueLabel = UILabel()
     private let datePicker = UIDatePicker()
     
-    private var onDateChanged: ((Date) -> Void)?
+    private var dateChangeType: DateChanged?
+    
+    private var onDateChanged: ((Date, DateChanged) -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,11 +51,12 @@ class DatePickerCell: UITableViewCell {
         datePicker.isHidden = true
     }
 
-    func configure(title: String, date: Date, onChange: @escaping (Date) -> Void) {
+    func configure(title: String, date: Date, change: DateChanged, onChange: @escaping (Date, DateChanged) -> Void) {
         titleLabel.text = title
         datePicker.isHidden = false
         valueLabel.isHidden = true
         datePicker.date = date
+        self.dateChangeType = change
         self.onDateChanged = onChange
     }
 
@@ -65,6 +68,7 @@ class DatePickerCell: UITableViewCell {
     }
 
     @objc private func dateChanged() {
-        onDateChanged?(datePicker.date)
+        guard let type = dateChangeType else { return }
+        onDateChanged?(datePicker.date, type)
     }
 }

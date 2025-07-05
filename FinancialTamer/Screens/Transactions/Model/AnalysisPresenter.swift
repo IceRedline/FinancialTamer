@@ -83,15 +83,17 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as! DatePickerCell
             if indexPath.row == 0 {
-                cell.configure(title: "Период: начало", date: firstDate) { [weak self] newDate in
+                cell.configure(title: "Период: начало", date: firstDate, change: .first) { [weak self] newDate, change in
                     self?.firstDate = newDate
+                    self?.lastDateChanged = change
                     Task {
                         await self?.loadTransactions(direction: .outcome)
                     }
                 }
             } else if indexPath.row == 1 {
-                cell.configure(title: "Период: конец", date: secondDate) { [weak self] newDate in
+                cell.configure(title: "Период: конец", date: secondDate, change: .second) { [weak self] newDate, change in
                     self?.secondDate = newDate
+                    self?.lastDateChanged = change
                     Task {
                         await self?.loadTransactions(direction: .outcome)
                     }
