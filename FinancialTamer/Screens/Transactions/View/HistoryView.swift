@@ -87,7 +87,7 @@ struct HistoryView: View {
             }
             .navigationTitle("Моя история")
             .toolbar {
-                NavigationLink(destination: AnalysisViewWrapper().edgesIgnoringSafeArea([.top])) {
+                NavigationLink(destination: AnalysisViewWrapper(direction: direction).edgesIgnoringSafeArea([.top])) {
                     Image(systemName: "document")
                         .tint(.purpleAccent)
                 }

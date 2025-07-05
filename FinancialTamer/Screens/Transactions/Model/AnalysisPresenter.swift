@@ -10,14 +10,58 @@ import UIKit
 final class AnalysisPresenter: NSObject {
     
     weak var viewController: AnalysisViewController?
+    let transactionsService = TransactionsService.shared
     
-    var startDate = Date()
-    var endDate = Date()
+    var firstDate = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+    var secondDate = Date.now
+    var lastDateChanged: DateChanged = .first
+    var chosenPeriodSum: Decimal = 0
     
-    private(set) var transactions: [Transaction] = TransactionsService.shared.transactions
+    private(set) var transactions: [Transaction] = []
     
     func attach(viewController: AnalysisViewController) {
         self.viewController = viewController
+    }
+    
+    func loadTransactions(direction: Direction) async {
+        
+        let calendar = Calendar.current
+        
+        var firstDay = calendar.startOfDay(for: firstDate)
+        var secondDay = calendar.endOfDay(for: secondDate)!
+        
+        switch lastDateChanged {
+        case .first:
+            if firstDay > secondDay {
+                secondDate = calendar.endOfDay(for: firstDate)!
+                secondDay = secondDate
+            }
+        case .second:
+            if secondDay < firstDay {
+                firstDate = calendar.startOfDay(for: secondDate)
+                firstDay = firstDate
+            }
+        }
+        
+        let range = firstDay..<secondDay
+        
+        do {
+            let list = try await transactionsService.transactions(direction: direction, for: range)
+
+            var sum: Decimal = 0
+            list.forEach { transaction in
+                sum += transaction.amount
+            }
+
+            DispatchQueue.main.async {
+                self.transactions = list
+                self.chosenPeriodSum = sum
+            }
+        } catch {
+            print("Ошибка загрузки: \(error)")
+        }
+        
+        await viewController?.tableView.reloadData()
     }
 }
 
@@ -39,15 +83,21 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as! DatePickerCell
             if indexPath.row == 0 {
-                cell.configure(title: "Период: начало", date: startDate) { [weak self] newDate in
-                    self?.startDate = newDate
+                cell.configure(title: "Период: начало", date: firstDate) { [weak self] newDate in
+                    self?.firstDate = newDate
+                    Task {
+                        await self?.loadTransactions(direction: .outcome)
+                    }
                 }
             } else if indexPath.row == 1 {
-                cell.configure(title: "Период: конец", date: endDate) { [weak self] newDate in
-                    self?.endDate = newDate
+                cell.configure(title: "Период: конец", date: secondDate) { [weak self] newDate in
+                    self?.secondDate = newDate
+                    Task {
+                        await self?.loadTransactions(direction: .outcome)
+                    }
                 }
             } else {
-                cell.configure(title: "Сумма", value: "125 868 ₽")
+                cell.configure(title: "Сумма", value: chosenPeriodSum.formattedCurrency())
             }
             return cell
             

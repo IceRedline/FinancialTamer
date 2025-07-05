@@ -10,13 +10,19 @@ import UIKit
 class AnalysisViewController: UIViewController {
     
     private let presenter = AnalysisPresenter()
-
-    private let datePickerTableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var startDate = Date()
-    private var endDate = Date()
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private let transactions: [Transaction] = TransactionsService.shared.transactions
+    let direction: Direction
+    
+    init(direction: Direction) {
+        self.direction = direction
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,9 @@ class AnalysisViewController: UIViewController {
         
         presenter.attach(viewController: self)
         setupTableView()
+        Task {
+            await presenter.loadTransactions(direction: direction)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,23 +46,19 @@ class AnalysisViewController: UIViewController {
     }
     
     private func setupTableView() {
-        view.addSubview(datePickerTableView)
-        datePickerTableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            datePickerTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            datePickerTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            datePickerTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            datePickerTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        datePickerTableView.dataSource = presenter
-        datePickerTableView.delegate = presenter
-        datePickerTableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
-        datePickerTableView.register(TransactionCell.self, forCellReuseIdentifier: "OperationCell")
+        tableView.dataSource = presenter
+        tableView.delegate = presenter
+        tableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
+        tableView.register(TransactionCell.self, forCellReuseIdentifier: "OperationCell")
     }
 }
-
-#Preview(traits: .defaultLayout, body: {
-    AnalysisViewController()
-})
