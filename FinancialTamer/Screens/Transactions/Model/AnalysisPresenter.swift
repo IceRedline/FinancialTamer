@@ -115,9 +115,12 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
             return cell
             
         } else {
-            let transaction = transactions[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "OperationCell", for: indexPath) as! TransactionCell
-            cell.configure(with: transaction)
+            let transaction = transactions[indexPath.row]
+            var percentage = (transaction.amount / chosenPeriodSum * 100)
+            var roundedPercentage = Decimal()
+            NSDecimalRound(&roundedPercentage, &percentage, 0, .plain)
+            cell.configure(with: transaction, percentage: roundedPercentage)
             return cell
         }
     }
