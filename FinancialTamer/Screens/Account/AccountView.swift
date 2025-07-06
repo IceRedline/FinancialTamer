@@ -26,64 +26,15 @@ struct AccountView: View {
     
     var body: some View {
         NavigationStack {
+            
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
-                
-                List {
-                    
-                    HStack {
-                        Text("💰    Баланс")
-                        Spacer()
-                        if currentMode == .edit {
-                            balanceTextField
-                        } else {
-                            balanceText
-                        }
-                    }
-                    .listRowBackground(currentMode == .view ? Color.accent : Color.white)
-                    
-                    HStack {
-                        Text("Валюта")
-                        Spacer()
-                        Text("\(model.currency)")
-                            .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
-                        
-                        if currentMode == .edit {
-                            currencyPopupButton
-                        }
-                    }
-                    .onChange(of: currentMode) { _, newMode in
-                        if newMode == .edit {
-                            // Устанавливаем начальное значение как строку
-                            editableBalanceString = model.editableBalance.description
-                        }
-                    }
-                    .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)
-                    
-                }
-                .scrollContentBackground(.hidden)
-                .scrollDismissesKeyboard(.interactively)
-                .refreshable {
-                    Task {
-                        await model.loadAccount()
-                    }
-                }
-                
+                accountList
             }
             .listRowSpacing(16)
             .navigationTitle("Мой счет")
             .toolbar {
-                Button(currentMode == .view ? "Редактировать" : "Сохранить") {
-                    if currentMode == .edit {
-                        Task {
-                            await model.updateBalance()
-                        }
-                    } else {
-                        model.editableBalance = model.account?.balance ?? 0
-                    }
-                    currentMode = currentMode == .view ? .edit : .view
-                }
-                .tint(.purpleAccent)
+                editButton
             }
             .task {
                 await model.loadAccount()
@@ -92,6 +43,47 @@ struct AccountView: View {
     }
     
     // MARK: - Views
+    
+    private var accountList: some View {
+        List {
+            
+            HStack {
+                Text("💰    Баланс")
+                Spacer()
+                if currentMode == .edit {
+                    balanceTextField
+                } else {
+                    balanceText
+                }
+            }
+            .listRowBackground(currentMode == .view ? Color.accent : Color.white)
+            
+            HStack {
+                Text("Валюта")
+                Spacer()
+                Text("\(model.currency)")
+                    .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
+                
+                if currentMode == .edit {
+                    currencyPopupButton
+                }
+            }
+            .onChange(of: currentMode) { _, newMode in
+                if newMode == .edit {
+                    editableBalanceString = model.editableBalance.description
+                }
+            }
+            .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)
+            
+        }
+        .scrollContentBackground(.hidden)
+        .scrollDismissesKeyboard(.interactively)
+        .refreshable {
+            Task {
+                await model.loadAccount()
+            }
+        }
+    }
     
     private var balanceTextField: some View {
         TextField("Баланс", text: $editableBalanceString)
@@ -144,6 +136,20 @@ struct AccountView: View {
             }
         }
         .tint(Color.purpleAccent)
+    }
+    
+    private var editButton: some View {
+        Button(currentMode == .view ? "Редактировать" : "Сохранить") {
+            if currentMode == .edit {
+                Task {
+                    await model.updateBalance()
+                }
+            } else {
+                model.editableBalance = model.account?.balance ?? 0
+            }
+            currentMode = currentMode == .view ? .edit : .view
+        }
+        .tint(.purpleAccent)
     }
 }
 

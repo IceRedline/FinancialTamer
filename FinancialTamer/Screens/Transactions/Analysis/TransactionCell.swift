@@ -39,6 +39,8 @@ class TransactionCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    // MARK: - Methods
 
     private func setup() {
         [titleLabel, amountLabel, percentageLabel].forEach { x in

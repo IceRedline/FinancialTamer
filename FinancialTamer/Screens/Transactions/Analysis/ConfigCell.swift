@@ -42,6 +42,8 @@ class ConfigCell: UITableViewCell {
         fatalError()
     }
     
+    // MARK: - Methods
+    
     private func resetCell() {
         [titleLabel, valueLabel, datePicker, sortButton].forEach { $0.isHidden = true }
     }

@@ -43,7 +43,6 @@
 		999445742E08576C004AB0B6 /* +Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445732E08576C004AB0B6 /* +Shake.swift */; };
 		9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999445792E08669B004AB0B6 /* +Spoiler.swift */; };
 		99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F43F7A2E13EAF5005F5466 /* Models.swift */; };
-		99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,7 +94,6 @@
 		999445732E08576C004AB0B6 /* +Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Shake.swift"; sourceTree = "<group>"; };
 		999445792E08669B004AB0B6 /* +Spoiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Spoiler.swift"; sourceTree = "<group>"; };
 		99F43F7A2E13EAF5005F5466 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransactionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -209,6 +207,7 @@
 				993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */,
 				993D07ED2E19256700E91714 /* ConfigCell.swift */,
 				993D07EE2E19256700E91714 /* TransactionCell.swift */,
+				993D07F42E1925FE00E91714 /* AnalysisPresenter.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -239,9 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				990E33752DF606540087D79F /* TransactionsListView.swift */,
-				99FA3BBC2DFD92500099E7E8 /* EditTransactionView.swift */,
 				992CFB6C2DFF1F580024890B /* HistoryView.swift */,
-				993D07F32E19256D00E91714 /* Analysis */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -251,7 +248,6 @@
 			children = (
 				9994451F2E082CFC004AB0B6 /* TransactionsListModel.swift */,
 				9994456E2E083357004AB0B6 /* HistoryModel.swift */,
-				993D07F42E1925FE00E91714 /* AnalysisPresenter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,6 +266,7 @@
 			children = (
 				999445212E082D02004AB0B6 /* View */,
 				999445222E082D0B004AB0B6 /* Model */,
+				993D07F32E19256D00E91714 /* Analysis */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -401,7 +398,6 @@
 				9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				9979292D2DFC81E300AFE3A3 /* SettingsView.swift in Sources */,
-				99FA3BBD2DFD92500099E7E8 /* EditTransactionView.swift in Sources */,
 				994D13AF2E11A63E00AD6682 /* CategoriesModel.swift in Sources */,
 				999445742E08576C004AB0B6 /* +Shake.swift in Sources */,
 				990E337E2DF606980087D79F /* Category.swift in Sources */,

@@ -17,53 +17,11 @@ struct TransactionsListView: View {
     
     var body: some View {
         NavigationStack {
+            
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
-                
-                List {
-                    Section {
-                        HStack {
-                            Text("Всего")
-                            Spacer()
-                            Text(model.sum.formattedCurrency())
-                        }
-                    }
-                    
-                    
-                    Section(header: Text("Операции")) {
-                        
-                        ForEach(model.groupedByCategory, id: \.category.id) { item in
-                            NavigationLink {
-                                //EditTransactionView(category: item.category)
-                            } label: {
-                                
-                                HStack {
-                                    if direction == .outcome {
-                                        EmojiCircle(emoji: item.category.emoji)
-                                    }
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(item.category.name)
-                                            .lineLimit(1)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Text(item.total.formattedCurrency())
-                                        .foregroundColor(.primary)
-                                }
-                                .frame(height: 25)
-                                
-                            }
-                        }
-                         
-                        
-                    }
-                }
-                .scrollContentBackground(.hidden)
-                
+                transactionsList
                 addButton
-                
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
@@ -80,6 +38,47 @@ struct TransactionsListView: View {
     
     // MARK: - Views
     
+    private var transactionsList: some View {
+        List {
+            Section {
+                HStack {
+                    Text("Всего")
+                    Spacer()
+                    Text(model.sum.formattedCurrency())
+                }
+            }
+            
+            Section(header: Text("Операции")) {
+                
+                ForEach(model.groupedByCategory, id: \.category.id) { item in
+                    NavigationLink {
+                        
+                    } label: {
+                        
+                        HStack {
+                            if direction == .outcome {
+                                EmojiCircle(emoji: item.category.emoji)
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text(item.category.name)
+                                    .lineLimit(1)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(item.total.formattedCurrency())
+                                .foregroundColor(.primary)
+                        }
+                        .frame(height: 25)
+                        
+                    }
+                }
+            }
+        }
+        .scrollContentBackground(.hidden)
+    }
+    
     private var addButton: some View {
         Button(action: {
             print("Tapped add button")
@@ -93,7 +92,6 @@ struct TransactionsListView: View {
         }
         .padding(24)
     }
-    
 }
 
 #Preview {

@@ -19,6 +19,8 @@ final class AnalysisPresenter: NSObject {
     
     private(set) var transactions: [Transaction] = []
     
+    // MARK: - Methods
+    
     func attach(viewController: AnalysisViewController) {
         self.viewController = viewController
     }
@@ -76,8 +78,9 @@ final class AnalysisPresenter: NSObject {
     }
 }
 
+    // MARK: - UITableViewDataSource
 
-extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
+extension AnalysisPresenter: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int { 3 }
     
@@ -142,6 +145,11 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
+}
+
+    // MARK: - UITableViewDelegate
+
+extension AnalysisPresenter: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
