@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum TableViewCellNames {
+    static let configCell = "ConfigCell"
+    static let transactionCell = "TransactionCell"
+}
+
 class AnalysisViewController: UIViewController {
     
     private let presenter = AnalysisPresenter()
@@ -58,7 +63,7 @@ class AnalysisViewController: UIViewController {
         
         tableView.dataSource = presenter
         tableView.delegate = presenter
-        tableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
-        tableView.register(TransactionCell.self, forCellReuseIdentifier: "OperationCell")
+        tableView.register(ConfigCell.self, forCellReuseIdentifier: TableViewCellNames.configCell)
+        tableView.register(TransactionCell.self, forCellReuseIdentifier: TableViewCellNames.transactionCell)
     }
 }

@@ -72,7 +72,7 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 3
+        case 0: return 4
         case 1: return 1
         case 2: return transactions.count
         default: return 0
@@ -81,7 +81,7 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as! DatePickerCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellNames.configCell, for: indexPath) as! ConfigCell
             if indexPath.row == 0 {
                 cell.configure(title: "Период: начало", date: firstDate, change: .first) { [weak self] newDate, change in
                     self?.firstDate = newDate
@@ -98,6 +98,8 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
                         await self?.loadTransactions(direction: .outcome)
                     }
                 }
+            } else if indexPath.row == 2 {
+                cell.configureAsButtonCell()
             } else {
                 cell.configure(title: "Сумма", value: chosenPeriodSum.formattedCurrency())
             }
@@ -118,7 +120,7 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "OperationCell", for: indexPath) as! TransactionCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellNames.transactionCell, for: indexPath) as! TransactionCell
             let transaction = transactions[indexPath.row]
             var percentage = (transaction.amount / chosenPeriodSum * 100)
             var roundedPercentage = Decimal()

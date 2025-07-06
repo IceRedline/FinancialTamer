@@ -17,7 +17,7 @@
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
 		993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EB2E19256700E91714 /* AnalysisViewController.swift */; };
-		993D07F02E19256700E91714 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* DatePickerCell.swift */; };
+		993D07F02E19256700E91714 /* ConfigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* ConfigCell.swift */; };
 		993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */; };
 		993D07F22E19256700E91714 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EE2E19256700E91714 /* TransactionCell.swift */; };
 		993D07F52E1925FE00E91714 /* AnalysisPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07F42E1925FE00E91714 /* AnalysisPresenter.swift */; };
@@ -70,7 +70,7 @@
 		992CFB6C2DFF1F580024890B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		993D07EB2E19256700E91714 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewWrapper.swift; sourceTree = "<group>"; };
-		993D07ED2E19256700E91714 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
+		993D07ED2E19256700E91714 /* ConfigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigCell.swift; sourceTree = "<group>"; };
 		993D07EE2E19256700E91714 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		993D07F42E1925FE00E91714 /* AnalysisPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisPresenter.swift; sourceTree = "<group>"; };
 		994D13AB2E1178CE00AD6682 /* EmojiCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCircle.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 			children = (
 				993D07EB2E19256700E91714 /* AnalysisViewController.swift */,
 				993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */,
-				993D07ED2E19256700E91714 /* DatePickerCell.swift */,
+				993D07ED2E19256700E91714 /* ConfigCell.swift */,
 				993D07EE2E19256700E91714 /* TransactionCell.swift */,
 			);
 			path = Analysis;
@@ -413,7 +413,7 @@
 				993D07F52E1925FE00E91714 /* AnalysisPresenter.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
 				993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */,
-				993D07F02E19256700E91714 /* DatePickerCell.swift in Sources */,
+				993D07F02E19256700E91714 /* ConfigCell.swift in Sources */,
 				993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */,
 				993D07F22E19256700E91714 /* TransactionCell.swift in Sources */,
 				997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */,

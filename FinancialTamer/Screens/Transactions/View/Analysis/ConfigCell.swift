@@ -7,11 +7,25 @@
 
 import UIKit
 
-class DatePickerCell: UITableViewCell {
+class ConfigCell: UITableViewCell {
     
     private let titleLabel = UILabel()
     private let valueLabel = UILabel()
-    private let datePicker = UIDatePicker()
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.backgroundColor = .accentLight
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        return datePicker
+    }()
+    private lazy var sortButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Сортировать", for: .normal)
+        button.setTitleColor(.accent, for: .normal)
+        button.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private var dateChangeType: DateChanged?
     
@@ -25,12 +39,16 @@ class DatePickerCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    private func resetCell() {
+        [titleLabel, valueLabel, datePicker, sortButton].forEach { $0.isHidden = true }
+    }
 
     private func setupViews() {
         selectionStyle = .none
         
         titleLabel.font = .systemFont(ofSize: 17)
-        [titleLabel, valueLabel, datePicker].forEach { x in
+        [titleLabel, valueLabel, datePicker, sortButton].forEach { x in
             contentView.addSubview(x)
             x.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -41,36 +59,39 @@ class DatePickerCell: UITableViewCell {
             valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             valueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            sortButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            sortButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
-        
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.backgroundColor = .accentLight
-        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
-        
-        valueLabel.isHidden = true
-        datePicker.isHidden = true
     }
 
     func configure(title: String, date: Date, change: DateChanged, onChange: @escaping (Date, DateChanged) -> Void) {
+        resetCell()
+        [titleLabel, datePicker].forEach({ $0.isHidden = false })
         titleLabel.text = title
-        datePicker.isHidden = false
-        valueLabel.isHidden = true
         datePicker.date = date
         self.dateChangeType = change
         self.onDateChanged = onChange
     }
-
-    func configure(title: String, value: String) {
-        titleLabel.text = title
-        valueLabel.text = value
-        valueLabel.isHidden = false
-        datePicker.isHidden = true
+    
+    func configureAsButtonCell() {
+        resetCell()
+        sortButton.isHidden = false
     }
 
+    func configure(title: String, value: String) {
+        resetCell()
+        [titleLabel, valueLabel].forEach({$0.isHidden = false})
+        titleLabel.text = title
+        valueLabel.text = value
+    }
+    
     @objc private func dateChanged() {
         guard let type = dateChangeType else { return }
         onDateChanged?(datePicker.date, type)
+    }
+    
+    @objc private func sortButtonTapped() {
+        
     }
 }
