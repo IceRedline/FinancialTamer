@@ -30,6 +30,8 @@ class ConfigCell: UITableViewCell {
     private var dateChangeType: DateChanged?
     
     private var onDateChanged: ((Date, DateChanged) -> Void)?
+    private var onSortTapped: (() -> Void)?
+    private var onSortSelected: ((SortType) -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,9 +76,20 @@ class ConfigCell: UITableViewCell {
         self.onDateChanged = onChange
     }
     
-    func configureAsButtonCell() {
+    func configureAsButtonCell(onSortSelected: @escaping (SortType) -> Void) {
         resetCell()
         sortButton.isHidden = false
+        self.onSortSelected = onSortSelected
+        
+        sortButton.menu = UIMenu(title: "Сортировка", children: [
+            UIAction(title: "По дате") { [weak self] _ in
+                self?.onSortSelected?(.date)
+            },
+            UIAction(title: "По сумме") { [weak self] _ in
+                self?.onSortSelected?(.sum)
+            }
+        ])
+        sortButton.showsMenuAsPrimaryAction = true
     }
 
     func configure(title: String, value: String) {
@@ -92,6 +105,6 @@ class ConfigCell: UITableViewCell {
     }
     
     @objc private func sortButtonTapped() {
-        
+        onSortTapped?()
     }
 }

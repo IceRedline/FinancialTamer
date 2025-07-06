@@ -63,6 +63,17 @@ final class AnalysisPresenter: NSObject {
         
         await viewController?.tableView.reloadData()
     }
+    
+    func sort(by parameter: SortType) {
+        switch parameter {
+        case .date:
+            transactions.sort(by: { $0.transactionDate > $1.transactionDate })
+        case .sum:
+            transactions.sort(by: { $0.amount > $1.amount })
+        }
+        
+        viewController?.tableView.reloadData()
+    }
 }
 
 
@@ -99,7 +110,9 @@ extension AnalysisPresenter: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             } else if indexPath.row == 2 {
-                cell.configureAsButtonCell()
+                cell.configureAsButtonCell { [weak self] sortType in
+                    self?.sort(by: sortType)
+                }
             } else {
                 cell.configure(title: "Сумма", value: chosenPeriodSum.formattedCurrency())
             }
