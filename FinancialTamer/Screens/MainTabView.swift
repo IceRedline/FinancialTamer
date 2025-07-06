@@ -42,6 +42,9 @@ struct MainTabView: View {
                 .tag(1)
         }
         .tint(.accent)
+        .onAppear {
+            UIBarButtonItem.appearance().tintColor = .purpleAccent
+        }
     }
 }
 
