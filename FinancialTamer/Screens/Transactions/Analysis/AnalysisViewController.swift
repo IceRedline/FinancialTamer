@@ -14,7 +14,7 @@ enum TableViewCellNames {
 
 class AnalysisViewController: UIViewController {
     
-    private let presenter = AnalysisPresenter()
+    private var presenter: AnalysisPresenter?
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
@@ -34,14 +34,14 @@ class AnalysisViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = AnalysisPresenter(direction: direction)
+        
         title = "Анализ"
         view.backgroundColor = .systemGroupedBackground
         
-        presenter.attach(viewController: self)
+        presenter?.attach(viewController: self)
         setupTableView()
-        Task {
-            await presenter.loadTransactions(direction: direction)
-        }
+        presenter?.viewDidLoad()
     }
     
     // MARK: - viewWillAppear

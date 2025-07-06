@@ -19,7 +19,19 @@ final class AnalysisPresenter: NSObject {
     
     private(set) var transactions: [Transaction] = []
     
+    let direction: Direction
+    
+    init(direction: Direction) {
+        self.direction = direction
+    }
+    
     // MARK: - Methods
+    
+    func viewDidLoad() {
+        Task {
+            await loadTransactions(direction: direction)
+        }
+    }
     
     func attach(viewController: AnalysisViewController) {
         self.viewController = viewController
@@ -97,19 +109,19 @@ extension AnalysisPresenter: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellNames.configCell, for: indexPath) as! ConfigCell
             if indexPath.row == 0 {
-                cell.configure(title: "Период: начало", date: firstDate, change: .first) { [weak self] newDate, change in
-                    self?.firstDate = newDate
-                    self?.lastDateChanged = change
+                cell.configure(title: "Период: начало", date: firstDate, change: .first) { newDate, change in
+                    self.firstDate = newDate
+                    self.lastDateChanged = change
                     Task {
-                        await self?.loadTransactions(direction: .outcome)
+                        await self.loadTransactions(direction: self.direction)
                     }
                 }
             } else if indexPath.row == 1 {
-                cell.configure(title: "Период: конец", date: secondDate, change: .second) { [weak self] newDate, change in
-                    self?.secondDate = newDate
-                    self?.lastDateChanged = change
+                cell.configure(title: "Период: конец", date: secondDate, change: .second) { newDate, change in
+                    self.secondDate = newDate
+                    self.lastDateChanged = change
                     Task {
-                        await self?.loadTransactions(direction: .outcome)
+                        await self.loadTransactions(direction: self.direction)
                     }
                 }
             } else if indexPath.row == 2 {
