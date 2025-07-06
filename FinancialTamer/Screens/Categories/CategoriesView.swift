@@ -48,7 +48,6 @@ struct CategoriesView: View {
             return model.categories.fuzzySearch(query: textToSearch) .map {
                 $0.item
             }
-                //.filter({$0.name.contains(textToSearch)})
         }
     }
 }

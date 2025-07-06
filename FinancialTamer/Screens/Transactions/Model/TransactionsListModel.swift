@@ -44,4 +44,9 @@ class TransactionsListModel: ObservableObject {
             }
         }
     }
+    
+    func loadAndPrepareDataForView(direction: Direction) async {
+        await transactionsService.loadMockData()
+        await loadTransactions(direction: direction)
+    }
 }

@@ -73,8 +73,7 @@ struct TransactionsListView: View {
                 }
             }
             .task {
-                await model.transactionsService.loadMockData()
-                await model.loadTransactions(direction: direction)
+                await model.loadAndPrepareDataForView(direction: direction)
             }
         }
     }

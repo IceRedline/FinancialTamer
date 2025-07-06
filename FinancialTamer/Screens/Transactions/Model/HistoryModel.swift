@@ -76,4 +76,9 @@ class HistoryModel: ObservableObject {
             transactions.sort(by: { $0.amount > $1.amount })
         }
     }
+    
+    func loadAndPrepareDataForView(direction: Direction) async {
+        await transactionsService.loadMockData()
+        await loadTransactions(direction: direction)
+    }
 }
