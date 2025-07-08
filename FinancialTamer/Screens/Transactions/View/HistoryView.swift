@@ -20,81 +20,17 @@ struct HistoryView: View {
             
             ZStack(alignment: .bottomTrailing) {
                 Color.background.ignoresSafeArea(edges: .top)
-                
-                List {
-                    
-                    Section {
-                        HStack {
-                            Text("Начало")
-                            Spacer()
-                            CustomDatePicker(selection: $model.firstDate)
-                        }
-                        HStack {
-                            Text("Конец")
-                            Spacer()
-                            CustomDatePicker(selection: $model.secondDate)
-                        }
-                        HStack {
-                            Spacer()
-                            sortMenu
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Сумма")
-                            Spacer()
-                            Text(model.chosenPeriodSum.formattedCurrency())
-                        }
-                    }
-                    
-                    Section(header: Text("Операции")) {
-                        
-                        ForEach(model.transactions, id: \.id) { transaction in
-                            NavigationLink {
-                                EditTransactionView(transaction: transaction)
-                            } label: {
-                                
-                                HStack {
-                                    
-                                    EmojiCircle(emoji: transaction.category.emoji)
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(transaction.category.name)
-                                            .lineLimit(1)
-                                        
-                                        if let comment = transaction.comment, !comment.isEmpty {
-                                            Text(comment)
-                                                .font(.footnote)
-                                                .foregroundColor(.gray)
-                                                .lineLimit(1)
-                                        }
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Text(transaction.amount.formattedCurrency())
-                                        .foregroundColor(.primary)
-                                }
-                                
-                            }
-                            .frame(height: 40)
-                        }
-                        
-                    }
-                    
-                }
-                .scrollContentBackground(.hidden)
-                
+                transactionsList
             }
             .navigationTitle("Моя история")
             .toolbar {
-                Button("", systemImage: "document") {
-                    print("")
+                NavigationLink(destination: AnalysisViewWrapper(direction: direction).edgesIgnoringSafeArea([.top])) {
+                    Image(systemName: "document")
+                        .tint(.purpleAccent)
                 }
-                .tint(.purpleAccent)
             }
             .task {
-                await model.transactionsService.loadMockData()
-                await model.loadTransactions(direction: direction)
+                await model.loadAndPrepareDataForView(direction: direction)
             }
             .onChange(of: model.firstDate) {
                 Task {
@@ -117,6 +53,66 @@ struct HistoryView: View {
     
     // MARK: - Views
     
+    private var transactionsList: some View {
+        List {
+            Section {
+                HStack {
+                    Text("Начало")
+                    Spacer()
+                    CustomDatePicker(selection: $model.firstDate)
+                }
+                HStack {
+                    Text("Конец")
+                    Spacer()
+                    CustomDatePicker(selection: $model.secondDate)
+                }
+                HStack {
+                    Spacer()
+                    sortMenu
+                    Spacer()
+                }
+                HStack {
+                    Text("Сумма")
+                    Spacer()
+                    Text(model.chosenPeriodSum.formattedCurrency())
+                }
+            }
+            
+            Section(header: Text("Операции")) {
+                
+                ForEach(model.transactions, id: \.id) { transaction in
+                    NavigationLink {
+                        
+                    } label: {
+                        
+                        HStack {
+                            EmojiCircle(emoji: transaction.category.emoji)
+                            
+                            VStack(alignment: .leading) {
+                                Text(transaction.category.name)
+                                    .lineLimit(1)
+                                
+                                if let comment = transaction.comment, !comment.isEmpty {
+                                    Text(comment)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                        .lineLimit(1)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Text(transaction.amount.formattedCurrency())
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    .frame(height: 40)
+                }
+            }
+        }
+        .scrollContentBackground(.hidden)
+    }
+    
     private var sortMenu: some View {
         Menu("Сортировать") {
             Button("По дате") {
@@ -127,7 +123,6 @@ struct HistoryView: View {
             }
         }
     }
-    
 }
 
 struct CustomDatePicker: View {

@@ -16,6 +16,8 @@ class AccountModel: ObservableObject {
     @Published var editableBalance: Decimal = 0
     @Published var currency: String = "₽"
     
+    // MARK: - Methods
+    
     @MainActor
     func loadAccount() async {
         do {

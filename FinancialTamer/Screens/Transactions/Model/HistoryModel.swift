@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum DateChanged {
-    case first
-    case second
-}
-
-enum SortType {
-    case date
-    case sum
-}
-
 class HistoryModel: ObservableObject {
     
     let transactionsService = TransactionsService.shared
@@ -28,6 +18,7 @@ class HistoryModel: ObservableObject {
     @Published var transactions: [Transaction] = []
     @Published var chosenPeriodSum: Decimal = 0
     
+    // MARK: - Methods
     
     func loadTransactions(direction: Direction) async {
         
@@ -53,12 +44,16 @@ class HistoryModel: ObservableObject {
         
         do {
             let list = try await transactionsService.transactions(direction: direction, for: range)
-            transactions = list
+
             var sum: Decimal = 0
-            transactions.forEach { transaction in
+            list.forEach { transaction in
                 sum += transaction.amount
             }
-            self.chosenPeriodSum = sum
+
+            DispatchQueue.main.async {
+                self.transactions = list
+                self.chosenPeriodSum = sum
+            }
         } catch {
             print("Ошибка загрузки: \(error)")
         }
@@ -71,5 +66,10 @@ class HistoryModel: ObservableObject {
         case .sum:
             transactions.sort(by: { $0.amount > $1.amount })
         }
+    }
+    
+    func loadAndPrepareDataForView(direction: Direction) async {
+        await transactionsService.loadMockData()
+        await loadTransactions(direction: direction)
     }
 }

@@ -9,9 +9,21 @@ import SwiftUI
 
 struct CategoriesView: View {
     
+    @ObservedObject var model = CategoriesModel()
+    
     @State var textToSearch: String = ""
     
-    @ObservedObject var model = CategoriesModel()
+    var searchResults: [Category] {
+        if textToSearch.isEmpty {
+            return model.categories
+        } else {
+            return model.categories.fuzzySearch(query: textToSearch) .map {
+                $0.item
+            }
+        }
+    }
+    
+    // MARK: - View
     
     var body: some View {
         NavigationStack {
@@ -20,7 +32,6 @@ struct CategoriesView: View {
                 Color.background.ignoresSafeArea(edges: .top)
                 
                 List {
-                    
                     Section("Статьи") {
                         ForEach(searchResults, id: \.id) { category in
                             HStack {
@@ -39,17 +50,6 @@ struct CategoriesView: View {
             }
         }
         .searchable(text: $textToSearch)
-    }
-    
-    var searchResults: [Category] {
-        if textToSearch.isEmpty {
-            return model.categories
-        } else {
-            return model.categories.fuzzySearch(query: textToSearch) .map {
-                $0.item
-            }
-                //.filter({$0.name.contains(textToSearch)})
-        }
     }
 }
 

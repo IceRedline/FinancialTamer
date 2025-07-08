@@ -17,6 +17,8 @@ final class TransactionsService {
     
     private init() {}
     
+    // MARK: - Methods
+    
     func loadMockData() async {
         self.categories = try! await CategoriesService.shared.categories()
         self.account = try! await BankAccountsService.shared.account()
@@ -178,7 +180,7 @@ final class TransactionsService {
                 account: account,
                 category: categories[11],
                 amount: 10000,
-                transactionDate: todayDate,
+                transactionDate: yesterdayDate,
                 comment: "",
                 createdAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!,
                 updatedAt: formatter.date(from: "2025-06-14T12:00:00.000Z")!

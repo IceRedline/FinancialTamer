@@ -34,6 +34,8 @@ final class BankAccountsService {
         )
     ]
     
+    // MARK: - Methods
+    
     func account() async throws -> BankAccount {
         guard let account = accounts.first else {
             throw NSError(domain: "BankAccountsService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Нет аккаунта"])

@@ -15,6 +15,8 @@ class TransactionsListModel: ObservableObject {
     @Published private(set) var groupedByCategory: [(category: Category, total: Decimal)] = []
     @Published private(set) var sum: Decimal = 0
     
+    // MARK: - Methods
+    
     func loadTransactions(direction: Direction) async {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
@@ -43,5 +45,10 @@ class TransactionsListModel: ObservableObject {
                 print("Ошибка загрузки: \(error)")
             }
         }
+    }
+    
+    func loadAndPrepareDataForView(direction: Direction) async {
+        await transactionsService.loadMockData()
+        await loadTransactions(direction: direction)
     }
 }
