@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum DateChanged {
-    case first
-    case second
-}
-
-enum SortType {
-    case date
-    case sum
-}
-
 class HistoryModel: ObservableObject {
     
     let transactionsService = TransactionsService.shared
