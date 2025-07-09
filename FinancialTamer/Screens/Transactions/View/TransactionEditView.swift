@@ -1,0 +1,138 @@
+//
+//  TransationEditView.swift
+//  FinancialTamer
+//
+//  Created by Артем Табенский on 08.07.2025.
+//
+
+import SwiftUI
+
+struct TransactionEditView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    @ObservedObject var model: TransactionEditModel
+    @State var editableBalanceString: String
+    
+    let direction: Direction
+    
+    init(model: TransactionEditModel, direction: Direction) {
+        self.model = model
+        self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency())
+        self.direction = direction
+    }
+    
+    var body: some View {
+        NavigationStack {
+            
+            ZStack(alignment: .bottomTrailing) {
+                Color.background.ignoresSafeArea(edges: .top)
+                editingList
+
+            }
+            .navigationTitle("Мои Расходы")
+            .task {
+                await model.loadCategories(for: direction)
+            }
+        }
+        .toolbar {
+            Button("Сохранить") {
+                Task {
+                    await saveAndDismiss()
+                }
+            }
+            .tint(.purpleAccent)
+        }
+    }
+    
+    private var editingList: some View {
+        List {
+            Section {
+                categoryMenuButton
+                
+                HStack {
+                    Text("Сумма")
+                    Spacer()
+                    sumTextField
+                }
+                HStack {
+                    Text("Дата")
+                    Spacer()
+                    CustomDatePicker(selection: $model.transaction.transactionDate)
+                }
+                HStack {
+                    Text("Время")
+                    Spacer()
+                    CustomDatePicker(selection: $model.transaction.transactionDate, displayedComponents: .hourAndMinute)
+                }
+                TextField("Комментарий", text: Binding(
+                    get: { model.transaction.comment ?? "" },
+                    set: { model.transaction.comment = $0.isEmpty ? nil : $0 }
+                ))
+            }
+            Section {
+                Button("Удалить расход") {
+                    Task {
+                        await delete()
+                    }
+                }
+                .tint(.red)
+            }
+        }
+    }
+    
+    private var categoryMenuButton: some View {
+        Menu {
+            ForEach(model.categories, id: \.id) { category in
+                Button(category.name) {
+                    model.categoryChanged(category: category)
+                }
+            }
+        } label: {
+            HStack {
+                Text("Статья")
+                    .foregroundStyle(.black)
+                Spacer()
+                Text(model.transaction.category.name)
+                    .foregroundStyle(.gray)
+                Image(systemName: "chevron.right")
+                    .imageScale(.small)
+                    .foregroundColor(.gray)
+            }
+            .contentShape(Rectangle())
+        }
+    }
+    
+    private var sumTextField: some View {
+        TextField("Сумма", text: $editableBalanceString)
+            .keyboardType(.decimalPad)
+            .textFieldStyle(.plain)
+            .multilineTextAlignment(.trailing)
+            .frame(width: 150, height: 20, alignment: .trailing)
+            .foregroundStyle(Color.gray)
+            .onChange(of: editableBalanceString) { _, newValue in
+                let filtered = newValue.filter { "0123456789.-,".contains($0) }
+                let normalized = filtered.replacingOccurrences(of: ",", with: ".")
+                let components = normalized.components(separatedBy: ".")
+                let cleaned = components.count > 1 ? components[0] + "." + components[1] : components[0]
+                editableBalanceString = cleaned
+                if let value = Decimal(string: cleaned) {
+                    model.amountChanged(amount: value)
+                }
+            }
+    }
+    
+    private func saveAndDismiss() async {
+        await model.editAndSaveTransaction()
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    private func delete() async {
+        await model.editAndSaveTransaction()
+        self.presentationMode.wrappedValue.dismiss()
+    }
+}
+
+#Preview {
+    MainTabView()
+}

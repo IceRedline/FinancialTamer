@@ -9,13 +9,13 @@ import Foundation
 
 struct Transaction: Equatable {
     let id: Int
-    let account: BankAccount
-    let category: Category
-    let amount: Decimal
-    let transactionDate: Date
-    let comment: String?
-    let createdAt: Date
-    let updatedAt: Date
+    var account: BankAccount
+    var category: Category
+    var amount: Decimal
+    var transactionDate: Date
+    var comment: String?
+    var createdAt: Date
+    var updatedAt: Date
 }
 
 extension Transaction {

@@ -82,7 +82,7 @@ struct HistoryView: View {
                 
                 ForEach(model.transactions, id: \.id) { transaction in
                     NavigationLink {
-                        
+                        TransactionEditView(model: TransactionEditModel(transaction: transaction), direction: direction)
                     } label: {
                         
                         HStack {
@@ -125,17 +125,7 @@ struct HistoryView: View {
     }
 }
 
-struct CustomDatePicker: View {
-    @Binding var selection: Date
-    
-    var body: some View {
-        DatePicker("", selection: $selection, in: ...Date.now, displayedComponents: .date)
-            .datePickerStyle(.compact)
-            .labelsHidden()
-            .background(Color.accentLight)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
+
 
 #Preview {
     MainTabView()

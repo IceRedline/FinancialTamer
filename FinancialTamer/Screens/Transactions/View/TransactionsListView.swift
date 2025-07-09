@@ -52,7 +52,7 @@ struct TransactionsListView: View {
                 
                 ForEach(model.groupedByCategory, id: \.category.id) { item in
                     NavigationLink {
-                        
+                        //TransactionEditView()
                     } label: {
                         
                         HStack {
