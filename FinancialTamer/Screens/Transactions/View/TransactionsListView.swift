@@ -12,6 +12,7 @@ struct TransactionsListView: View {
     let direction: Direction
     
     @StateObject private var model = TransactionsListModel()
+    @State private var selectedTransaction: Transaction? = nil
     @State private var isDataLoaded = false
     
     var body: some View {
@@ -53,50 +54,61 @@ struct TransactionsListView: View {
                 }
             }
         }
+        .fullScreenCover(item: $selectedTransaction) { transaction in
+            TransactionEditView(
+                model: TransactionEditModel(transaction: transaction),
+                direction: direction
+            )
+        }
+        .onChange(of: selectedTransaction) { _, newValue in
+            if newValue == nil {
+                Task {
+                    await model.loadTransactions(direction: direction)
+                }
+            }
+        }
+        .onAppear {
+            Task {
+                await model.loadAndPrepareDataForView(direction: direction)
+            }
+        }
     }
     
     // MARK: - Views
     
     private var transactionsList: some View {
-        List {
-            Section {
-                HStack {
-                    Text("Всего")
-                    Spacer()
-                    Text(model.sum.formattedCurrency())
+            List {
+                Section {
+                    HStack {
+                        Text("Всего")
+                        Spacer()
+                        Text(model.sum.formattedCurrency())
+                    }
                 }
-            }
-            
-            Section(header: Text("Операции")) {
                 
-                ForEach(model.groupedByCategory, id: \.category.id) { item in
-                    NavigationLink {
-                        //TransactionEditView()
-                    } label: {
-                        
-                        HStack {
-                            if direction == .outcome {
-                                EmojiCircle(emoji: item.category.emoji)
+                Section(header: Text("Операции")) {
+                    ForEach(model.transactions, id: \.id) { transaction in
+                        Button {
+                            selectedTransaction = transaction
+                        } label: {
+                            HStack {
+                                EmojiCircle(emoji: transaction.category.emoji)
+                                VStack(alignment: .leading) {
+                                    Text(transaction.category.name)
+                                    if let comment = transaction.comment, !comment.isEmpty {
+                                        Text(comment).font(.footnote).foregroundColor(.gray)
+                                    }
+                                }
+                                Spacer()
+                                Text(transaction.amount.formattedCurrency())
                             }
-                            
-                            VStack(alignment: .leading) {
-                                Text(item.category.name)
-                                    .lineLimit(1)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.total.formattedCurrency())
-                                .foregroundColor(.primary)
                         }
-                        .frame(height: 25)
-                        
+                        .foregroundStyle(.black)
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
         }
-        .scrollContentBackground(.hidden)
-    }
     
     private var addButton: some View {
         Button(action: {

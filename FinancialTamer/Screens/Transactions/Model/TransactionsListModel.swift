@@ -12,7 +12,6 @@ class TransactionsListModel: ObservableObject {
     var transactionsService = TransactionsService.shared
     
     @Published private(set) var transactions: [Transaction] = []
-    @Published private(set) var groupedByCategory: [(category: Category, total: Decimal)] = []
     @Published private(set) var sum: Decimal = 0
     
     // MARK: - Methods
@@ -26,17 +25,10 @@ class TransactionsListModel: ObservableObject {
 
         do {
             let list = try await transactionsService.transactions(direction: direction, for: todayRange)
-            
-            let grouped = Dictionary(grouping: list, by: { $0.category })
-            let result = grouped.map { (category, items) in
-                (category: category, total: items.reduce(Decimal(0)) { $0 + $1.amount })
-            }
-            let sortedResult = result.sorted { $0.total > $1.total }
-            let totalSum = sortedResult.reduce(0) { $0 + $1.total }
+            let totalSum = list.reduce(Decimal(0)) { $0 + $1.amount }
             
             await MainActor.run(body: {
                 self.transactions = list
-                self.groupedByCategory = sortedResult
                 self.sum = totalSum
             })
         } catch {
