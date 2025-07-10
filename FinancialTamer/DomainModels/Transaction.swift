@@ -80,3 +80,18 @@ extension Transaction {
         )
     }
 }
+
+extension Transaction {
+    static var empty: Transaction {
+        Transaction(
+            id: UUID().hashValue,
+            account: BankAccountsService.shared.accounts.first!,
+            category: Category.empty,
+            amount: 0,
+            transactionDate: Date(),
+            comment: "",
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+    }
+}

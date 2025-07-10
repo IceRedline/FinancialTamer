@@ -27,7 +27,7 @@ struct HistoryView: View {
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
-                direction: direction
+                direction: direction, currentMode: .edit
             )
         }
         .onChange(of: model.firstDate) {

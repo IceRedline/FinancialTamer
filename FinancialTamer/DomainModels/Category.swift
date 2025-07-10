@@ -56,3 +56,9 @@ extension Category {
         return Category(id: id, name: name, emoji: emoji, isIncome: isIncome)
     }
 }
+
+extension Category {
+    static var empty: Category {
+        Category(id: -1, name: "", emoji: "❌", isIncome: .outcome)
+    }
+}

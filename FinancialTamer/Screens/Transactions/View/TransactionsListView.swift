@@ -14,6 +14,7 @@ struct TransactionsListView: View {
     @StateObject private var model = TransactionsListModel()
     @State private var selectedTransaction: Transaction? = nil
     @State private var isDataLoaded = false
+    @State private var showingEditView = false
     
     var body: some View {
         NavigationStack {
@@ -30,6 +31,20 @@ struct TransactionsListView: View {
             .toolbar {
                 NavigationLink(destination: HistoryView(direction: self.direction)) {
                     Image(systemName: "clock").tint(.purpleAccent)
+                }
+            }
+            .fullScreenCover(isPresented: $showingEditView) {
+                TransactionEditView(
+                    model: TransactionEditModel(transaction: Transaction.empty),
+                    direction: direction,
+                    currentMode: .create
+                )
+            }
+            .onChange(of: showingEditView) { _, newValue in
+                if newValue == false {
+                    Task {
+                        await model.loadTransactions(direction: direction)
+                    }
                 }
             }
             .onAppear {
@@ -53,11 +68,13 @@ struct TransactionsListView: View {
                     }
                 }
             }
+            
         }
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
-                direction: direction
+                direction: direction,
+                currentMode: .edit
             )
         }
         .onChange(of: selectedTransaction) { _, newValue in
@@ -77,42 +94,42 @@ struct TransactionsListView: View {
     // MARK: - Views
     
     private var transactionsList: some View {
-            List {
-                Section {
-                    HStack {
-                        Text("Всего")
-                        Spacer()
-                        Text(model.sum.formattedCurrency())
-                    }
-                }
-                
-                Section(header: Text("Операции")) {
-                    ForEach(model.transactions, id: \.id) { transaction in
-                        Button {
-                            selectedTransaction = transaction
-                        } label: {
-                            HStack {
-                                EmojiCircle(emoji: transaction.category.emoji)
-                                VStack(alignment: .leading) {
-                                    Text(transaction.category.name)
-                                    if let comment = transaction.comment, !comment.isEmpty {
-                                        Text(comment).font(.footnote).foregroundColor(.gray)
-                                    }
-                                }
-                                Spacer()
-                                Text(transaction.amount.formattedCurrency())
-                            }
-                        }
-                        .foregroundStyle(.black)
-                    }
+        List {
+            Section {
+                HStack {
+                    Text("Всего")
+                    Spacer()
+                    Text(model.sum.formattedCurrency())
                 }
             }
-            .scrollContentBackground(.hidden)
+            
+            Section(header: Text("Операции")) {
+                ForEach(model.transactions, id: \.id) { transaction in
+                    Button {
+                        selectedTransaction = transaction
+                    } label: {
+                        HStack {
+                            EmojiCircle(emoji: transaction.category.emoji)
+                            VStack(alignment: .leading) {
+                                Text(transaction.category.name)
+                                if let comment = transaction.comment, !comment.isEmpty {
+                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                }
+                            }
+                            Spacer()
+                            Text(transaction.amount.formattedCurrency())
+                        }
+                    }
+                    .foregroundStyle(.black)
+                }
+            }
         }
+        .scrollContentBackground(.hidden)
+    }
     
     private var addButton: some View {
         Button(action: {
-            print("Tapped add button")
+            showingEditView = true
         }) {
             Image(systemName: "plus")
                 .font(.title)

@@ -12,14 +12,16 @@ struct TransactionEditView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var model: TransactionEditModel
+    @State private var currentMode: TransactionEditMode
     @State var editableBalanceString: String
     
     let direction: Direction
     
-    init(model: TransactionEditModel, direction: Direction) {
+    init(model: TransactionEditModel, direction: Direction, currentMode: TransactionEditMode) {
         self.model = model
         self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency())
         self.direction = direction
+        self.currentMode = currentMode
     }
     
     var body: some View {
@@ -38,7 +40,7 @@ struct TransactionEditView: View {
                 }
                 
                 ToolbarItem(placement: .primaryAction) {
-                    Button("Сохранить") {
+                    Button(currentMode == .edit ? "Сохранить" : "Создать") {
                         Task {
                             await saveAndDismiss()
                         }
@@ -55,7 +57,7 @@ struct TransactionEditView: View {
     private var editingList: some View {
         List {
             Section {
-                categoryMenuButton
+                categoryMenu
                 
                 HStack {
                     Text("Сумма")
@@ -77,18 +79,21 @@ struct TransactionEditView: View {
                     set: { model.transaction.comment = $0.isEmpty ? nil : $0 }
                 ))
             }
-            Section {
-                Button("Удалить расход") {
-                    Task {
-                        await delete()
+            
+            if currentMode == .edit {
+                Section {
+                    Button("Удалить расход") {
+                        Task {
+                            await delete()
+                        }
                     }
+                    .tint(.red)
                 }
-                .tint(.red)
             }
         }
     }
     
-    private var categoryMenuButton: some View {
+    private var categoryMenu: some View {
         Menu {
             ForEach(model.categories.filter { $0.isIncome == direction }, id: \.id) { category in
                 Button(category.name) {
@@ -130,7 +135,11 @@ struct TransactionEditView: View {
     }
     
     private func saveAndDismiss() async {
-        await model.editAndSaveTransaction()
+        if currentMode == .edit {
+            await model.editAndSaveTransaction()
+        } else {
+            await model.addAndSaveTransaction()
+        }
         self.presentationMode.wrappedValue.dismiss()
     }
     

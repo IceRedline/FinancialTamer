@@ -52,6 +52,18 @@ class TransactionEditModel: ObservableObject {
     }
     
     @MainActor
+    func addAndSaveTransaction() async -> Bool {
+        do {
+            try await transactionsService.createTransaction(transaction: self.transaction)
+            print("Транзакция создана успешно")
+            return true
+        } catch {
+            print("Ошибка создания транзакции: $error)")
+            return false
+        }
+    }
+    
+    @MainActor
     func deleteTransaction() async -> Bool {
         do {
             try await transactionsService.deleteTransaction(transaction: self.transaction)

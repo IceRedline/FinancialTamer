@@ -16,6 +16,7 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
+		992E72B92E1FEF1F0001C273 /* TransactionEditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */; };
 		993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EB2E19256700E91714 /* AnalysisViewController.swift */; };
 		993D07F02E19256700E91714 /* ConfigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* ConfigCell.swift */; };
 		993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */; };
@@ -72,6 +73,7 @@
 		990E339D2DF838090087D79F /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		992873402DF8863E0025ADA6 /* FinancialTamerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinancialTamerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		992CFB6C2DFF1F580024890B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditMode.swift; sourceTree = "<group>"; };
 		993D07EB2E19256700E91714 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewWrapper.swift; sourceTree = "<group>"; };
 		993D07ED2E19256700E91714 /* ConfigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigCell.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				997A00082E1D482B00F946AB /* DateChanged.swift */,
+				992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */,
 				997A000A2E1D484400F946AB /* SortType.swift */,
 			);
 			path = Enums;
@@ -433,6 +436,7 @@
 				9994456F2E083357004AB0B6 /* HistoryModel.swift in Sources */,
 				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 				997A000B2E1D484400F946AB /* SortType.swift in Sources */,
+				992E72B92E1FEF1F0001C273 /* TransactionEditMode.swift in Sources */,
 				993D07F52E1925FE00E91714 /* AnalysisPresenter.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
 				993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */,
