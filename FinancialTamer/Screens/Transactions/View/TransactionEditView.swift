@@ -135,7 +135,7 @@ struct TransactionEditView: View {
     }
     
     private func delete() async {
-        await model.editAndSaveTransaction()
+        await model.deleteTransaction()
         self.presentationMode.wrappedValue.dismiss()
     }
 }
