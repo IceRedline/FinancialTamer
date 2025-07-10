@@ -30,6 +30,18 @@ struct HistoryView: View {
                 direction: direction
             )
         }
+        .onChange(of: model.firstDate) {
+            Task {
+                model.lastDateChanged = .first
+                await model.loadTransactions(direction: direction)
+            }
+        }
+        .onChange(of: model.secondDate) {
+            Task {
+                model.lastDateChanged = .second
+                await model.loadTransactions(direction: direction)
+            }
+        }
         .onChange(of: selectedTransaction) { _, newValue in
             if newValue == nil {
                 Task {
