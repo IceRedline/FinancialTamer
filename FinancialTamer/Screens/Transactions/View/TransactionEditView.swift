@@ -24,24 +24,31 @@ struct TransactionEditView: View {
     
     var body: some View {
         NavigationStack {
-            
             ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(edges: .top)
+                Color.background.ignoresSafeArea(.all)
                 editingList
-
             }
-            .navigationTitle("Мои Расходы")
+            .navigationTitle(direction == .income ? "Мои Доходы" : "Мои Расходы")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Отменить") {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    .tint(.purpleAccent)
+                }
+                
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Сохранить") {
+                        Task {
+                            await saveAndDismiss()
+                        }
+                    }
+                    .tint(.purpleAccent)
+                }
+            }
             .task {
                 await model.loadCategories(for: direction)
             }
-        }
-        .toolbar {
-            Button("Сохранить") {
-                Task {
-                    await saveAndDismiss()
-                }
-            }
-            .tint(.purpleAccent)
         }
     }
     
@@ -83,7 +90,7 @@ struct TransactionEditView: View {
     
     private var categoryMenuButton: some View {
         Menu {
-            ForEach(model.categories, id: \.id) { category in
+            ForEach(model.categories.filter { $0.isIncome == direction }, id: \.id) { category in
                 Button(category.name) {
                     model.categoryChanged(category: category)
                 }
@@ -95,7 +102,7 @@ struct TransactionEditView: View {
                 Spacer()
                 Text(model.transaction.category.name)
                     .foregroundStyle(.gray)
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.down")
                     .imageScale(.small)
                     .foregroundColor(.gray)
             }

@@ -34,21 +34,17 @@ class TransactionsListModel: ObservableObject {
             let sortedResult = result.sorted { $0.total > $1.total }
             let totalSum = sortedResult.reduce(0) { $0 + $1.total }
             
-            await MainActor.run {
+            await MainActor.run(body: {
                 self.transactions = list
                 self.groupedByCategory = sortedResult
                 self.sum = totalSum
-            }
-            
+            })
         } catch {
-            await MainActor.run {
-                print("Ошибка загрузки: \(error)")
-            }
+            print("Ошибка загрузки транзакций: $error)")
         }
     }
     
     func loadAndPrepareDataForView(direction: Direction) async {
-        await transactionsService.loadMockData()
         await loadTransactions(direction: direction)
     }
 }

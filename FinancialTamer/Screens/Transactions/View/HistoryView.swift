@@ -12,42 +12,35 @@ struct HistoryView: View {
     let direction: Direction
     
     @ObservedObject var model = HistoryModel()
+    @State private var selectedTransaction: Transaction? = nil
     
     // MARK: - Body
     
     var body: some View {
         NavigationStack {
-            
             ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(edges: .top)
+                Color.background.ignoresSafeArea(.all)
                 transactionsList
             }
-            .navigationTitle("Моя история")
-            .toolbar {
-                NavigationLink(destination: AnalysisViewWrapper(direction: direction).edgesIgnoringSafeArea([.top])) {
-                    Image(systemName: "document")
-                        .tint(.purpleAccent)
+            .navigationTitle("Мои операции")
+        }
+        .fullScreenCover(item: $selectedTransaction) { transaction in
+            TransactionEditView(
+                model: TransactionEditModel(transaction: transaction),
+                direction: direction
+            )
+        }
+        .onChange(of: selectedTransaction) { _, newValue in
+            if newValue == nil {
+                Task {
+                    await model.loadTransactions(direction: direction)
                 }
             }
-            .task {
+        }
+        .onAppear {
+            Task {
                 await model.loadAndPrepareDataForView(direction: direction)
             }
-            .onChange(of: model.firstDate) {
-                Task {
-                    model.lastDateChanged = .first
-                    await model.loadTransactions(direction: direction)
-                }
-            }
-            .onChange(of: model.secondDate) {
-                Task {
-                    model.lastDateChanged = .second
-                    await model.loadTransactions(direction: direction)
-                }
-            }
-            .onChange(of: model.chosenPeriodSum) {
-                Task { await model.loadTransactions(direction: direction) }
-            }
-            
         }
     }
     
@@ -79,38 +72,26 @@ struct HistoryView: View {
             }
             
             Section(header: Text("Операции")) {
-                
                 ForEach(model.transactions, id: \.id) { transaction in
-                    NavigationLink {
-                        TransactionEditView(model: TransactionEditModel(transaction: transaction), direction: direction)
+                    Button {
+                        selectedTransaction = transaction
                     } label: {
-                        
                         HStack {
                             EmojiCircle(emoji: transaction.category.emoji)
-                            
                             VStack(alignment: .leading) {
                                 Text(transaction.category.name)
-                                    .lineLimit(1)
-                                
                                 if let comment = transaction.comment, !comment.isEmpty {
-                                    Text(comment)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                        .lineLimit(1)
+                                    Text(comment).font(.footnote).foregroundColor(.gray)
                                 }
                             }
-                            
                             Spacer()
-                            
                             Text(transaction.amount.formattedCurrency())
-                                .foregroundColor(.primary)
                         }
                     }
-                    .frame(height: 40)
+                    .foregroundStyle(.black)
                 }
             }
         }
-        .scrollContentBackground(.hidden)
     }
     
     private var sortMenu: some View {

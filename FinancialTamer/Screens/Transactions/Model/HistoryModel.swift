@@ -20,6 +20,7 @@ class HistoryModel: ObservableObject {
     
     // MARK: - Methods
     
+    @MainActor
     func loadTransactions(direction: Direction) async {
         
         let calendar = Calendar.current
@@ -44,12 +45,12 @@ class HistoryModel: ObservableObject {
         
         do {
             let list = try await transactionsService.transactions(direction: direction, for: range)
-
+            
             var sum: Decimal = 0
             list.forEach { transaction in
                 sum += transaction.amount
             }
-
+            
             DispatchQueue.main.async {
                 self.transactions = list
                 self.chosenPeriodSum = sum
@@ -68,8 +69,8 @@ class HistoryModel: ObservableObject {
         }
     }
     
+    @MainActor
     func loadAndPrepareDataForView(direction: Direction) async {
-        await transactionsService.loadMockData()
         await loadTransactions(direction: direction)
     }
 }

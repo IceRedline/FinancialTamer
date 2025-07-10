@@ -32,8 +32,8 @@ class TransactionEditModel: ObservableObject {
     }
     
     func categoryChanged(category: Category) {
-        print("Выбрана категория: \(category.name)")
         transaction.category = category
+        print("Выбрана категория: \(category.name)")
     }
     
     func amountChanged(amount: Decimal) {
@@ -41,8 +41,16 @@ class TransactionEditModel: ObservableObject {
         print("Сумма изменена! Новая сумма: \(transaction.amount)")
     }
     
-    func editAndSaveTransaction() async {
-        try? await transactionsService.editTransaction(transaction: self.transaction)
+    @MainActor
+    func editAndSaveTransaction() async -> Bool {
+        do {
+            try await transactionsService.editTransaction(transaction: self.transaction)
+            print("Транзакция сохранена успешно")
+            return true
+        } catch {
+            print("Ошибка сохранения транзакции: $error)")
+            return false
+        }
     }
     
     func deleteTransaction() async {

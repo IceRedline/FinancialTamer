@@ -11,27 +11,46 @@ struct TransactionsListView: View {
     
     let direction: Direction
     
-    @ObservedObject var model = TransactionsListModel()
-    
-    // MARK: - Body
+    @StateObject private var model = TransactionsListModel()
+    @State private var isDataLoaded = false
     
     var body: some View {
         NavigationStack {
-            
             ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(edges: .top)
-                transactionsList
+                Color.background.ignoresSafeArea(.all)
+                if isDataLoaded {
+                    transactionsList
+                } else {
+                    ProgressView()
+                }
                 addButton
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
                 NavigationLink(destination: HistoryView(direction: self.direction)) {
-                    Image(systemName: "clock")
-                        .tint(.purpleAccent)
+                    Image(systemName: "clock").tint(.purpleAccent)
                 }
             }
-            .task {
-                await model.loadAndPrepareDataForView(direction: direction)
+            .onAppear {
+                let observer = NotificationCenter.default.addObserver(
+                    forName: .mockDataLoaded,
+                    object: nil,
+                    queue: .main
+                ) { _ in
+                    Task {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                        DispatchQueue.main.async {
+                            isDataLoaded = true
+                        }
+                    }
+                }
+                
+                Task {
+                    if !TransactionsService.shared.transactions.isEmpty {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                        isDataLoaded = true
+                    }
+                }
             }
         }
     }

@@ -33,7 +33,7 @@ final class TransactionsService {
         let todayDate = Date()
         let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: todayDate)!
         
-        
+        print(" Загружены моковые данные!")
         self.transactions = [ // <--- Мок-данные лучше сразу свернуть
             Transaction(
                 id: 0,
