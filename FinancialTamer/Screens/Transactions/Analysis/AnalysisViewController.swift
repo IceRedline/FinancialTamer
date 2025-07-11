@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 enum TableViewCellNames {
     static let configCell = "ConfigCell"
@@ -30,7 +31,7 @@ class AnalysisViewController: UIViewController {
     }
     
     // MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +42,17 @@ class AnalysisViewController: UIViewController {
         presenter?.attach(viewController: self)
         setupTableView()
         presenter?.viewDidLoad()
+        
+        Task {
+            await presenter?.loadTransactions(direction: .outcome)
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTransactionUpdate),
+            name: .transactionDidUpdate,
+            object: nil
+        )
     }
     
     // MARK: - viewWillAppear
@@ -70,5 +82,34 @@ class AnalysisViewController: UIViewController {
         tableView.delegate = presenter
         tableView.register(ConfigCell.self, forCellReuseIdentifier: TableViewCellNames.configCell)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: TableViewCellNames.transactionCell)
+    }
+    
+    func presentEdit(for transaction: Transaction) {
+        let model = TransactionEditModel(transaction: transaction)
+        let editVC = UIHostingController(
+            rootView: TransactionEditView(
+                model: model,
+                direction: .outcome,
+                currentMode: .edit
+            )
+        )
+        
+        editVC.modalPresentationStyle = .fullScreen
+        editVC.presentationController?.delegate = self
+        present(editVC, animated: true)
+    }
+    
+    @objc private func handleTransactionUpdate() {
+        Task {
+            await presenter?.loadTransactions(direction: .outcome)
+        }
+    }
+}
+
+extension AnalysisViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        Task {
+            await presenter?.loadTransactions(direction: .outcome)
+        }
     }
 }

@@ -164,6 +164,7 @@ extension AnalysisPresenter: UITableViewDataSource {
 extension AnalysisPresenter: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewController?.presentEdit(for: transactions[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

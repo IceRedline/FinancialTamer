@@ -59,6 +59,9 @@ struct TransactionEditView: View {
             .alert("Пожалуйста, заполните все поля", isPresented: $showAlert) {
                 Button("ОК", role: .cancel) { }
             }
+            .onDisappear {
+                NotificationCenter.default.post(name: .transactionDidUpdate, object: nil)
+            }
         }
     }
     
@@ -158,6 +161,10 @@ struct TransactionEditView: View {
         await model.deleteTransaction()
         self.presentationMode.wrappedValue.dismiss()
     }
+}
+
+extension Notification.Name {
+    static let transactionDidUpdate = Notification.Name("transactionDidUpdate")
 }
 
 #Preview {
