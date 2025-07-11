@@ -139,7 +139,7 @@ struct TransactionEditView: View {
                 let allowedChars = "0123456789" + decimalSeparator
                 let filtered = newValue.filter { allowedChars.contains($0) }
                 let parts = filtered.components(separatedBy: decimalSeparator)
-                var cleaned = parts.prefix(2).joined(separator: decimalSeparator)
+                let cleaned = parts.prefix(2).joined(separator: decimalSeparator)
                 editableBalanceString = cleaned
                 let normalized = cleaned.replacingOccurrences(of: decimalSeparator, with: ".")
                 if let value = Decimal(string: normalized) {

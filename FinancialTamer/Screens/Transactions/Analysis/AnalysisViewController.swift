@@ -44,7 +44,7 @@ class AnalysisViewController: UIViewController {
         presenter?.viewDidLoad()
         
         Task {
-            await presenter?.loadTransactions(direction: .outcome)
+            await presenter?.loadTransactions(direction: direction)
         }
         
         NotificationCenter.default.addObserver(
@@ -89,7 +89,7 @@ class AnalysisViewController: UIViewController {
         let editVC = UIHostingController(
             rootView: TransactionEditView(
                 model: model,
-                direction: .outcome,
+                direction: direction,
                 currentMode: .edit
             )
         )
@@ -101,7 +101,7 @@ class AnalysisViewController: UIViewController {
     
     @objc private func handleTransactionUpdate() {
         Task {
-            await presenter?.loadTransactions(direction: .outcome)
+            await presenter?.loadTransactions(direction: direction)
         }
     }
 }
@@ -109,7 +109,7 @@ class AnalysisViewController: UIViewController {
 extension AnalysisViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         Task {
-            await presenter?.loadTransactions(direction: .outcome)
+            await presenter?.loadTransactions(direction: direction)
         }
     }
 }
