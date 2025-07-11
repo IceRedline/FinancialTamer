@@ -9,9 +9,28 @@ import SwiftUI
 
 @main
 struct FinancialTamerApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             MainTabView()
         }
+    }
+}
+
+// В App и AppDelegate
+extension Notification.Name {
+    static let mockDataLoaded = Notification.Name("mockDataLoaded")
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        Task {
+            await TransactionsService.shared.loadMockData()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .mockDataLoaded, object: nil)
+            }
+        }
+        return true
     }
 }

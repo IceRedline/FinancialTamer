@@ -11,8 +11,8 @@ extension Decimal {
     func formattedCurrency(currency: String = "₽") -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.groupingSeparator = " "      // Разделитель тысяч
-        formatter.maximumFractionDigits = 0    // Без копеек
+        formatter.groupingSeparator = " "
+        formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "ru_RU")
         
         if let result = formatter.string(from: self as NSNumber) {

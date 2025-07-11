@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 enum TableViewCellNames {
     static let configCell = "ConfigCell"
@@ -30,18 +31,28 @@ class AnalysisViewController: UIViewController {
     }
     
     // MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         presenter = AnalysisPresenter(direction: direction)
         
-        title = "Анализ"
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .background
         
         presenter?.attach(viewController: self)
         setupTableView()
         presenter?.viewDidLoad()
+        
+        Task {
+            await presenter?.loadTransactions(direction: direction)
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTransactionUpdate),
+            name: .transactionDidUpdate,
+            object: nil
+        )
     }
     
     // MARK: - viewWillAppear
@@ -71,5 +82,34 @@ class AnalysisViewController: UIViewController {
         tableView.delegate = presenter
         tableView.register(ConfigCell.self, forCellReuseIdentifier: TableViewCellNames.configCell)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: TableViewCellNames.transactionCell)
+    }
+    
+    func presentEdit(for transaction: Transaction) {
+        let model = TransactionEditModel(transaction: transaction)
+        let editVC = UIHostingController(
+            rootView: TransactionEditView(
+                model: model,
+                direction: direction,
+                currentMode: .edit
+            )
+        )
+        
+        editVC.modalPresentationStyle = .fullScreen
+        editVC.presentationController?.delegate = self
+        present(editVC, animated: true)
+    }
+    
+    @objc private func handleTransactionUpdate() {
+        Task {
+            await presenter?.loadTransactions(direction: direction)
+        }
+    }
+}
+
+extension AnalysisViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        Task {
+            await presenter?.loadTransactions(direction: direction)
+        }
     }
 }

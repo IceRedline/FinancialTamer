@@ -11,26 +11,81 @@ struct TransactionsListView: View {
     
     let direction: Direction
     
-    @ObservedObject var model = TransactionsListModel()
-    
-    // MARK: - Body
+    @StateObject private var model = TransactionsListModel()
+    @State private var selectedTransaction: Transaction? = nil
+    @State private var isDataLoaded = false
+    @State private var showingEditView = false
     
     var body: some View {
         NavigationStack {
-            
             ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(edges: .top)
-                transactionsList
+                Color.background.ignoresSafeArea(.all)
+                if isDataLoaded {
+                    transactionsList
+                } else {
+                    ProgressView()
+                }
                 addButton
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
                 NavigationLink(destination: HistoryView(direction: self.direction)) {
-                    Image(systemName: "clock")
-                        .tint(.purpleAccent)
+                    Image(systemName: "clock").tint(.purpleAccent)
                 }
             }
-            .task {
+            .fullScreenCover(isPresented: $showingEditView) {
+                TransactionEditView(
+                    model: TransactionEditModel(transaction: Transaction.empty),
+                    direction: direction,
+                    currentMode: .create
+                )
+            }
+            .onChange(of: showingEditView) { _, newValue in
+                if newValue == false {
+                    Task {
+                        await model.loadTransactions(direction: direction)
+                    }
+                }
+            }
+            .onAppear {
+                let observer = NotificationCenter.default.addObserver(
+                    forName: .mockDataLoaded,
+                    object: nil,
+                    queue: .main
+                ) { _ in
+                    Task {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                        DispatchQueue.main.async {
+                            isDataLoaded = true
+                        }
+                    }
+                }
+                
+                Task {
+                    if !TransactionsService.shared.transactions.isEmpty {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                        isDataLoaded = true
+                    }
+                }
+            }
+            
+        }
+        .fullScreenCover(item: $selectedTransaction) { transaction in
+            TransactionEditView(
+                model: TransactionEditModel(transaction: transaction),
+                direction: direction,
+                currentMode: .edit
+            )
+        }
+        .onChange(of: selectedTransaction) { _, newValue in
+            if newValue == nil {
+                Task {
+                    await model.loadTransactions(direction: direction)
+                }
+            }
+        }
+        .onAppear {
+            Task {
                 await model.loadAndPrepareDataForView(direction: direction)
             }
         }
@@ -49,30 +104,24 @@ struct TransactionsListView: View {
             }
             
             Section(header: Text("Операции")) {
-                
-                ForEach(model.groupedByCategory, id: \.category.id) { item in
-                    NavigationLink {
-                        
+                ForEach(model.transactions, id: \.id) { transaction in
+                    Button {
+                        selectedTransaction = transaction
                     } label: {
-                        
                         HStack {
-                            if direction == .outcome {
-                                EmojiCircle(emoji: item.category.emoji)
-                            }
-                            
+                            EmojiCircle(emoji: transaction.category.emoji)
                             VStack(alignment: .leading) {
-                                Text(item.category.name)
-                                    .lineLimit(1)
+                                Text(transaction.category.name)
+                                if let comment = transaction.comment, !comment.isEmpty {
+                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                }
                             }
-                            
                             Spacer()
-                            
-                            Text(item.total.formattedCurrency())
-                                .foregroundColor(.primary)
+                            Text(transaction.amount.formattedCurrency())
+                            ChevronImage()
                         }
-                        .frame(height: 25)
-                        
                     }
+                    .foregroundStyle(.black)
                 }
             }
         }
@@ -81,7 +130,7 @@ struct TransactionsListView: View {
     
     private var addButton: some View {
         Button(action: {
-            print("Tapped add button")
+            showingEditView = true
         }) {
             Image(systemName: "plus")
                 .font(.title)

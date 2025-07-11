@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Transaction: Equatable {
+struct Transaction: Equatable, Identifiable {
     let id: Int
-    let account: BankAccount
-    let category: Category
-    let amount: Decimal
-    let transactionDate: Date
-    let comment: String?
-    let createdAt: Date
-    let updatedAt: Date
+    var account: BankAccount
+    var category: Category
+    var amount: Decimal
+    var transactionDate: Date
+    var comment: String?
+    var createdAt: Date
+    var updatedAt: Date
 }
 
 extension Transaction {
@@ -77,6 +77,21 @@ extension Transaction {
             comment: comment,
             createdAt: createdAt,
             updatedAt: updatedAt
+        )
+    }
+}
+
+extension Transaction {
+    static var empty: Transaction {
+        Transaction(
+            id: UUID().hashValue,
+            account: BankAccountsService.shared.accounts.first!,
+            category: Category.empty,
+            amount: 0,
+            transactionDate: Date(),
+            comment: "",
+            createdAt: Date(),
+            updatedAt: Date()
         )
     }
 }

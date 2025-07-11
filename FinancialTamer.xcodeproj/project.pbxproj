@@ -16,6 +16,8 @@
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
+		992E72B92E1FEF1F0001C273 /* TransactionEditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */; };
+		992E72BB2E21B9FB0001C273 /* ChevronImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72BA2E21B9FB0001C273 /* ChevronImage.swift */; };
 		993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EB2E19256700E91714 /* AnalysisViewController.swift */; };
 		993D07F02E19256700E91714 /* ConfigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* ConfigCell.swift */; };
 		993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */; };
@@ -32,6 +34,9 @@
 		9979292F2DFCA94000AFE3A3 /* transactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 9979292E2DFCA94000AFE3A3 /* transactions.json */; };
 		997A00092E1D482B00F946AB /* DateChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A00082E1D482B00F946AB /* DateChanged.swift */; };
 		997A000B2E1D484400F946AB /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A000A2E1D484400F946AB /* SortType.swift */; };
+		997A000D2E1DB67100F946AB /* TransactionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A000C2E1DB67100F946AB /* TransactionEditView.swift */; };
+		997A000F2E1DB90800F946AB /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A000E2E1DB90800F946AB /* CustomDatePicker.swift */; };
+		997A00112E1E846000F946AB /* TransactionEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A00102E1E846000F946AB /* TransactionEditModel.swift */; };
 		997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */; };
 		997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB82DF8587800F72B63 /* TransactionsService.swift */; };
 		999208912E186535003536FB /* String+Normalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208902E186535003536FB /* String+Normalize.swift */; };
@@ -69,6 +74,8 @@
 		990E339D2DF838090087D79F /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		992873402DF8863E0025ADA6 /* FinancialTamerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinancialTamerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		992CFB6C2DFF1F580024890B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditMode.swift; sourceTree = "<group>"; };
+		992E72BA2E21B9FB0001C273 /* ChevronImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronImage.swift; sourceTree = "<group>"; };
 		993D07EB2E19256700E91714 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewWrapper.swift; sourceTree = "<group>"; };
 		993D07ED2E19256700E91714 /* ConfigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigCell.swift; sourceTree = "<group>"; };
@@ -85,6 +92,9 @@
 		9979292E2DFCA94000AFE3A3 /* transactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transactions.json; sourceTree = "<group>"; };
 		997A00082E1D482B00F946AB /* DateChanged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateChanged.swift; sourceTree = "<group>"; };
 		997A000A2E1D484400F946AB /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
+		997A000C2E1DB67100F946AB /* TransactionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditView.swift; sourceTree = "<group>"; };
+		997A000E2E1DB90800F946AB /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		997A00102E1E846000F946AB /* TransactionEditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditModel.swift; sourceTree = "<group>"; };
 		997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
 		997B6AB82DF8587800F72B63 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
 		999208902E186535003536FB /* String+Normalize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Normalize.swift"; sourceTree = "<group>"; };
@@ -176,6 +186,8 @@
 			children = (
 				997929242DFC803800AFE3A3 /* MainTabView.swift */,
 				994D13AB2E1178CE00AD6682 /* EmojiCircle.swift */,
+				992E72BA2E21B9FB0001C273 /* ChevronImage.swift */,
+				997A000E2E1DB90800F946AB /* CustomDatePicker.swift */,
 				99FA3BBB2DFD92430099E7E8 /* Transactions */,
 				999445702E0848D4004AB0B6 /* Account */,
 				994D13AD2E11A62D00AD6682 /* Categories */,
@@ -230,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				997A00082E1D482B00F946AB /* DateChanged.swift */,
+				992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */,
 				997A000A2E1D484400F946AB /* SortType.swift */,
 			);
 			path = Enums;
@@ -252,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				990E33752DF606540087D79F /* TransactionsListView.swift */,
+				997A000C2E1DB67100F946AB /* TransactionEditView.swift */,
 				992CFB6C2DFF1F580024890B /* HistoryView.swift */,
 			);
 			path = View;
@@ -261,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				9994451F2E082CFC004AB0B6 /* TransactionsListModel.swift */,
+				997A00102E1E846000F946AB /* TransactionEditModel.swift */,
 				9994456E2E083357004AB0B6 /* HistoryModel.swift */,
 			);
 			path = Model;
@@ -397,6 +412,8 @@
 			files = (
 				990E33792DF606540087D79F /* TransactionsListView.swift in Sources */,
 				9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */,
+				992E72BB2E21B9FB0001C273 /* ChevronImage.swift in Sources */,
+				997A000F2E1DB90800F946AB /* CustomDatePicker.swift in Sources */,
 				999208992E1869CE003536FB /* String+levenshteinDistance.swift in Sources */,
 				99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */,
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
@@ -407,8 +424,10 @@
 				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
 				9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */,
 				9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */,
+				997A00112E1E846000F946AB /* TransactionEditModel.swift in Sources */,
 				992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */,
 				999208912E186535003536FB /* String+Normalize.swift in Sources */,
+				997A000D2E1DB67100F946AB /* TransactionEditView.swift in Sources */,
 				9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
 				9979292D2DFC81E300AFE3A3 /* SettingsView.swift in Sources */,
@@ -421,6 +440,7 @@
 				9994456F2E083357004AB0B6 /* HistoryModel.swift in Sources */,
 				990E33822DF606A70087D79F /* Transaction.swift in Sources */,
 				997A000B2E1D484400F946AB /* SortType.swift in Sources */,
+				992E72B92E1FEF1F0001C273 /* TransactionEditMode.swift in Sources */,
 				993D07F52E1925FE00E91714 /* AnalysisPresenter.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
 				993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */,
