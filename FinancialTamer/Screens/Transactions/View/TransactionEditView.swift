@@ -79,11 +79,13 @@ struct TransactionEditView: View {
                     Text("Дата")
                     Spacer()
                     CustomDatePicker(selection: $model.transaction.transactionDate)
+                        .tint(.accent)
                 }
                 HStack {
                     Text("Время")
                     Spacer()
                     CustomDatePicker(selection: $model.transaction.transactionDate, displayedComponents: .hourAndMinute)
+                        .tint(.accent)
                 }
                 TextField("Комментарий (необязательно)", text: Binding(
                     get: { model.transaction.comment ?? "" },
