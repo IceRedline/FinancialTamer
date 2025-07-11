@@ -12,7 +12,6 @@ class TransactionEditModel: ObservableObject {
     var transactionsService = TransactionsService.shared
     let categoriesService = CategoriesService.shared
     
-    @Published var editableBalance: Decimal = 0
     @Published var transaction: Transaction
     @Published var categories: [Category] = []
     
@@ -29,6 +28,15 @@ class TransactionEditModel: ObservableObject {
         } catch {
             print("Ошибка загрузки: \(error)")
         }
+    }
+    
+    func checkTransaction() -> Bool {
+        if transaction.category != Category.empty &&
+            transaction.amount != 0 &&
+            transaction.comment != nil {
+            return true
+        }
+        return false
     }
     
     func categoryChanged(category: Category) {

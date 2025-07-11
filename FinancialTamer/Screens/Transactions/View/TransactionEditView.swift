@@ -14,6 +14,7 @@ struct TransactionEditView: View {
     @ObservedObject var model: TransactionEditModel
     @State private var currentMode: TransactionEditMode
     @State var editableBalanceString: String
+    @State private var showAlert = false
     
     let direction: Direction
     
@@ -41,8 +42,12 @@ struct TransactionEditView: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     Button(currentMode == .edit ? "Сохранить" : "Создать") {
-                        Task {
-                            await saveAndDismiss()
+                        if model.checkTransaction() {
+                            Task {
+                                await saveAndDismiss()
+                            }
+                        } else {
+                            showAlert = true
                         }
                     }
                     .tint(.purpleAccent)
@@ -50,6 +55,9 @@ struct TransactionEditView: View {
             }
             .task {
                 await model.loadCategories(for: direction)
+            }
+            .alert("Пожалуйста, заполните все поля", isPresented: $showAlert) {
+                Button("ОК", role: .cancel) { }
             }
         }
     }
@@ -74,7 +82,7 @@ struct TransactionEditView: View {
                     Spacer()
                     CustomDatePicker(selection: $model.transaction.transactionDate, displayedComponents: .hourAndMinute)
                 }
-                TextField("Комментарий", text: Binding(
+                TextField("Комментарий (необязательно)", text: Binding(
                     get: { model.transaction.comment ?? "" },
                     set: { model.transaction.comment = $0.isEmpty ? nil : $0 }
                 ))
