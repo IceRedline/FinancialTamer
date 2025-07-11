@@ -131,12 +131,15 @@ struct TransactionEditView: View {
             .frame(width: 150, height: 20, alignment: .trailing)
             .foregroundStyle(Color.gray)
             .onChange(of: editableBalanceString) { _, newValue in
-                let filtered = newValue.filter { "0123456789.-,".contains($0) }
-                let normalized = filtered.replacingOccurrences(of: ",", with: ".")
-                let components = normalized.components(separatedBy: ".")
-                let cleaned = components.count > 1 ? components[0] + "." + components[1] : components[0]
+                let locale = Locale.current
+                let decimalSeparator = locale.decimalSeparator ?? "."
+                let allowedChars = "0123456789" + decimalSeparator
+                let filtered = newValue.filter { allowedChars.contains($0) }
+                let parts = filtered.components(separatedBy: decimalSeparator)
+                var cleaned = parts.prefix(2).joined(separator: decimalSeparator)
                 editableBalanceString = cleaned
-                if let value = Decimal(string: cleaned) {
+                let normalized = cleaned.replacingOccurrences(of: decimalSeparator, with: ".")
+                if let value = Decimal(string: normalized) {
                     model.amountChanged(amount: value)
                 }
             }
