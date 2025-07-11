@@ -118,6 +118,7 @@ struct TransactionsListView: View {
                             }
                             Spacer()
                             Text(transaction.amount.formattedCurrency())
+                            ChevronImage()
                         }
                     }
                     .foregroundStyle(.black)

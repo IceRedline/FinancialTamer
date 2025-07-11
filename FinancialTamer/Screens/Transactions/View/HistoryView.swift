@@ -23,6 +23,12 @@ struct HistoryView: View {
                 transactionsList
             }
             .navigationTitle("Мои операции")
+            .toolbar {
+                NavigationLink(destination: AnalysisViewWrapper(direction: direction).edgesIgnoringSafeArea([.top])) {
+                    Image(systemName: "document")
+                        .tint(.purpleAccent)
+                }
+            }
         }
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
@@ -98,6 +104,7 @@ struct HistoryView: View {
                             }
                             Spacer()
                             Text(transaction.amount.formattedCurrency())
+                            ChevronImage()
                         }
                     }
                     .foregroundStyle(.black)

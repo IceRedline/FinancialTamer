@@ -36,8 +36,7 @@ class AnalysisViewController: UIViewController {
         
         presenter = AnalysisPresenter(direction: direction)
         
-        title = "Анализ"
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .background
         
         presenter?.attach(viewController: self)
         setupTableView()
