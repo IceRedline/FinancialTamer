@@ -27,6 +27,8 @@
 		994D13AF2E11A63E00AD6682 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D13AE2E11A63E00AD6682 /* CategoriesModel.swift */; };
 		9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960872D2E0201160020E85D /* Calendar+endOfDay.swift */; };
 		9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */; };
+		9965B39C2E2582B000FB3BFD /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B39B2E2582B000FB3BFD /* NetworkClient.swift */; };
+		9965B39E2E258CBA00FB3BFD /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B39D2E258CBA00FB3BFD /* NetworkConstants.swift */; };
 		997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929242DFC803800AFE3A3 /* MainTabView.swift */; };
 		997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929282DFC81BE00AFE3A3 /* AccountView.swift */; };
 		9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */; };
@@ -85,6 +87,8 @@
 		994D13AE2E11A63E00AD6682 /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
 		9960872D2E0201160020E85D /* Calendar+endOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+endOfDay.swift"; sourceTree = "<group>"; };
 		9960874B2E02D48F0020E85D /* Decimal+formattedCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+formattedCurrency.swift"; sourceTree = "<group>"; };
+		9965B39B2E2582B000FB3BFD /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		9965B39D2E258CBA00FB3BFD /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		997929242DFC803800AFE3A3 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		997929282DFC81BE00AFE3A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				990E33992DF76CE70087D79F /* TransactionsFileCache.swift */,
+				9965B39B2E2582B000FB3BFD /* NetworkClient.swift */,
+				9965B39D2E258CBA00FB3BFD /* NetworkConstants.swift */,
 				990E339D2DF838090087D79F /* CategoriesService.swift */,
 				997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */,
 				997B6AB82DF8587800F72B63 /* TransactionsService.swift */,
@@ -421,6 +427,7 @@
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
 				997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */,
 				999445202E082CFC004AB0B6 /* TransactionsListModel.swift in Sources */,
+				9965B39C2E2582B000FB3BFD /* NetworkClient.swift in Sources */,
 				990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */,
 				9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */,
 				9960874C2E02D48F0020E85D /* Decimal+formattedCurrency.swift in Sources */,
@@ -446,6 +453,7 @@
 				993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */,
 				993D07F02E19256700E91714 /* ConfigCell.swift in Sources */,
 				993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */,
+				9965B39E2E258CBA00FB3BFD /* NetworkConstants.swift in Sources */,
 				997A00092E1D482B00F946AB /* DateChanged.swift in Sources */,
 				993D07F22E19256700E91714 /* TransactionCell.swift in Sources */,
 				997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */,
