@@ -11,37 +11,36 @@ final class BankAccountsService {
     
     static let shared = BankAccountsService()
     
-    private init() {}
+    let networkClient = NetworkClient()
+    let url = URL(string: "\(Constants.baseUrl)/accounts")!
     
-    var accounts: [BankAccount] = [
-        BankAccount(
-            id: 1,
-            userId: nil,
-            name: "Основной счёт",
-            balance: 1000,
-            currency: "RUB",
-            createdAt: nil,
-            updatedAt: nil
-        ),
-        BankAccount(
-            id: 2,
-            userId: 2,
-            name: "Disabled Account",
-            balance: 0,
-            currency: "₽",
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-    ]
+    var accounts: [BankAccount] = []
+    
+    private init() {}
     
     // MARK: - Methods
     
     func account() async throws -> BankAccount {
-        guard let account = accounts.first else {
-            throw NSError(domain: "BankAccountsService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Нет аккаунта"])
+        if accounts.isEmpty {
+            try await loadAccounts()
         }
-        return account
+        print("🔑 Первый аккаунт: \(accounts.first?.id ?? -1)")
+        return accounts.first!
     }
+
+    private func loadAccounts() async throws {
+        print("🌐 начали загрузку аккаунтов")
+        do {
+            let response: [BankAccountResponse] = try await networkClient.request(url: url, responseType: [BankAccountResponse].self)
+            self.accounts = response.map { $0.toDomain() }
+            print("✅ Загружено аккаунтов: \(accounts.count)")
+        } catch {
+            print("❌ Ошибка загрузки аккаунтов: \(error)")
+            throw error
+        }
+    }
+    
+    
     
     func updateAccount(account: BankAccount) async throws {
         accounts[0] = account

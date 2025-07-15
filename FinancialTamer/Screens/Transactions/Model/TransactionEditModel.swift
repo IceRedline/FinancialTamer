@@ -54,7 +54,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция сохранена успешно")
             return true
         } catch {
-            print("Ошибка сохранения транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }
@@ -66,7 +66,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция создана успешно")
             return true
         } catch {
-            print("Ошибка создания транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }
@@ -78,7 +78,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция удалена успешно")
             return true
         } catch {
-            print("Ошибка удаления транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }

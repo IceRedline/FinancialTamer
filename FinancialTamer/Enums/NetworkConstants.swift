@@ -8,36 +8,37 @@
 import Foundation
 
 struct Constants {
-    private static let baseUrlPath = "https://shmr-finance.ru/api/v1"
+    static let baseUrl = "https://shmr-finance.ru/api/v1"
+    static let bearerToken = "nRld8CbB4zsfUCd0q1y0FVnS"
     
     struct Urls {
         // Accounts
-        static let accounts = URL(string: "\(baseUrlPath)/accounts")!
+        static let accounts = URL(string: "\(baseUrl)/accounts")!
         
         static func accountById(_ id: Int) -> URL {
-            URL(string: "\(baseUrlPath)/accounts/\(id)")!
+            URL(string: "\(baseUrl)/accounts/\(id)")!
         }
         
         static func accountHistory(_ id: Int) -> URL {
-            URL(string: "\(baseUrlPath)/accounts/\(id)/history")!
+            URL(string: "\(baseUrl)/accounts/\(id)/history")!
         }
         
         // Categories
-        static let categories = URL(string: "\(baseUrlPath)/categories")!
+        static let categories = URL(string: "\(baseUrl)/categories")!
         
         static func categoriesByType(_ isIncome: Bool) -> URL {
-            URL(string: "\(baseUrlPath)/categories/type/\(isIncome)")!
+            URL(string: "\(baseUrl)/categories/type/\(isIncome)")!
         }
         
         // Transactions
-        static let transactions = URL(string: "\(baseUrlPath)/transactions")!
+        static let transactions = URL(string: "\(baseUrl)/transactions")!
         
         static func transactionById(_ id: Int) -> URL {
-            URL(string: "\(baseUrlPath)/transactions/\(id)")!
+            URL(string: "\(baseUrl)/transactions/\(id)")!
         }
         
         static func transactionsByAccountAndPeriod(_ accountId: Int) -> URL {
-            URL(string: "\(baseUrlPath)/transactions/account/\(accountId)/period")!
+            URL(string: "\(baseUrl)/transactions/account/\(accountId)/period")!
         }
     }
 }

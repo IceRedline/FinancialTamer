@@ -17,6 +17,7 @@ class TransactionsListModel: ObservableObject {
     // MARK: - Methods
     
     func loadTransactions(direction: Direction) async {
+        print("🔍 Начали загрузку транзакций для направления: \(direction)")
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
         let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
@@ -24,6 +25,7 @@ class TransactionsListModel: ObservableObject {
         let todayRange = startOfDay..<startOfNextDay
 
         do {
+            try await transactionsService.loadTransactions(direction: direction, for: todayRange)
             let list = try await transactionsService.transactions(direction: direction, for: todayRange)
             let totalSum = list.reduce(Decimal(0)) { $0 + $1.amount }
             
@@ -32,7 +34,7 @@ class TransactionsListModel: ObservableObject {
                 self.sum = totalSum
             })
         } catch {
-            print("Ошибка загрузки транзакций: $error)")
+            print("TransactionsListModel: Ошибка загрузки транзакций: \(error)")
         }
     }
     
