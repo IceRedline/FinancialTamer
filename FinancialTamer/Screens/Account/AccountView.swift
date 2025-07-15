@@ -39,6 +39,15 @@ struct AccountView: View {
             .task {
                 await model.loadAccount()
             }
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadAccount()
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
     }
     

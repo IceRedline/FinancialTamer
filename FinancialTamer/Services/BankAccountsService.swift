@@ -12,7 +12,7 @@ final class BankAccountsService {
     static let shared = BankAccountsService()
     
     let networkClient = NetworkClient()
-    let url = URL(string: "\(Constants.baseUrl)/accounts")!
+    let url = Constants.Urls.accounts
     
     var accounts: [BankAccount] = []
     
@@ -31,7 +31,6 @@ final class BankAccountsService {
         do {
             let response: [BankAccountResponse] = try await networkClient.request(url: url, responseType: [BankAccountResponse].self)
             self.accounts = response.map { $0.toDomain() }
-            print("✅ Загружено аккаунтов: \(accounts.count)")
             print(accounts)
         } catch {
             print("❌ BankAccountsService: Ошибка загрузки аккаунтов: \(error)")

@@ -48,6 +48,15 @@ struct CategoriesView: View {
             .task {
                 await model.loadCategories()
             }
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadCategories()
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
         .searchable(text: $textToSearch)
     }

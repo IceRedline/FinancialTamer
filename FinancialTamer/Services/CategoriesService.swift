@@ -12,7 +12,7 @@ final class CategoriesService {
     static let shared = CategoriesService()
     
     let networkClient = NetworkClient()
-    let url = URL(string: "\(Constants.baseUrl)/categories")!
+    let url = Constants.Urls.categories
     
     private(set) var categories: [Category] = []
     
@@ -32,7 +32,6 @@ final class CategoriesService {
                 responseType: [CategoryResponse].self
             )
             self.categories = response.map { $0.toDomain() }
-            print("✅ Загружено категорий: \(categories.count)")
         } catch {
             print("❌ Ошибка загрузки категорий: \(error)")
             throw error

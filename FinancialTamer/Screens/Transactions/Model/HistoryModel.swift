@@ -14,9 +14,14 @@ class HistoryModel: ObservableObject {
     @Published var firstDate = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
     @Published var secondDate = Date.now
     @Published var lastDateChanged: DateChanged = .first
-    
     @Published var transactions: [Transaction] = []
     @Published var chosenPeriodSum: Decimal = 0
+    @Published var errorMessage: String? = nil {
+        didSet {
+            hasError = errorMessage != nil
+        }
+    }
+    @Published var hasError: Bool = false
     
     // MARK: - Methods
     
@@ -56,7 +61,10 @@ class HistoryModel: ObservableObject {
                 self.chosenPeriodSum = sum
             }
         } catch {
-            print("Ошибка загрузки: \(error)")
+            await MainActor.run(body: {
+                print("❌ HistoryModel: Ошибка загрузки транзакций: \(error.localizedDescription)")
+                self.errorMessage = "Ошибка загрузки транзакций"
+            })
         }
     }
     

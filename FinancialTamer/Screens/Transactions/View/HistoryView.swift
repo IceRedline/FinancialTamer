@@ -29,6 +29,15 @@ struct HistoryView: View {
                         .tint(.purpleAccent)
                 }
             }
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(

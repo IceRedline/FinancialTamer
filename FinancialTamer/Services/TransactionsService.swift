@@ -22,7 +22,6 @@ final class TransactionsService {
     // MARK: - Methods
     
     func loadTransactions(direction: Direction) async throws {
-        print("🌐 Загружаем транзакции с сервера")
         if categories.isEmpty {
             self.categories = try await CategoriesService.shared.categories()
         }
@@ -39,9 +38,7 @@ final class TransactionsService {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let url = URL(string: "\(Constants.baseUrl)/transactions/account/\(account.id)/period")!
-        
-        print("🌍 URL запроса: \(url.absoluteString)")
+        let url = Constants.Urls.transactionsByAccountAndPeriod(account.id)
         
         do {
             let response: [TransactionResponse] = try await networkClient.request(

@@ -15,6 +15,12 @@ class AccountModel: ObservableObject {
     @Published var account: BankAccount?
     @Published var editableBalance: Decimal = 0
     @Published var currency: String = "₽"
+    @Published var errorMessage: String? = nil {
+        didSet {
+            hasError = errorMessage != nil
+        }
+    }
+    @Published var hasError: Bool = false
     
     // MARK: - Methods
     
@@ -38,7 +44,10 @@ class AccountModel: ObservableObject {
             try await accountService.updateBalance(newBalance: editableBalance)
             await loadAccount()
         } catch {
-            print("")
+            await MainActor.run(body: {
+                print("❌ AccountModel: Ошибка загрузки счёта: \(error.localizedDescription)")
+                self.errorMessage = "Ошибка загрузки счёта"
+            })
         }
     }
 }

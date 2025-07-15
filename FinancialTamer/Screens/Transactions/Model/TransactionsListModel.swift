@@ -14,11 +14,11 @@ class TransactionsListModel: ObservableObject {
     @Published private(set) var transactions: [Transaction] = []
     @Published private(set) var sum: Decimal = 0
     @Published var errorMessage: String? = nil {
-            didSet {
-                hasError = errorMessage != nil
-            }
+        didSet {
+            hasError = errorMessage != nil
         }
-        @Published var hasError: Bool = false
+    }
+    @Published var hasError: Bool = false
     
     // MARK: - Methods
     
@@ -42,7 +42,7 @@ class TransactionsListModel: ObservableObject {
         } catch {
             await MainActor.run(body: {
                 print("❌ TransactionsListModel: Ошибка загрузки транзакций: \(error.localizedDescription)")
-                self.errorMessage = error.localizedDescription
+                self.errorMessage = "Ошибка загрузки транзакций"
             })
         }
     }
