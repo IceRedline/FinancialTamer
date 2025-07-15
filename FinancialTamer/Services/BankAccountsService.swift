@@ -12,7 +12,6 @@ final class BankAccountsService {
     static let shared = BankAccountsService()
     
     let networkClient = NetworkClient()
-    let url = Constants.Urls.accounts
     
     var accounts: [BankAccount] = []
     
@@ -29,7 +28,10 @@ final class BankAccountsService {
 
     private func loadAccounts() async throws {
         do {
-            let response: [BankAccountResponse] = try await networkClient.request(url: url, responseType: [BankAccountResponse].self)
+            let response: [BankAccountResponse] = try await networkClient.request(
+                url: Constants.Urls.accounts,
+                responseType: [BankAccountResponse].self
+            )
             self.accounts = response.map { $0.toDomain() }
             print(accounts)
         } catch {
@@ -38,20 +40,39 @@ final class BankAccountsService {
         }
     }
     
-    
-    
+
     func updateAccount(account: BankAccount) async throws {
-        accounts[0] = account
+        let request = UpdateAccountRequest(
+            name: account.name,
+            balance: account.balance,
+            currency: account.currency
+        )
+        
+        do {
+            let response: BankAccountResponse = try await networkClient.request(
+                url: Constants.Urls.updateAccount(account.id),
+                method: "PUT",
+                body: request,
+                responseType: BankAccountResponse.self
+            )
+            
+            self.accounts = [response.toDomain()]
+            print("✅ Успешно обновлен счет")
+        } catch {
+            print("❌ BankAccountsService: Ошибка обновления аккаунта: \(error)")
+            throw error
+        }
     }
+        
     
-    func updateBalance(newBalance: Decimal) async throws {
+    func updateBalance(newBalance: Decimal, newCurrency: String) async throws {
         let previousAccount = accounts[0]
         let newAccount = BankAccount(
             id: previousAccount.id,
             userId: previousAccount.userId,
             name: previousAccount.name,
             balance: newBalance,
-            currency: previousAccount.currency,
+            currency: newCurrency,
             createdAt: previousAccount.createdAt,
             updatedAt: previousAccount.updatedAt
         )

@@ -15,12 +15,8 @@ struct Constants {
         // Accounts
         static let accounts = URL(string: "\(baseUrl)/accounts")!
         
-        static func accountById(_ id: Int) -> URL {
+        static func updateAccount(_ id: Int) -> URL {
             URL(string: "\(baseUrl)/accounts/\(id)")!
-        }
-        
-        static func accountHistory(_ id: Int) -> URL {
-            URL(string: "\(baseUrl)/accounts/\(id)/history")!
         }
         
         // Categories

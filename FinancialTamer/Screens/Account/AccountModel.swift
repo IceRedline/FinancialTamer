@@ -14,7 +14,7 @@ class AccountModel: ObservableObject {
     @Published var currentMode: AccountViewMode = .view
     @Published var account: BankAccount?
     @Published var editableBalance: Decimal = 0
-    @Published var currency: String = "₽"
+    @Published var currency: Currency = .RUB
     @Published var errorMessage: String? = nil {
         didSet {
             hasError = errorMessage != nil
@@ -29,8 +29,12 @@ class AccountModel: ObservableObject {
         do {
             let loadedAccount = try await accountService.account()
             self.account = loadedAccount
-            guard let balance = account?.balance else { return }
+            guard
+                let balance = account?.balance,
+                let currency = Currency.from(ticker: account?.currency)
+            else { return }
             self.editableBalance = balance
+            self.currency = currency
             print("аккаунт загружен!")
         } catch {
             print("Ошибка загрузки: \(error)")
@@ -41,7 +45,7 @@ class AccountModel: ObservableObject {
     func updateBalance() async {
         print("Баланс обновлен!")
         do {
-            try await accountService.updateBalance(newBalance: editableBalance)
+            try await accountService.updateBalance(newBalance: editableBalance, newCurrency: currency.rawValue)
             await loadAccount()
         } catch {
             await MainActor.run(body: {
