@@ -18,14 +18,28 @@ struct TransactionsListView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(.all)
-                if isDataLoaded {
-                    transactionsList
-                } else {
-                    ProgressView()
+            ZStack {
+                
+                ZStack(alignment: .center) {
+                    Color.background.ignoresSafeArea(.all)
+                    
+                    if isDataLoaded {
+                        transactionsList
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+                            .scaleEffect(2)
+                            .padding()
+                            .background(Color.white.opacity(0.9))
+                            .cornerRadius(12)
+                            .shadow(radius: 4)
+                    }
                 }
-                addButton
+                
+                ZStack(alignment: .bottomTrailing) {
+                    Color.clear
+                    addButton
+                }
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
