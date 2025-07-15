@@ -30,9 +30,9 @@ struct TransactionsListView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
                             .scaleEffect(2)
                             .padding()
-                            .background(Color.white.opacity(0.9))
+                            .background(Color.primary.colorInvert())
                             .cornerRadius(12)
-                            .shadow(radius: 4)
+                            .shadow(color: Color.primary, radius: 50)
                     }
                 }
                 
@@ -134,12 +134,16 @@ struct TransactionsListView: View {
                             EmojiCircle(emoji: transaction.category.emoji)
                             VStack(alignment: .leading) {
                                 Text(transaction.category.name)
+                                    .foregroundStyle(Color.primary)
                                 if let comment = transaction.comment, !comment.isEmpty {
-                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                    Text(comment)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                             }
                             Spacer()
                             Text(transaction.amount.formattedCurrency(currency: model.currency.symbol))
+                                .foregroundStyle(Color.primary)
                             ChevronImage()
                         }
                     }

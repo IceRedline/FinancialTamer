@@ -107,12 +107,16 @@ struct HistoryView: View {
                             EmojiCircle(emoji: transaction.category.emoji)
                             VStack(alignment: .leading) {
                                 Text(transaction.category.name)
+                                    .foregroundStyle(Color.primary)
                                 if let comment = transaction.comment, !comment.isEmpty {
-                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                    Text(comment)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                             }
                             Spacer()
                             Text(transaction.amount.formattedCurrency())
+                                .foregroundStyle(Color.primary)
                             ChevronImage()
                         }
                     }

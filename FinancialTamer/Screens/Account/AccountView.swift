@@ -69,9 +69,10 @@ struct AccountView: View {
             
             HStack {
                 Text("Валюта")
+                    .foregroundStyle(Color.primary)
                 Spacer()
                 Text("\(model.currency.symbol)")
-                    .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
+                    .foregroundStyle(Color.primary)
                 
                 if currentMode == .edit {
                     currencyPopupButton
