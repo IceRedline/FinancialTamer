@@ -13,6 +13,12 @@ class TransactionsListModel: ObservableObject {
     
     @Published private(set) var transactions: [Transaction] = []
     @Published private(set) var sum: Decimal = 0
+    @Published var errorMessage: String? = nil {
+            didSet {
+                hasError = errorMessage != nil
+            }
+        }
+        @Published var hasError: Bool = false
     
     // MARK: - Methods
     
@@ -23,9 +29,9 @@ class TransactionsListModel: ObservableObject {
         let startOfNextDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
         
         let todayRange = startOfDay..<startOfNextDay
-
+        
         do {
-            try await transactionsService.loadTransactions(direction: direction, for: todayRange)
+            try await transactionsService.loadTransactions(direction: direction)
             let list = try await transactionsService.transactions(direction: direction, for: todayRange)
             let totalSum = list.reduce(Decimal(0)) { $0 + $1.amount }
             
@@ -34,7 +40,10 @@ class TransactionsListModel: ObservableObject {
                 self.sum = totalSum
             })
         } catch {
-            print("TransactionsListModel: Ошибка загрузки транзакций: \(error)")
+            await MainActor.run(body: {
+                print("❌ TransactionsListModel: Ошибка загрузки транзакций: \(error.localizedDescription)")
+                self.errorMessage = error.localizedDescription
+            })
         }
     }
     

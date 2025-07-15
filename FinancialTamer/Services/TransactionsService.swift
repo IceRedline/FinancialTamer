@@ -21,7 +21,7 @@ final class TransactionsService {
     
     // MARK: - Methods
     
-    func loadTransactions(direction: Direction, for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws {
+    func loadTransactions(direction: Direction) async throws {
         print("🌐 Загружаем транзакции с сервера")
         if categories.isEmpty {
             self.categories = try await CategoriesService.shared.categories()
@@ -39,10 +39,7 @@ final class TransactionsService {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let start = dateFormatter.string(from: period.lowerBound)
-        let end = dateFormatter.string(from: period.upperBound)
-        
-        let url = URL(string: "\(Constants.baseUrl)/transactions/account/\(account.id)/period?startDate=\(start)&endDate=\(end)")!
+        let url = URL(string: "\(Constants.baseUrl)/transactions/account/\(account.id)/period")!
         
         print("🌍 URL запроса: \(url.absoluteString)")
         
