@@ -26,7 +26,6 @@ final class CategoriesService {
     }
 
     private func loadCategories() async throws {
-        print("🌐 начали загрузку категорий")
         do {
             let response: [CategoryResponse] = try await networkClient.request(
                 url: url,

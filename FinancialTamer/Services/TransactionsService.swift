@@ -31,9 +31,6 @@ final class TransactionsService {
             self.account = try await BankAccountsService.shared.account()
         }
         
-        print("🧾 Account: \(String(describing: self.account))")
-        print("🏷 Categories: \(categories.count)")
-        
         guard let account = self.account else {
             print("TransactionsService: Аккаунт не загружен")
             return
@@ -56,10 +53,9 @@ final class TransactionsService {
             )
             self.transactions = response.map { $0.toDomain(account: account) }
         } catch {
-            print("TransactionsService: Ошибка загрузки транзакций: \(error.localizedDescription)")
+            print("❌ TransactionsService: Ошибка загрузки транзакций: \(error.localizedDescription)")
             print("🔻 Подробности: \(error)")
         }
-        
     }
     
     func transactions(direction: Direction, for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {

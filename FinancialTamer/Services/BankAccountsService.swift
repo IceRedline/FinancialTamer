@@ -24,18 +24,17 @@ final class BankAccountsService {
         if accounts.isEmpty {
             try await loadAccounts()
         }
-        print("🔑 Первый аккаунт: \(accounts.first?.id ?? -1)")
         return accounts.first!
     }
 
     private func loadAccounts() async throws {
-        print("🌐 начали загрузку аккаунтов")
         do {
             let response: [BankAccountResponse] = try await networkClient.request(url: url, responseType: [BankAccountResponse].self)
             self.accounts = response.map { $0.toDomain() }
             print("✅ Загружено аккаунтов: \(accounts.count)")
+            print(accounts)
         } catch {
-            print("❌ Ошибка загрузки аккаунтов: \(error)")
+            print("❌ BankAccountsService: Ошибка загрузки аккаунтов: \(error)")
             throw error
         }
     }
