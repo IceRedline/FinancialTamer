@@ -70,7 +70,7 @@ final class TransactionsService {
         do {
             let response: TransactionResponse = try await networkClient.request(
                 url: Constants.Urls.transactions,
-                method: "POST",
+                method: Constants.post,
                 body: request,
                 responseType: TransactionResponse.self
             )
@@ -84,8 +84,28 @@ final class TransactionsService {
     }
     
     func editTransaction(transaction: Transaction) async throws {
-        guard let index = transactions.firstIndex(where: { $0.id == transaction.id }) else { return }
-        transactions[index] = transaction
+        let request = TransactionRequest(
+            accountId: transaction.account.id,
+            categoryId: transaction.category.id,
+            amount: transaction.amount,
+            transactionDate: ISO8601DateFormatter().string(from: transaction.transactionDate),
+            comment: transaction.comment
+        )
+        
+        do {
+            let response: TransactionResponse = try await networkClient.request(
+                url: Constants.Urls.transactionById(id: transaction.id),
+                method: Constants.put,
+                body: request,
+                responseType: TransactionResponse.self
+            )
+            guard let account = account else { return }
+            self.transactions = [response.toDomain(account: account)]
+            print("✅ Успешно изменена транзакция")
+        } catch {
+            print("❌ TransactionsService: Ошибка изменения транзакции: \(error)")
+            throw error
+        }
     }
     
     func deleteTransaction(transaction: Transaction) async throws {

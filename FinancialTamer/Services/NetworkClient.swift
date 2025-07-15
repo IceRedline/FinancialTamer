@@ -27,7 +27,7 @@ final class NetworkClient {
     
     func request<Response: Decodable>(
         url: URL,
-        method: String = "GET",
+        method: String = Constants.get,
         body: (any Encodable)? = nil, /// на тип тела запроса наложено ограничение соответсвия протоколу Encodable
         headers: [String: String] = [:],
         responseType: Response.Type

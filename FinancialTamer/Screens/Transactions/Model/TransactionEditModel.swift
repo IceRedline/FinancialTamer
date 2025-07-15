@@ -14,6 +14,7 @@ class TransactionEditModel: ObservableObject {
     
     @Published var transaction: Transaction
     @Published var categories: [Category] = []
+    @Published var currency: Currency = .RUB
     
     init(transaction: Transaction) {
         self.transaction = transaction
@@ -25,6 +26,15 @@ class TransactionEditModel: ObservableObject {
             let loadedCategories = try await categoriesService.categories()
             self.categories = loadedCategories.filter({$0.isIncome == direction})
             print("Категории загружены!")
+            
+            if let account = try? await AccountsService.shared.account() {
+                currency = Currency.from(ticker: account.currency) ?? .RUB
+            }
+            
+            await MainActor.run(body: {
+                self.currency = currency
+            })
+            
         } catch {
             print("Ошибка загрузки: \(error)")
         }

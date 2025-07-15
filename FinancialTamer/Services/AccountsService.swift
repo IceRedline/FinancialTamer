@@ -51,7 +51,7 @@ final class AccountsService {
         do {
             let response: AccountResponse = try await networkClient.request(
                 url: Constants.Urls.updateAccount(account.id),
-                method: "PUT",
+                method: Constants.put,
                 body: request,
                 responseType: AccountResponse.self
             )

@@ -94,7 +94,7 @@ struct HistoryView: View {
                 HStack {
                     Text("Сумма")
                     Spacer()
-                    Text(model.chosenPeriodSum.formattedCurrency())
+                    Text(model.chosenPeriodSum.formattedCurrency(currency: Currency.from(ticker: model.transactions.first?.account.currency)?.symbol ?? "₽"))
                 }
             }
             
@@ -115,7 +115,7 @@ struct HistoryView: View {
                                 }
                             }
                             Spacer()
-                            Text(transaction.amount.formattedCurrency())
+                            Text(transaction.amount.formattedCurrency(currency: Currency.from(ticker: transaction.account.currency)?.symbol ?? "₽"))
                                 .foregroundStyle(Color.primary)
                             ChevronImage()
                         }

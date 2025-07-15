@@ -37,7 +37,7 @@ class AccountModel: ObservableObject {
             self.currency = currency
             print("аккаунт загружен!")
         } catch {
-            print("Ошибка загрузки: \(error)")
+            print("AccountModel: Ошибка загрузки: \(error)")
         }
     }
     

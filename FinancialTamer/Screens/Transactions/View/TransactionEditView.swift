@@ -20,7 +20,7 @@ struct TransactionEditView: View {
     
     init(model: TransactionEditModel, direction: Direction, currentMode: TransactionEditMode) {
         self.model = model
-        self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency(currency: Currency.from(ticker: model.transaction.account.currency)?.symbol ?? "₽"))
+        self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency(currency: Currency.from(ticker: model.transaction.account.currency)?.symbol ?? "EE"))
         self.direction = direction
         self.currentMode = currentMode
     }

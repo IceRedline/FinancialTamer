@@ -8,6 +8,11 @@
 import Foundation
 
 struct Constants {
+    static let get = "GET"
+    static let post = "POST"
+    static let put = "PUT"
+    static let delete = "DELETE"
+    
     static let baseUrl = "https://shmr-finance.ru/api/v1"
     static let bearerToken = "nRld8CbB4zsfUCd0q1y0FVnS"
     
@@ -29,7 +34,7 @@ struct Constants {
         // Transactions
         static let transactions = URL(string: "\(baseUrl)/transactions")!
         
-        static func transactionById(_ id: Int) -> URL {
+        static func transactionById( id: Int) -> URL {
             URL(string: "\(baseUrl)/transactions/\(id)")!
         }
         
