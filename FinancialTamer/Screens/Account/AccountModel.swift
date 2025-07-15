@@ -12,7 +12,7 @@ class AccountModel: ObservableObject {
     let accountService = BankAccountsService.shared
     
     @Published var currentMode: AccountViewMode = .view
-    @Published var account: BankAccount?
+    @Published var account: Account?
     @Published var editableBalance: Decimal = 0
     @Published var currency: Currency = .RUB
     @Published var errorMessage: String? = nil {

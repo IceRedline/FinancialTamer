@@ -13,7 +13,7 @@ struct TransactionResponse: Decodable {
     let transactionDate: String
     let comment: String?
     let category: CategoryResponse
-    let account: BankAccountResponse
+    let account: AccountResponse
     let createdAt: String
     let updatedAt: String
 
@@ -28,7 +28,7 @@ struct TransactionResponse: Decodable {
         transactionDate = try container.decode(String.self, forKey: .transactionDate)
         comment = try container.decodeIfPresent(String.self, forKey: .comment)
         category = try container.decode(CategoryResponse.self, forKey: .category)
-        account = try container.decode(BankAccountResponse.self, forKey: .account)
+        account = try container.decode(AccountResponse.self, forKey: .account)
         createdAt = try container.decode(String.self, forKey: .createdAt)
         updatedAt = try container.decode(String.self, forKey: .updatedAt)
 
@@ -47,7 +47,7 @@ struct TransactionResponse: Decodable {
         }
     }
 
-    func toDomain(account: BankAccount) -> Transaction {
+    func toDomain(account: Account) -> Transaction {
         Transaction(
             id: id,
             account: account,

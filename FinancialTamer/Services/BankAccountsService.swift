@@ -13,13 +13,13 @@ final class BankAccountsService {
     
     let networkClient = NetworkClient()
     
-    var accounts: [BankAccount] = []
+    var accounts: [Account] = []
     
     private init() {}
     
     // MARK: - Methods
     
-    func account() async throws -> BankAccount {
+    func account() async throws -> Account {
         if accounts.isEmpty {
             try await loadAccounts()
         }
@@ -28,9 +28,9 @@ final class BankAccountsService {
 
     private func loadAccounts() async throws {
         do {
-            let response: [BankAccountResponse] = try await networkClient.request(
+            let response: [AccountResponse] = try await networkClient.request(
                 url: Constants.Urls.accounts,
-                responseType: [BankAccountResponse].self
+                responseType: [AccountResponse].self
             )
             self.accounts = response.map { $0.toDomain() }
             print(accounts)
@@ -41,19 +41,19 @@ final class BankAccountsService {
     }
     
 
-    func updateAccount(account: BankAccount) async throws {
-        let request = UpdateAccountRequest(
+    func updateAccount(account: Account) async throws {
+        let request = AccountUpdateRequest(
             name: account.name,
             balance: account.balance,
             currency: account.currency
         )
         
         do {
-            let response: BankAccountResponse = try await networkClient.request(
+            let response: AccountResponse = try await networkClient.request(
                 url: Constants.Urls.updateAccount(account.id),
                 method: "PUT",
                 body: request,
-                responseType: BankAccountResponse.self
+                responseType: AccountResponse.self
             )
             
             self.accounts = [response.toDomain()]
@@ -67,7 +67,7 @@ final class BankAccountsService {
     
     func updateBalance(newBalance: Decimal, newCurrency: String) async throws {
         let previousAccount = accounts[0]
-        let newAccount = BankAccount(
+        let newAccount = Account(
             id: previousAccount.id,
             userId: previousAccount.userId,
             name: previousAccount.name,

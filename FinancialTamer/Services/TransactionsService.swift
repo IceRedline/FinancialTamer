@@ -15,7 +15,7 @@ final class TransactionsService {
     
     private(set) var transactions: [Transaction] = []
     private(set) var categories: [Category] = []
-    private(set) var account: BankAccount?
+    private(set) var account: Account?
     
     private init() {}
     
@@ -59,8 +59,28 @@ final class TransactionsService {
     }
     
     func createTransaction(transaction: Transaction) async throws {
-        guard !transactions.contains(where: { $0.id == transaction.id }) else { return }
-        transactions.append(transaction)
+        let request = TransactionRequest(
+            accountId: transaction.account.id,
+            categoryId: transaction.category.id,
+            amount: transaction.amount,
+            transactionDate: ISO8601DateFormatter().string(from: transaction.transactionDate),
+            comment: transaction.comment
+        )
+        
+        do {
+            let response: TransactionResponse = try await networkClient.request(
+                url: Constants.Urls.transactions,
+                method: "POST",
+                body: request,
+                responseType: TransactionResponse.self
+            )
+            guard let account = account else { return }
+            self.transactions = [response.toDomain(account: account)]
+            print("✅ Успешно создана транзакция")
+        } catch {
+            print("❌ TransactionsService: Ошибка создания транзакции: \(error)")
+            throw error
+        }
     }
     
     func editTransaction(transaction: Transaction) async throws {

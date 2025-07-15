@@ -11,7 +11,7 @@
 		990E33792DF606540087D79F /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33752DF606540087D79F /* TransactionsListView.swift */; };
 		990E337A2DF606540087D79F /* FinancialTamerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33762DF606540087D79F /* FinancialTamerApp.swift */; };
 		990E337E2DF606980087D79F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337D2DF606980087D79F /* Category.swift */; };
-		990E33802DF606A00087D79F /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337F2DF606A00087D79F /* BankAccount.swift */; };
+		990E33802DF606A00087D79F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E337F2DF606A00087D79F /* Account.swift */; };
 		990E33822DF606A70087D79F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33812DF606A70087D79F /* Transaction.swift */; };
 		990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E33992DF76CE70087D79F /* TransactionsFileCache.swift */; };
 		990E339E2DF838090087D79F /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E339D2DF838090087D79F /* CategoriesService.swift */; };
@@ -30,10 +30,11 @@
 		9965B39C2E2582B000FB3BFD /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B39B2E2582B000FB3BFD /* NetworkClient.swift */; };
 		9965B39E2E258CBA00FB3BFD /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B39D2E258CBA00FB3BFD /* NetworkConstants.swift */; };
 		9965B3A02E2639EC00FB3BFD /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B39F2E2639EC00FB3BFD /* CategoryResponse.swift */; };
-		9965B3A22E263ED600FB3BFD /* BankAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A12E263ED600FB3BFD /* BankAccountResponse.swift */; };
+		9965B3A22E263ED600FB3BFD /* AccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A12E263ED600FB3BFD /* AccountResponse.swift */; };
 		9965B3A42E263EE100FB3BFD /* TransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A32E263EE100FB3BFD /* TransactionResponse.swift */; };
-		9965B3A62E268EE000FB3BFD /* BankAccountUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A52E268EE000FB3BFD /* BankAccountUpdateRequest.swift */; };
+		9965B3A62E268EE000FB3BFD /* AccountUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A52E268EE000FB3BFD /* AccountUpdateRequest.swift */; };
 		9965B3A82E26944200FB3BFD /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A72E26944200FB3BFD /* Currency.swift */; };
+		9965B3AA2E26987500FB3BFD /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3A92E26987500FB3BFD /* TransactionRequest.swift */; };
 		997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929242DFC803800AFE3A3 /* MainTabView.swift */; };
 		997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929282DFC81BE00AFE3A3 /* AccountView.swift */; };
 		9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */; };
@@ -75,7 +76,7 @@
 		990E33752DF606540087D79F /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		990E33762DF606540087D79F /* FinancialTamerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialTamerApp.swift; sourceTree = "<group>"; };
 		990E337D2DF606980087D79F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		990E337F2DF606A00087D79F /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
+		990E337F2DF606A00087D79F /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		990E33812DF606A70087D79F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		990E33992DF76CE70087D79F /* TransactionsFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsFileCache.swift; sourceTree = "<group>"; };
 		990E339D2DF838090087D79F /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
@@ -95,10 +96,11 @@
 		9965B39B2E2582B000FB3BFD /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		9965B39D2E258CBA00FB3BFD /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		9965B39F2E2639EC00FB3BFD /* CategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
-		9965B3A12E263ED600FB3BFD /* BankAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountResponse.swift; sourceTree = "<group>"; };
+		9965B3A12E263ED600FB3BFD /* AccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountResponse.swift; sourceTree = "<group>"; };
 		9965B3A32E263EE100FB3BFD /* TransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResponse.swift; sourceTree = "<group>"; };
-		9965B3A52E268EE000FB3BFD /* BankAccountUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountUpdateRequest.swift; sourceTree = "<group>"; };
+		9965B3A52E268EE000FB3BFD /* AccountUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUpdateRequest.swift; sourceTree = "<group>"; };
 		9965B3A72E26944200FB3BFD /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		9965B3A92E26987500FB3BFD /* TransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
 		997929242DFC803800AFE3A3 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		997929282DFC81BE00AFE3A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -215,10 +217,11 @@
 			children = (
 				9965B39F2E2639EC00FB3BFD /* CategoryResponse.swift */,
 				990E337D2DF606980087D79F /* Category.swift */,
-				9965B3A12E263ED600FB3BFD /* BankAccountResponse.swift */,
-				9965B3A52E268EE000FB3BFD /* BankAccountUpdateRequest.swift */,
-				990E337F2DF606A00087D79F /* BankAccount.swift */,
+				9965B3A52E268EE000FB3BFD /* AccountUpdateRequest.swift */,
+				9965B3A12E263ED600FB3BFD /* AccountResponse.swift */,
+				990E337F2DF606A00087D79F /* Account.swift */,
 				9965B3A32E263EE100FB3BFD /* TransactionResponse.swift */,
+				9965B3A92E26987500FB3BFD /* TransactionRequest.swift */,
 				990E33812DF606A70087D79F /* Transaction.swift */,
 			);
 			path = DomainModels;
@@ -435,10 +438,11 @@
 				9960872E2E0201160020E85D /* Calendar+endOfDay.swift in Sources */,
 				992E72BB2E21B9FB0001C273 /* ChevronImage.swift in Sources */,
 				997A000F2E1DB90800F946AB /* CustomDatePicker.swift in Sources */,
+				9965B3AA2E26987500FB3BFD /* TransactionRequest.swift in Sources */,
 				999208992E1869CE003536FB /* String+levenshteinDistance.swift in Sources */,
 				99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */,
 				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
-				990E33802DF606A00087D79F /* BankAccount.swift in Sources */,
+				990E33802DF606A00087D79F /* Account.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
 				997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */,
 				999445202E082CFC004AB0B6 /* TransactionsListModel.swift in Sources */,
@@ -472,8 +476,8 @@
 				9965B3A42E263EE100FB3BFD /* TransactionResponse.swift in Sources */,
 				9965B39E2E258CBA00FB3BFD /* NetworkConstants.swift in Sources */,
 				997A00092E1D482B00F946AB /* DateChanged.swift in Sources */,
-				9965B3A62E268EE000FB3BFD /* BankAccountUpdateRequest.swift in Sources */,
-				9965B3A22E263ED600FB3BFD /* BankAccountResponse.swift in Sources */,
+				9965B3A62E268EE000FB3BFD /* AccountUpdateRequest.swift in Sources */,
+				9965B3A22E263ED600FB3BFD /* AccountResponse.swift in Sources */,
 				993D07F22E19256700E91714 /* TransactionCell.swift in Sources */,
 				997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */,
 				999208972E18669B003536FB /* Collection+fuzzySearch.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UpdateAccountRequest: Encodable {
+struct AccountUpdateRequest: Encodable {
     let name: String
     let balance: Decimal
     let currency: String
