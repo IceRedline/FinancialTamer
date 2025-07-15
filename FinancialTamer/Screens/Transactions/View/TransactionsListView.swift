@@ -11,7 +11,7 @@ struct TransactionsListView: View {
     
     let direction: Direction
     
-    @StateObject private var model = TransactionsListModel()
+    @ObservedObject private var model = TransactionsListModel()
     @State private var selectedTransaction: Transaction? = nil
     @State private var isDataLoaded = false
     @State private var showingEditView = false
@@ -121,7 +121,7 @@ struct TransactionsListView: View {
                 HStack {
                     Text("Всего")
                     Spacer()
-                    Text(model.sum.formattedCurrency())
+                    Text(model.sum.formattedCurrency(currency: model.currency.symbol))
                 }
             }
             
@@ -139,7 +139,7 @@ struct TransactionsListView: View {
                                 }
                             }
                             Spacer()
-                            Text(transaction.amount.formattedCurrency())
+                            Text(transaction.amount.formattedCurrency(currency: model.currency.symbol))
                             ChevronImage()
                         }
                     }

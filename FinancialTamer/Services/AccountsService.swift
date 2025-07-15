@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class BankAccountsService {
+final class AccountsService {
     
-    static let shared = BankAccountsService()
+    static let shared = AccountsService()
     
     let networkClient = NetworkClient()
     

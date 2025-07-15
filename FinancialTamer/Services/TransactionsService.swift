@@ -27,7 +27,7 @@ final class TransactionsService {
         }
 
         if account == nil {
-            self.account = try await BankAccountsService.shared.account()
+            self.account = try await AccountsService.shared.account()
         }
         
         guard let account = self.account else {

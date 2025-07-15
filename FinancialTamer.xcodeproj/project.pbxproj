@@ -45,7 +45,7 @@
 		997A000D2E1DB67100F946AB /* TransactionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A000C2E1DB67100F946AB /* TransactionEditView.swift */; };
 		997A000F2E1DB90800F946AB /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A000E2E1DB90800F946AB /* CustomDatePicker.swift */; };
 		997A00112E1E846000F946AB /* TransactionEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A00102E1E846000F946AB /* TransactionEditModel.swift */; };
-		997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */; };
+		997B6AB72DF84A7600F72B63 /* AccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB62DF84A7600F72B63 /* AccountsService.swift */; };
 		997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B6AB82DF8587800F72B63 /* TransactionsService.swift */; };
 		999208912E186535003536FB /* String+Normalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208902E186535003536FB /* String+Normalize.swift */; };
 		999208932E186549003536FB /* String+hasPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999208922E186549003536FB /* String+hasPrefix.swift */; };
@@ -111,7 +111,7 @@
 		997A000C2E1DB67100F946AB /* TransactionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditView.swift; sourceTree = "<group>"; };
 		997A000E2E1DB90800F946AB /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		997A00102E1E846000F946AB /* TransactionEditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditModel.swift; sourceTree = "<group>"; };
-		997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
+		997B6AB62DF84A7600F72B63 /* AccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsService.swift; sourceTree = "<group>"; };
 		997B6AB82DF8587800F72B63 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
 		999208902E186535003536FB /* String+Normalize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Normalize.swift"; sourceTree = "<group>"; };
 		999208922E186549003536FB /* String+hasPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+hasPrefix.swift"; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 				990E33992DF76CE70087D79F /* TransactionsFileCache.swift */,
 				9965B39B2E2582B000FB3BFD /* NetworkClient.swift */,
 				990E339D2DF838090087D79F /* CategoriesService.swift */,
-				997B6AB62DF84A7600F72B63 /* BankAccountsService.swift */,
+				997B6AB62DF84A7600F72B63 /* AccountsService.swift */,
 				997B6AB82DF8587800F72B63 /* TransactionsService.swift */,
 			);
 			path = Services;
@@ -441,7 +441,7 @@
 				9965B3AA2E26987500FB3BFD /* TransactionRequest.swift in Sources */,
 				999208992E1869CE003536FB /* String+levenshteinDistance.swift in Sources */,
 				99F43F7B2E13EAF5005F5466 /* Models.swift in Sources */,
-				997B6AB72DF84A7600F72B63 /* BankAccountsService.swift in Sources */,
+				997B6AB72DF84A7600F72B63 /* AccountsService.swift in Sources */,
 				990E33802DF606A00087D79F /* Account.swift in Sources */,
 				990E339E2DF838090087D79F /* CategoriesService.swift in Sources */,
 				997B6AB92DF8587800F72B63 /* TransactionsService.swift in Sources */,

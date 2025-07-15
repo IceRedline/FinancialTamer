@@ -13,6 +13,7 @@ class TransactionsListModel: ObservableObject {
     
     @Published private(set) var transactions: [Transaction] = []
     @Published private(set) var sum: Decimal = 0
+    @Published var currency: Currency = .RUB
     @Published var errorMessage: String? = nil {
         didSet {
             hasError = errorMessage != nil
@@ -22,6 +23,7 @@ class TransactionsListModel: ObservableObject {
     
     // MARK: - Methods
     
+    @MainActor
     func loadTransactions(direction: Direction) async {
         print("🔍 Начали загрузку транзакций для направления: \(direction)")
         let calendar = Calendar.current
@@ -35,9 +37,14 @@ class TransactionsListModel: ObservableObject {
             let list = try await transactionsService.transactions(direction: direction, for: todayRange)
             let totalSum = list.reduce(Decimal(0)) { $0 + $1.amount }
             
+            if let account = try? await AccountsService.shared.account() {
+                currency = Currency.from(ticker: account.currency) ?? .RUB
+            }
+            
             await MainActor.run(body: {
                 self.transactions = list
                 self.sum = totalSum
+                self.currency = currency
             })
         } catch {
             await MainActor.run(body: {

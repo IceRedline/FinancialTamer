@@ -9,7 +9,7 @@ import Foundation
 
 class AccountModel: ObservableObject {
     
-    let accountService = BankAccountsService.shared
+    let accountService = AccountsService.shared
     
     @Published var currentMode: AccountViewMode = .view
     @Published var account: Account?

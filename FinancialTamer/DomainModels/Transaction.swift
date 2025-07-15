@@ -85,7 +85,7 @@ extension Transaction {
     static var empty: Transaction {
         Transaction(
             id: UUID().hashValue,
-            account: BankAccountsService.shared.accounts.first!,
+            account: AccountsService.shared.accounts.first!,
             category: Category.empty,
             amount: 0,
             transactionDate: Date(),
