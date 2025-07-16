@@ -109,6 +109,18 @@ final class TransactionsService {
     }
     
     func deleteTransaction(transaction: Transaction) async throws {
-        transactions.removeAll { $0.id == transaction.id }
+        do {
+            let response: TransactionResponse = try await networkClient.request(
+                url: Constants.Urls.transactionById(id: transaction.id),
+                method: Constants.delete,
+                responseType: TransactionResponse.self
+            )
+            guard let account = account else { return }
+            self.transactions = [response.toDomain(account: account)]
+            print("✅ Успешно удалена транзакция")
+        } catch {
+            print("❌ TransactionsService: Ошибка удаления транзакции: \(error)")
+            throw error
+        }
     }
 }
