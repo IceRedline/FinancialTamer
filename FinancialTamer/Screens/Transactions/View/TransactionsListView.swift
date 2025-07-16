@@ -51,7 +51,8 @@ struct TransactionsListView: View {
                 TransactionEditView(
                     model: TransactionEditModel(transaction: Transaction.empty),
                     direction: direction,
-                    currentMode: .create
+                    currentMode: .create,
+                    currency: model.currency
                 )
             }
             .onChange(of: showingEditView) { _, newValue in
@@ -63,7 +64,7 @@ struct TransactionsListView: View {
             }
             .onAppear {
                 let observer = NotificationCenter.default.addObserver(
-                    forName: .mockDataLoaded,
+                    forName: .dataLoaded,
                     object: nil,
                     queue: .main
                 ) { _ in
@@ -96,7 +97,8 @@ struct TransactionsListView: View {
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
                 direction: direction,
-                currentMode: .edit
+                currentMode: .edit,
+                currency: model.currency
             )
         }
         .onChange(of: selectedTransaction) { _, newValue in

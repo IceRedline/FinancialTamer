@@ -42,7 +42,8 @@ struct HistoryView: View {
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
-                direction: direction, currentMode: .edit
+                direction: direction, currentMode: .edit,
+                currency: model.currency
             )
         }
         .onChange(of: model.firstDate) {
@@ -94,7 +95,7 @@ struct HistoryView: View {
                 HStack {
                     Text("Сумма")
                     Spacer()
-                    Text(model.chosenPeriodSum.formattedCurrency(currency: Currency.from(ticker: model.transactions.first?.account.currency)?.symbol ?? "₽"))
+                    Text(model.chosenPeriodSum.formattedCurrency(currency: model.currency.symbol))
                 }
             }
             
@@ -115,7 +116,7 @@ struct HistoryView: View {
                                 }
                             }
                             Spacer()
-                            Text(transaction.amount.formattedCurrency(currency: Currency.from(ticker: transaction.account.currency)?.symbol ?? "₽"))
+                            Text(transaction.amount.formattedCurrency(currency: model.currency.symbol))
                                 .foregroundStyle(Color.primary)
                             ChevronImage()
                         }

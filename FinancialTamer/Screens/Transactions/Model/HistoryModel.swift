@@ -16,6 +16,7 @@ class HistoryModel: ObservableObject {
     @Published var lastDateChanged: DateChanged = .first
     @Published var transactions: [Transaction] = []
     @Published var chosenPeriodSum: Decimal = 0
+    @Published var currency: Currency = .RUB
     @Published var errorMessage: String? = nil {
         didSet {
             hasError = errorMessage != nil
@@ -48,6 +49,10 @@ class HistoryModel: ObservableObject {
         
         let range = firstDay..<secondDay
         
+        if let account = try? await AccountsService.shared.account() {
+            currency = Currency.from(ticker: account.currency) ?? .RUB
+        }
+        
         do {
             let list = try await transactionsService.transactions(direction: direction, for: range)
             
@@ -56,10 +61,11 @@ class HistoryModel: ObservableObject {
                 sum += transaction.amount
             }
             
-            DispatchQueue.main.async {
+            await MainActor.run(body: {
                 self.transactions = list
                 self.chosenPeriodSum = sum
-            }
+                self.currency = currency
+            })
         } catch {
             await MainActor.run(body: {
                 print("❌ HistoryModel: Ошибка загрузки транзакций: \(error.localizedDescription)")

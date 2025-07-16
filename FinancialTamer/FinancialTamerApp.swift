@@ -20,14 +20,14 @@ struct FinancialTamerApp: App {
 
 // В App и AppDelegate
 extension Notification.Name {
-    static let mockDataLoaded = Notification.Name("mockDataLoaded")
+    static let dataLoaded = Notification.Name("dataLoaded")
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         Task {
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .mockDataLoaded, object: nil)
+                NotificationCenter.default.post(name: .dataLoaded, object: nil)
             }
         }
         return true

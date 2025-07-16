@@ -88,12 +88,12 @@ class TransactionCell: UITableViewCell {
         ])
     }
 
-    func configure(with transaction: Transaction, percentage: Decimal) {
+    func configure(with transaction: Transaction, percentage: Decimal, currency: Currency) {
         emojiLabel.text = String(transaction.category.emoji)
         titleLabel.text = transaction.category.name
         commentLabel.text = transaction.comment
         commentLabel.isHidden = transaction.comment?.isEmpty ?? true
         percentageLabel.text = "\(percentage) %"
-        amountLabel.text = transaction.amount.formattedCurrency()
+        amountLabel.text = transaction.amount.formattedCurrency(currency: currency.symbol)
     }
 }

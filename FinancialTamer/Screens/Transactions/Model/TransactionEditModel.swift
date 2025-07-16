@@ -27,10 +27,6 @@ class TransactionEditModel: ObservableObject {
             self.categories = loadedCategories.filter({$0.isIncome == direction})
             print("Категории загружены!")
             
-            if let account = try? await AccountsService.shared.account() {
-                currency = Currency.from(ticker: account.currency) ?? .RUB
-            }
-            
             await MainActor.run(body: {
                 self.currency = currency
             })
