@@ -35,7 +35,7 @@ class AccountModel: ObservableObject {
             else { return }
             self.editableBalance = balance
             self.currency = currency
-            print("аккаунт загружен!")
+            print("аккаунт загружен! Баланс - \(balance)")
         } catch {
             print("AccountModel: Ошибка загрузки: \(error)")
         }

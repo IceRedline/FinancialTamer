@@ -36,6 +36,11 @@ struct AccountView: View {
             .toolbar {
                 editButton
             }
+            .onAppear {
+                Task {
+                    await model.loadAccount()
+                }
+            }
             .task {
                 await model.loadAccount()
             }

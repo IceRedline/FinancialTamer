@@ -20,9 +20,7 @@ final class AccountsService {
     // MARK: - Methods
     
     func account() async throws -> Account {
-        if accounts.isEmpty {
             try await loadAccounts()
-        }
         return accounts.first!
     }
 
