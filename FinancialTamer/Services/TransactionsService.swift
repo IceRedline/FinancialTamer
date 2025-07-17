@@ -12,20 +12,31 @@ final class TransactionsService {
     static let shared = TransactionsService()
     
     let networkClient = NetworkClient()
+    private var storage: TransactionsStorageProtocol!
     
     private(set) var transactions: [Transaction] = []
     private(set) var categories: [Category] = []
     private(set) var account: Account?
     
-    private init() {}
+    private init() {
+        Task { @MainActor in
+            self.storage = try? TransactionsStorage()
+        }
+    }
     
-    // MARK: - Methods
+    func transactions(direction: Direction, for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {
+        transactions.filter {
+            period.contains($0.transactionDate) && $0.category.isIncome == direction
+        }
+    }
+    
+    // MARK: - API & Storage methods
     
     func loadTransactions(direction: Direction) async throws {
         if categories.isEmpty {
             self.categories = try await CategoriesService.shared.categories()
         }
-
+        
         if account == nil {
             self.account = try await AccountsService.shared.account()
         }
@@ -45,16 +56,32 @@ final class TransactionsService {
                 url: url,
                 responseType: [TransactionResponse].self
             )
-            self.transactions = response.map { $0.toDomain(account: account) }
+            let domainTransactions = response.map { $0.toDomain(account: account) }
+            self.transactions = domainTransactions
+
+            for tx in domainTransactions {
+                let localTx = LocalTransaction(from: tx)
+                try storage.add(localTx)
+            }
+
         } catch {
             print("❌ TransactionsService: Ошибка загрузки транзакций: \(error.localizedDescription)")
             print("🔻 Подробности: \(error)")
-        }
-    }
-    
-    func transactions(direction: Direction, for period: Range<Date> = Date.distantPast..<Date.distantFuture) async throws -> [Transaction] {
-        transactions.filter {
-            period.contains($0.transactionDate) && $0.category.isIncome == direction
+
+            // Подгружаем оффлайн-данные:
+            let localTransactions = (try? storage.fetchAll()) ?? []
+
+            let transactions: [Transaction] = localTransactions.compactMap { localTx in
+                guard
+                    let account = self.account,
+                    let category = self.categories.first(where: { $0.id == localTx.categoryId })
+                else {
+                    return nil
+                }
+                return localTx.toDomain(account: account, category: category)
+            }
+
+            self.transactions = transactions
         }
     }
     
@@ -76,6 +103,7 @@ final class TransactionsService {
             )
             guard let account = account else { return }
             self.transactions = [response.toDomain(account: account)]
+            try storage.add(LocalTransaction(from: transaction))
             print("✅ Успешно создана транзакция")
         } catch {
             print("❌ TransactionsService: Ошибка создания транзакции: \(error)")
@@ -101,6 +129,7 @@ final class TransactionsService {
             )
             guard let account = account else { return }
             self.transactions = [response.toDomain(account: account)]
+            try storage.update(LocalTransaction(from: transaction))
             print("✅ Успешно изменена транзакция")
         } catch {
             print("❌ TransactionsService: Ошибка изменения транзакции: \(error)")
@@ -117,6 +146,7 @@ final class TransactionsService {
             )
             guard let account = account else { return }
             self.transactions = [response.toDomain(account: account)]
+            try storage.delete(withId: transaction.id)
             print("✅ Успешно удалена транзакция")
         } catch {
             print("❌ TransactionsService: Ошибка удаления транзакции: \(error)")
