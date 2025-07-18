@@ -38,6 +38,8 @@
 		9965B3B22E283AC800FB3BFD /* TransactionsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3B12E283AC800FB3BFD /* TransactionsStorageProtocol.swift */; };
 		9965B3B42E283C3A00FB3BFD /* TransactionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3B32E283C3A00FB3BFD /* TransactionsStorage.swift */; };
 		9965B3B62E283D7400FB3BFD /* LocalTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965B3B52E283D7400FB3BFD /* LocalTransaction.swift */; };
+		9977B8CF2E2ADB77004772A0 /* LocalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977B8CE2E2ADB77004772A0 /* LocalCategory.swift */; };
+		9977B8D92E2AE674004772A0 /* LocalAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977B8D82E2AE674004772A0 /* LocalAccount.swift */; };
 		997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929242DFC803800AFE3A3 /* MainTabView.swift */; };
 		997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997929282DFC81BE00AFE3A3 /* AccountView.swift */; };
 		9979292B2DFC81D200AFE3A3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */; };
@@ -107,6 +109,8 @@
 		9965B3B12E283AC800FB3BFD /* TransactionsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsStorageProtocol.swift; sourceTree = "<group>"; };
 		9965B3B32E283C3A00FB3BFD /* TransactionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsStorage.swift; sourceTree = "<group>"; };
 		9965B3B52E283D7400FB3BFD /* LocalTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTransaction.swift; sourceTree = "<group>"; };
+		9977B8CE2E2ADB77004772A0 /* LocalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCategory.swift; sourceTree = "<group>"; };
+		9977B8D82E2AE674004772A0 /* LocalAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAccount.swift; sourceTree = "<group>"; };
 		997929242DFC803800AFE3A3 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		997929282DFC81BE00AFE3A3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		9979292A2DFC81D200AFE3A3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -223,9 +227,11 @@
 			children = (
 				9965B39F2E2639EC00FB3BFD /* CategoryResponse.swift */,
 				990E337D2DF606980087D79F /* Category.swift */,
+				9977B8CE2E2ADB77004772A0 /* LocalCategory.swift */,
 				9965B3A52E268EE000FB3BFD /* AccountUpdateRequest.swift */,
 				9965B3A12E263ED600FB3BFD /* AccountResponse.swift */,
 				990E337F2DF606A00087D79F /* Account.swift */,
+				9977B8D82E2AE674004772A0 /* LocalAccount.swift */,
 				9965B3A32E263EE100FB3BFD /* TransactionResponse.swift */,
 				9965B3A92E26987500FB3BFD /* TransactionRequest.swift */,
 				990E33812DF606A70087D79F /* Transaction.swift */,
@@ -462,6 +468,7 @@
 				997A00112E1E846000F946AB /* TransactionEditModel.swift in Sources */,
 				992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */,
 				999208912E186535003536FB /* String+Normalize.swift in Sources */,
+				9977B8D92E2AE674004772A0 /* LocalAccount.swift in Sources */,
 				997A000D2E1DB67100F946AB /* TransactionEditView.swift in Sources */,
 				9994457A2E08669B004AB0B6 /* +Spoiler.swift in Sources */,
 				990E339A2DF76CE70087D79F /* TransactionsFileCache.swift in Sources */,
@@ -482,6 +489,7 @@
 				993D07F52E1925FE00E91714 /* AnalysisPresenter.swift in Sources */,
 				997929292DFC81BE00AFE3A3 /* AccountView.swift in Sources */,
 				993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */,
+				9977B8CF2E2ADB77004772A0 /* LocalCategory.swift in Sources */,
 				993D07F02E19256700E91714 /* ConfigCell.swift in Sources */,
 				9965B3A82E26944200FB3BFD /* Currency.swift in Sources */,
 				993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */,
