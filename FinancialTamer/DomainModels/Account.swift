@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BankAccount: Equatable {
+struct Account: Equatable {
     let id: Int
     let userId: Int?
     let name: String
@@ -17,7 +17,7 @@ struct BankAccount: Equatable {
     let updatedAt: Date?
 }
 
-extension BankAccount {
+extension Account {
     
     private static let dateFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
@@ -47,7 +47,7 @@ extension BankAccount {
         return dictionary
     }
     
-    static func parse(jsonObject: Any) -> BankAccount? {
+    static func parse(jsonObject: Any) -> Account? {
         
         guard let dict = jsonObject as? [String: Any],
               let id = dict["id"] as? Int,
@@ -71,7 +71,7 @@ extension BankAccount {
             updatedAt = dateFormatter.date(from: updatedStr)
         }
 
-        return BankAccount(
+        return Account(
             id: id,
             userId: userId,
             name: name,

@@ -36,9 +36,23 @@ struct AccountView: View {
             .toolbar {
                 editButton
             }
+            .onAppear {
+                Task {
+                    await model.loadAccount()
+                }
+            }
             .task {
                 await model.loadAccount()
             }
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadAccount()
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
     }
     
@@ -60,9 +74,10 @@ struct AccountView: View {
             
             HStack {
                 Text("Валюта")
+                    .foregroundStyle(Color.primary)
                 Spacer()
-                Text("\(model.currency)")
-                    .foregroundStyle(currentMode == .view ? Color.black : Color.gray)
+                Text("\(model.currency.symbol)")
+                    .foregroundStyle(Color.primary)
                 
                 if currentMode == .edit {
                     currencyPopupButton
@@ -105,7 +120,7 @@ struct AccountView: View {
     }
     
     private var balanceText: some View {
-        Text(model.account?.balance.formattedCurrency(currency: model.currency) ?? "")
+        Text(model.account?.balance.formattedCurrency(currency: model.currency.symbol) ?? "")
             .spoiler(isOn: $spoilerIsOn)
             .onShake {
                 spoilerIsOn.toggle()
@@ -124,15 +139,15 @@ struct AccountView: View {
         }
         .confirmationDialog("Валюта", isPresented: $showingCurrencySheet, titleVisibility: .visible) {
             Button("Российский рубль ₽") {
-                model.currency = "₽"
+                model.currency = .RUB
             }
             
             Button("Американский доллар $") {
-                model.currency = "$"
+                model.currency = .USD
             }
             
             Button("Евро €") {
-                model.currency = "€"
+                model.currency = .EUR
             }
         }
         .tint(Color.purpleAccent)

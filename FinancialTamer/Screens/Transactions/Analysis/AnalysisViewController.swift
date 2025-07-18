@@ -90,7 +90,8 @@ class AnalysisViewController: UIViewController {
             rootView: TransactionEditView(
                 model: model,
                 direction: direction,
-                currentMode: .edit
+                currentMode: .edit,
+                currency: presenter?.currency ?? .RUB
             )
         )
         

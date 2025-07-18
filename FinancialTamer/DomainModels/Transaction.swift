@@ -9,7 +9,7 @@ import Foundation
 
 struct Transaction: Equatable, Identifiable {
     let id: Int
-    var account: BankAccount
+    var account: Account
     var category: Category
     var amount: Decimal
     var transactionDate: Date
@@ -50,7 +50,7 @@ extension Transaction {
         guard let dictionary = jsonObject as? [String : Any],
               let id = dictionary["id"] as? Int,
               let accountDict = dictionary["account"] as? [String: Any],
-              let account = BankAccount.parse(jsonObject: accountDict),
+              let account = Account.parse(jsonObject: accountDict),
               let categoryDict = dictionary["category"] as? [String: Any],
               let category = Category.parse(jsonObject: categoryDict),
               let amountString = dictionary["amount"] as? String,
@@ -85,7 +85,7 @@ extension Transaction {
     static var empty: Transaction {
         Transaction(
             id: UUID().hashValue,
-            account: BankAccountsService.shared.accounts.first!,
+            account: AccountsService.shared.accounts.first!,
             category: Category.empty,
             amount: 0,
             transactionDate: Date(),

@@ -11,21 +11,35 @@ struct TransactionsListView: View {
     
     let direction: Direction
     
-    @StateObject private var model = TransactionsListModel()
+    @ObservedObject private var model = TransactionsListModel()
     @State private var selectedTransaction: Transaction? = nil
     @State private var isDataLoaded = false
     @State private var showingEditView = false
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
-                Color.background.ignoresSafeArea(.all)
-                if isDataLoaded {
-                    transactionsList
-                } else {
-                    ProgressView()
+            ZStack {
+                
+                ZStack(alignment: .center) {
+                    Color.background.ignoresSafeArea(.all)
+                    
+                    if isDataLoaded {
+                        transactionsList
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+                            .scaleEffect(2)
+                            .padding()
+                            .background(Color.primary.colorInvert())
+                            .cornerRadius(12)
+                            .shadow(color: Color.primary, radius: 50)
+                    }
                 }
-                addButton
+                
+                ZStack(alignment: .bottomTrailing) {
+                    Color.clear
+                    addButton
+                }
             }
             .navigationTitle(direction == .outcome ? "Расходы сегодня" : "Доходы сегодня")
             .toolbar {
@@ -37,7 +51,8 @@ struct TransactionsListView: View {
                 TransactionEditView(
                     model: TransactionEditModel(transaction: Transaction.empty),
                     direction: direction,
-                    currentMode: .create
+                    currentMode: .create,
+                    currency: model.currency
                 )
             }
             .onChange(of: showingEditView) { _, newValue in
@@ -49,7 +64,7 @@ struct TransactionsListView: View {
             }
             .onAppear {
                 let observer = NotificationCenter.default.addObserver(
-                    forName: .mockDataLoaded,
+                    forName: .dataLoaded,
                     object: nil,
                     queue: .main
                 ) { _ in
@@ -68,13 +83,22 @@ struct TransactionsListView: View {
                     }
                 }
             }
-            
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
                 direction: direction,
-                currentMode: .edit
+                currentMode: .edit,
+                currency: model.currency
             )
         }
         .onChange(of: selectedTransaction) { _, newValue in
@@ -99,7 +123,7 @@ struct TransactionsListView: View {
                 HStack {
                     Text("Всего")
                     Spacer()
-                    Text(model.sum.formattedCurrency())
+                    Text(model.sum.formattedCurrency(currency: model.currency.symbol))
                 }
             }
             
@@ -112,12 +136,16 @@ struct TransactionsListView: View {
                             EmojiCircle(emoji: transaction.category.emoji)
                             VStack(alignment: .leading) {
                                 Text(transaction.category.name)
+                                    .foregroundStyle(Color.primary)
                                 if let comment = transaction.comment, !comment.isEmpty {
-                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                    Text(comment)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                             }
                             Spacer()
-                            Text(transaction.amount.formattedCurrency())
+                            Text(transaction.amount.formattedCurrency(currency: model.currency.symbol))
+                                .foregroundStyle(Color.primary)
                             ChevronImage()
                         }
                     }

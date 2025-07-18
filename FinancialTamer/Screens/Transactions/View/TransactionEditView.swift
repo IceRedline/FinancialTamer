@@ -13,14 +13,16 @@ struct TransactionEditView: View {
     
     @ObservedObject var model: TransactionEditModel
     @State private var currentMode: TransactionEditMode
+    @State var currency: Currency = .RUB
     @State var editableBalanceString: String
     @State private var showAlert = false
     
     let direction: Direction
     
-    init(model: TransactionEditModel, direction: Direction, currentMode: TransactionEditMode) {
+    init(model: TransactionEditModel, direction: Direction, currentMode: TransactionEditMode, currency: Currency) {
         self.model = model
-        self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency())
+        self.currency = currency
+        self._editableBalanceString = State(initialValue: model.transaction.amount.formattedCurrency(currency: currency.symbol))
         self.direction = direction
         self.currentMode = currentMode
     }
@@ -51,6 +53,11 @@ struct TransactionEditView: View {
                         }
                     }
                     .tint(.purpleAccent)
+                }
+            }
+            .onAppear {
+                Task {
+                    await model.loadCategories(for: direction)
                 }
             }
             .task {
@@ -116,7 +123,7 @@ struct TransactionEditView: View {
         } label: {
             HStack {
                 Text("Статья")
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.primary)
                 Spacer()
                 Text(model.transaction.category.name)
                     .foregroundStyle(.gray)

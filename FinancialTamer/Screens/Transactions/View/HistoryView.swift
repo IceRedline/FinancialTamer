@@ -29,11 +29,21 @@ struct HistoryView: View {
                         .tint(.purpleAccent)
                 }
             }
+            .alert("Ошибка", isPresented: $model.hasError, actions: {
+                Button("Повторить") {
+                    Task {
+                        await model.loadAndPrepareDataForView(direction: direction)
+                    }
+                }
+            }, message: {
+                Text(model.errorMessage ?? "Неизвестная ошибка")
+            })
         }
         .fullScreenCover(item: $selectedTransaction) { transaction in
             TransactionEditView(
                 model: TransactionEditModel(transaction: transaction),
-                direction: direction, currentMode: .edit
+                direction: direction, currentMode: .edit,
+                currency: model.currency
             )
         }
         .onChange(of: model.firstDate) {
@@ -85,7 +95,7 @@ struct HistoryView: View {
                 HStack {
                     Text("Сумма")
                     Spacer()
-                    Text(model.chosenPeriodSum.formattedCurrency())
+                    Text(model.chosenPeriodSum.formattedCurrency(currency: model.currency.symbol))
                 }
             }
             
@@ -98,12 +108,16 @@ struct HistoryView: View {
                             EmojiCircle(emoji: transaction.category.emoji)
                             VStack(alignment: .leading) {
                                 Text(transaction.category.name)
+                                    .foregroundStyle(Color.primary)
                                 if let comment = transaction.comment, !comment.isEmpty {
-                                    Text(comment).font(.footnote).foregroundColor(.gray)
+                                    Text(comment)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                             }
                             Spacer()
-                            Text(transaction.amount.formattedCurrency())
+                            Text(transaction.amount.formattedCurrency(currency: model.currency.symbol))
+                                .foregroundStyle(Color.primary)
                             ChevronImage()
                         }
                     }

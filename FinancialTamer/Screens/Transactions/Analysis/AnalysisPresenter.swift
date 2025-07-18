@@ -16,6 +16,7 @@ final class AnalysisPresenter: NSObject {
     var secondDate = Date.now
     var lastDateChanged: DateChanged = .first
     var chosenPeriodSum: Decimal = 0
+    var currency: Currency = .RUB
     
     private(set) var transactions: [Transaction] = []
     
@@ -30,6 +31,13 @@ final class AnalysisPresenter: NSObject {
     func viewDidLoad() {
         Task {
             await loadTransactions(direction: direction)
+            
+            if let account = try? await AccountsService.shared.account() {
+                self.currency = Currency.from(ticker: account.currency) ?? .RUB
+                DispatchQueue.main.async {
+                    self.viewController?.tableView.reloadData()
+                }
+            }
         }
     }
     
@@ -129,7 +137,7 @@ extension AnalysisPresenter: UITableViewDataSource {
                     self?.sort(by: sortType)
                 }
             } else {
-                cell.configure(title: "Сумма", value: chosenPeriodSum.formattedCurrency())
+                cell.configure(title: "Сумма", value: chosenPeriodSum.formattedCurrency(currency: currency.symbol))
             }
             return cell
             
@@ -153,7 +161,7 @@ extension AnalysisPresenter: UITableViewDataSource {
             var percentage = (transaction.amount / chosenPeriodSum * 100)
             var roundedPercentage = Decimal()
             NSDecimalRound(&roundedPercentage, &percentage, 0, .plain)
-            cell.configure(with: transaction, percentage: roundedPercentage)
+            cell.configure(with: transaction, percentage: roundedPercentage, currency: currency)
             return cell
         }
     }

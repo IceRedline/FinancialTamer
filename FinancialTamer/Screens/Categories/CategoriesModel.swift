@@ -12,6 +12,12 @@ class CategoriesModel: ObservableObject {
     let categoriesService = CategoriesService.shared
     
     @Published var categories: [Category] = []
+    @Published var errorMessage: String? = nil {
+        didSet {
+            hasError = errorMessage != nil
+        }
+    }
+    @Published var hasError: Bool = false
     
     @MainActor
     func loadCategories() async {
@@ -20,7 +26,10 @@ class CategoriesModel: ObservableObject {
             self.categories = loadedCategories
             print("Категории загружены!")
         } catch {
-            print("Ошибка загрузки: \(error)")
+            await MainActor.run(body: {
+                print("❌ CategoriesModel: Ошибка загрузки категорий: \(error.localizedDescription)")
+                self.errorMessage = "Ошибка загрузки категорий"
+            })
         }
     }
 }

@@ -14,6 +14,7 @@ class TransactionEditModel: ObservableObject {
     
     @Published var transaction: Transaction
     @Published var categories: [Category] = []
+    @Published var currency: Currency = .RUB
     
     init(transaction: Transaction) {
         self.transaction = transaction
@@ -25,6 +26,11 @@ class TransactionEditModel: ObservableObject {
             let loadedCategories = try await categoriesService.categories()
             self.categories = loadedCategories.filter({$0.isIncome == direction})
             print("Категории загружены!")
+            
+            await MainActor.run(body: {
+                self.currency = currency
+            })
+            
         } catch {
             print("Ошибка загрузки: \(error)")
         }
@@ -54,7 +60,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция сохранена успешно")
             return true
         } catch {
-            print("Ошибка сохранения транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }
@@ -66,7 +72,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция создана успешно")
             return true
         } catch {
-            print("Ошибка создания транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }
@@ -78,7 +84,7 @@ class TransactionEditModel: ObservableObject {
             print("Транзакция удалена успешно")
             return true
         } catch {
-            print("Ошибка удаления транзакции: $error)")
+            print("TransactionEditModel: Ошибка загрузки транзакций: \(error)")
             return false
         }
     }

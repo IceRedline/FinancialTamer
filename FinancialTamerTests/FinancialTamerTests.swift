@@ -24,7 +24,7 @@ final class FinancialTamerTests: XCTestCase {
         
         let testTransaction = Transaction(
           id: 1,
-          account: BankAccount(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
+          account: Account(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
           category: Category(id: 1, name: "categorytest", emoji: "✅", isIncome: .income),
           amount: 30.0,
           transactionDate: dateExample,
@@ -97,7 +97,7 @@ final class FinancialTamerTests: XCTestCase {
         
         let correctTransaction = Transaction(
             id: 1,
-            account: BankAccount(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
+            account: Account(id: 1, userId: 1, name: "Artyom", balance: 1000, currency: "$", createdAt: dateExample, updatedAt: dateExample),
             category: Category(id: 1, name: "categorytest", emoji: "✅", isIncome: .income),
             amount: 30.0,
             transactionDate: dateExample,
