@@ -63,7 +63,7 @@ struct TransactionsListView: View {
                 }
             }
             .onAppear {
-                let observer = NotificationCenter.default.addObserver(
+                _ = NotificationCenter.default.addObserver(
                     forName: .dataLoaded,
                     object: nil,
                     queue: .main

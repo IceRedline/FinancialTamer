@@ -10,10 +10,10 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "gear")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Настройки в разработке")
         }
         .padding()
     }

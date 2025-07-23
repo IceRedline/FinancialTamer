@@ -159,15 +159,15 @@ struct TransactionEditView: View {
     
     private func saveAndDismiss() async {
         if currentMode == .edit {
-            await model.editAndSaveTransaction()
+            _ = await model.editAndSaveTransaction()
         } else {
-            await model.addAndSaveTransaction()
+            _ = await model.addAndSaveTransaction()
         }
         self.presentationMode.wrappedValue.dismiss()
     }
     
     private func delete() async {
-        await model.deleteTransaction()
+        _ = await model.deleteTransaction()
         self.presentationMode.wrappedValue.dismiss()
     }
 }

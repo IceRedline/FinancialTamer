@@ -29,12 +29,15 @@ final class AnalysisPresenter: NSObject {
     // MARK: - Methods
     
     func viewDidLoad() {
-        Task {
-            await loadTransactions(direction: direction)
+        Task { [weak self] in
+            guard let self else { return }
+            
+            await self.loadTransactions(direction: self.direction)
             
             if let account = try? await AccountsService.shared.account() {
                 self.currency = Currency.from(ticker: account.currency) ?? .RUB
-                DispatchQueue.main.async {
+                
+                await MainActor.run {
                     self.viewController?.tableView.reloadData()
                 }
             }
@@ -46,12 +49,11 @@ final class AnalysisPresenter: NSObject {
     }
     
     func loadTransactions(direction: Direction) async {
-        
         let calendar = Calendar.current
-        
+
         var firstDay = calendar.startOfDay(for: firstDate)
         var secondDay = calendar.endOfDay(for: secondDate)!
-        
+
         switch lastDateChanged {
         case .first:
             if firstDay > secondDay {
@@ -64,26 +66,23 @@ final class AnalysisPresenter: NSObject {
                 firstDay = firstDate
             }
         }
-        
+
         let range = firstDay..<secondDay
-        
+
         do {
             let list = try await transactionsService.transactions(direction: direction, for: range)
 
-            var sum: Decimal = 0
-            list.forEach { transaction in
-                sum += transaction.amount
-            }
+            let sum = list.reduce(Decimal(0)) { $0 + $1.amount }
 
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.transactions = list
                 self.chosenPeriodSum = sum
+                self.viewController?.tableView.reloadData()
             }
+
         } catch {
             print("Ошибка загрузки: \(error)")
         }
-        
-        await viewController?.tableView.reloadData()
     }
     
     func sort(by parameter: SortType) {
@@ -98,7 +97,7 @@ final class AnalysisPresenter: NSObject {
     }
 }
 
-    // MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension AnalysisPresenter: UITableViewDataSource {
     
@@ -167,7 +166,7 @@ extension AnalysisPresenter: UITableViewDataSource {
     }
 }
 
-    // MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension AnalysisPresenter: UITableViewDelegate {
     
