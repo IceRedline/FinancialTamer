@@ -20,6 +20,9 @@
 		992E72BB2E21B9FB0001C273 /* ChevronImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72BA2E21B9FB0001C273 /* ChevronImage.swift */; };
 		993119F52E3214CE00687CEB /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 993119F42E3214CE00687CEB /* PieChart */; };
 		993119FA2E321BA600687CEB /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 993119F92E321BA600687CEB /* PieChart */; };
+		99311A022E32B1AA00687CEB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 99311A012E32B1AA00687CEB /* Lottie */; };
+		99311A042E32B7EE00687CEB /* animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 99311A032E32B7EE00687CEB /* animation.json */; };
+		99311A062E32B85300687CEB /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99311A052E32B85300687CEB /* SplashScreen.swift */; };
 		993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EB2E19256700E91714 /* AnalysisViewController.swift */; };
 		993D07F02E19256700E91714 /* ConfigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* ConfigCell.swift */; };
 		993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */; };
@@ -91,6 +94,8 @@
 		992CFB6C2DFF1F580024890B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditMode.swift; sourceTree = "<group>"; };
 		992E72BA2E21B9FB0001C273 /* ChevronImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronImage.swift; sourceTree = "<group>"; };
+		99311A032E32B7EE00687CEB /* animation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = animation.json; sourceTree = "<group>"; };
+		99311A052E32B85300687CEB /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		993D07EB2E19256700E91714 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewWrapper.swift; sourceTree = "<group>"; };
 		993D07ED2E19256700E91714 /* ConfigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigCell.swift; sourceTree = "<group>"; };
@@ -153,6 +158,7 @@
 			files = (
 				993119FA2E321BA600687CEB /* PieChart in Frameworks */,
 				993119F52E3214CE00687CEB /* PieChart in Frameworks */,
+				99311A022E32B1AA00687CEB /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,12 +194,14 @@
 			isa = PBXGroup;
 			children = (
 				990E33762DF606540087D79F /* FinancialTamerApp.swift */,
+				99311A052E32B85300687CEB /* SplashScreen.swift */,
 				990E337B2DF606680087D79F /* Extensions */,
 				990E339B2DF837F90087D79F /* DomainModels */,
 				997A00072E1D482000F946AB /* Enums */,
 				990E339C2DF837FE0087D79F /* Services */,
 				990E337C2DF6066D0087D79F /* Screens */,
 				990E33742DF606540087D79F /* Assets.xcassets */,
+				99311A032E32B7EE00687CEB /* animation.json */,
 				9979292E2DFCA94000AFE3A3 /* transactions.json */,
 			);
 			path = FinancialTamer;
@@ -362,6 +370,7 @@
 			packageProductDependencies = (
 				993119F42E3214CE00687CEB /* PieChart */,
 				993119F92E321BA600687CEB /* PieChart */,
+				99311A012E32B1AA00687CEB /* Lottie */,
 			);
 			productName = FinancialTamer;
 			productReference = 990E33592DF604CF0087D79F /* FinancialTamer.app */;
@@ -420,6 +429,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				993119F82E321BA600687CEB /* XCLocalSwiftPackageReference "Utilities" */,
+				99311A002E32B1AA00687CEB /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 990E335A2DF604CF0087D79F /* Products */;
@@ -438,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9979292F2DFCA94000AFE3A3 /* transactions.json in Resources */,
+				99311A042E32B7EE00687CEB /* animation.json in Resources */,
 				990E33782DF606540087D79F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +517,7 @@
 				9965B3A62E268EE000FB3BFD /* AccountUpdateRequest.swift in Sources */,
 				9965B3A22E263ED600FB3BFD /* AccountResponse.swift in Sources */,
 				993D07F22E19256700E91714 /* TransactionCell.swift in Sources */,
+				99311A062E32B85300687CEB /* SplashScreen.swift in Sources */,
 				997929252DFC803800AFE3A3 /* MainTabView.swift in Sources */,
 				999208972E18669B003536FB /* Collection+fuzzySearch.swift in Sources */,
 				9965B3A02E2639EC00FB3BFD /* CategoryResponse.swift in Sources */,
@@ -787,6 +799,17 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		99311A002E32B1AA00687CEB /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		993119F42E3214CE00687CEB /* PieChart */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -795,6 +818,11 @@
 		993119F92E321BA600687CEB /* PieChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PieChart;
+		};
+		99311A012E32B1AA00687CEB /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99311A002E32B1AA00687CEB /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
