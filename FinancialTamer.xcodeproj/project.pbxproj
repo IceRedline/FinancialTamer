@@ -18,6 +18,8 @@
 		992CFB6D2DFF1F580024890B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992CFB6C2DFF1F580024890B /* HistoryView.swift */; };
 		992E72B92E1FEF1F0001C273 /* TransactionEditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72B82E1FEF1F0001C273 /* TransactionEditMode.swift */; };
 		992E72BB2E21B9FB0001C273 /* ChevronImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E72BA2E21B9FB0001C273 /* ChevronImage.swift */; };
+		993119F52E3214CE00687CEB /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 993119F42E3214CE00687CEB /* PieChart */; };
+		993119FA2E321BA600687CEB /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 993119F92E321BA600687CEB /* PieChart */; };
 		993D07EF2E19256700E91714 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EB2E19256700E91714 /* AnalysisViewController.swift */; };
 		993D07F02E19256700E91714 /* ConfigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07ED2E19256700E91714 /* ConfigCell.swift */; };
 		993D07F12E19256700E91714 /* AnalysisViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D07EC2E19256700E91714 /* AnalysisViewWrapper.swift */; };
@@ -149,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993119FA2E321BA600687CEB /* PieChart in Frameworks */,
+				993119F52E3214CE00687CEB /* PieChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +360,8 @@
 			);
 			name = FinancialTamer;
 			packageProductDependencies = (
+				993119F42E3214CE00687CEB /* PieChart */,
+				993119F92E321BA600687CEB /* PieChart */,
 			);
 			productName = FinancialTamer;
 			productReference = 990E33592DF604CF0087D79F /* FinancialTamer.app */;
@@ -413,6 +419,7 @@
 			mainGroup = 990E33502DF604CF0087D79F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				993119F82E321BA600687CEB /* XCLocalSwiftPackageReference "Utilities" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 990E335A2DF604CF0087D79F /* Products */;
@@ -772,6 +779,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		993119F82E321BA600687CEB /* XCLocalSwiftPackageReference "Utilities" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Utilities;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		993119F42E3214CE00687CEB /* PieChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PieChart;
+		};
+		993119F92E321BA600687CEB /* PieChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PieChart;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 990E33512DF604CF0087D79F /* Project object */;
 }
