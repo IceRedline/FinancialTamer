@@ -89,6 +89,9 @@ struct AccountView: View {
                 }
             }
             .listRowBackground(currentMode == .view ? Color.accentLight : Color.white)
+            if currentMode == .view {
+                BalanceChartView(bars: model.chartData.map { BalanceBar(date: $0.date, balance: $0.balance) })
+            }
             
         }
         .scrollContentBackground(.hidden)
