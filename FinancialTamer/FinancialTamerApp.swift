@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct FinancialTamerApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State private var showSplash = true
 
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            if showSplash {
+                SplashScreenView(isActive: $showSplash)
+            } else {
+                MainTabView() // твой основной SwiftUI интерфейс
+            }
         }
     }
 }

@@ -63,24 +63,9 @@ struct TransactionsListView: View {
                 }
             }
             .onAppear {
-                _ = NotificationCenter.default.addObserver(
-                    forName: .dataLoaded,
-                    object: nil,
-                    queue: .main
-                ) { _ in
-                    Task {
-                        await model.loadAndPrepareDataForView(direction: direction)
-                        DispatchQueue.main.async {
-                            isDataLoaded = true
-                        }
-                    }
-                }
-                
-                Task {
-                    if !TransactionsService.shared.transactions.isEmpty {
-                        await model.loadAndPrepareDataForView(direction: direction)
-                        isDataLoaded = true
-                    }
+                Task { @MainActor in
+                    await model.loadAndPrepareDataForView(direction: direction)
+                    isDataLoaded = true
                 }
             }
             .alert("Ошибка", isPresented: $model.hasError, actions: {

@@ -24,6 +24,10 @@ struct Constants {
             URL(string: "\(baseUrl)/accounts/\(id)")!
         }
         
+        static func accountHistory(_ id: Int) -> URL {
+            URL(string: "\(baseUrl)/accounts/\(id)/history")!
+        }
+        
         // Categories
         static let categories = URL(string: "\(baseUrl)/categories")!
         

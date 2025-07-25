@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PieChart
 
 final class AnalysisPresenter: NSObject {
     
@@ -95,6 +96,30 @@ final class AnalysisPresenter: NSObject {
         
         viewController?.tableView.reloadData()
     }
+    
+    private func makeChartEntities(from transactions: [Transaction]) -> [Entity] {
+        // 1. Сортируем транзакции по убыванию суммы
+        let sorted = transactions.sorted(by: { $0.amount > $1.amount })
+
+        // 2. Берем первые 5
+        let top5 = sorted.prefix(5)
+
+        // 3. Остальные
+        let rest = sorted.dropFirst(5)
+
+        // 4. Составляем entities
+        var entities = top5.map {
+            Entity(value: $0.amount, label: $0.category.name)
+        }
+
+        // 5. Если есть "остальные" — добавляем ещё один сегмент
+        if !rest.isEmpty {
+            let restTotal = rest.reduce(Decimal(0)) { $0 + $1.amount }
+            entities.append(Entity(value: restTotal, label: "Остальные"))
+        }
+
+        return entities
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -144,14 +169,20 @@ extension AnalysisPresenter: UITableViewDataSource {
             let cell = UITableViewCell()
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
-            let label = UILabel()
-            label.text = "Здесь когда-то будет график ._."
-            label.translatesAutoresizingMaskIntoConstraints = false
-            cell.addSubview(label)
+
+            let pieChart = PieChartView()
+            pieChart.translatesAutoresizingMaskIntoConstraints = false
+            pieChart.entities = makeChartEntities(from: transactions)
+
+            cell.contentView.addSubview(pieChart)
+
             NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: cell.centerYAnchor),
+                pieChart.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                pieChart.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+                pieChart.widthAnchor.constraint(equalToConstant: 300),
+                pieChart.heightAnchor.constraint(equalToConstant: 300)
             ])
+
             return cell
             
         } else {
@@ -178,7 +209,7 @@ extension AnalysisPresenter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return 50
-        case 1: return 120
+        case 1: return 180
         case 2: return 60
         default: return 0
         }

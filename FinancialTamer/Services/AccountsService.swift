@@ -76,4 +76,12 @@ final class AccountsService {
         )
         try? await updateAccount(account: newAccount)
     }
+    
+    func accountHistory(accountId: Int) async throws -> AccountHistoryResponse {
+        let url = Constants.Urls.accountHistory(accountId)
+        return try await networkClient.request(
+            url: url,
+            responseType: AccountHistoryResponse.self
+        )
+    }
 }
