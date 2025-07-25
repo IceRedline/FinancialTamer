@@ -25,18 +25,16 @@ struct BalanceChartView: View {
                         x: .value("Дата", bar.date, unit: .day),
                         y: .value("Баланс", bar.doubleBalance)
                     )
-                    .foregroundStyle(bar.doubleBalance >= 0 ? .green : .red)
+                    .foregroundStyle(bar.doubleBalance >= 0 ? .accent : .redAccent)
                     .cornerRadius(3)
                 }
             }
             .chartXAxis {
-                AxisMarks(values: .stride(by: .day, count: 7)) { value in
-                    AxisGridLine()
-                    AxisValueLabel(format: .dateTime.day().month())
+                AxisMarks(values: .stride(by: .day, count: 9)) { value in
+                    AxisValueLabel(format: .dateTime.day().month(.twoDigits))
                 }
             }
             .chartYAxis {
-                AxisMarks(position: .leading)
             }
             .frame(height: 220)
         }
